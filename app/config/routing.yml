@@ -1,7 +1,11 @@
-_welcome:
+index_rule:
     pattern: /
     route: Main::Main::index
 
-_demo:
+index_alternate:
     pattern: /demo
     route: Main::Main::index
+
+hello:
+    pattern: /hello/(.*)(?:/)?
+    route: Main::Hello::index::$1
