@@ -30,7 +30,7 @@ $console
 				$output->writeln(trim($q)); $rules .= $q;
 				$output->writeln('============================================================');
 			}
-			file_put_contents('.htaccess', trim($rules));
+			file_put_contents('app/root/.htaccess', trim($rules));
 			$output->writeln('Complete!');
 		} else {
 			$rules = '';

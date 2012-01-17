@@ -1,5 +1,5 @@
 .idea
 vendor/*
 composer.lock
-.htaccess
+app/root/.htaccess
 nginx.inc

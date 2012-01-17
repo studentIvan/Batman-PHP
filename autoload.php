@@ -9,7 +9,7 @@ $loader->registerNamespaces(array(
     'Main'                                  => 'app/logic',
     'Main\Controllers'                      => 'app/logic',
     'Main\Solutions'                        => 'app/logic',
-    'Bootstrap'						        => 'app/logic',
+    'Bootstrap'                             => 'app/logic',
 
 /** Test Drive Development */
     'MainTests'                             => 'app/tests',
@@ -28,7 +28,7 @@ $loader->registerNamespaces(array(
     'Framework\Packages'                    => 'system',
 ));
 $loader->registerPrefixes(array(
-    'Twig_'									=> 'vendor/twig/twig/lib',
+    'Twig_'                                 => 'vendor/twig/twig/lib',
 ));
 $loader->register();
 Framework\Core\Config::init();
