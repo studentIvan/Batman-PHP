@@ -85,7 +85,7 @@ $console
     ->setDescription('Run PHPUnit test for application component.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $type = ($input->getArgument('type') == 'c') ? 'Controllers' : 'Solutions';
-        $name = $input->getArgument('name');
+        $name = ucfirst($input->getArgument('name'));
         $method = $input->getArgument('method');
         $bundle = $input->getArgument('bundle');
 		
