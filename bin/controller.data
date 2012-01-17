@@ -1,0 +1,33 @@
+<?php
+namespace {%=Bundle=%}\Controllers;
+use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpFoundation\Response;
+
+/**
+ * {%=Controller=%} controller
+ {%=AutoloadedSolutions=%}
+ * You can use Symfony2 HttpFoundation component: 
+ * @link http://symfony.com/doc/current/components/http_foundation.html
+ * @link https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/README.md
+ */
+class {%=Controller=%} {
+
+    /**
+     * Controller constructor.
+     * Called on application boot.
+     * @see Application.php
+     */
+    public function __construct() {
+
+    }
+
+    /**
+     * Controller index method
+     *
+     * @required
+     * @return void
+     */
+    public function index() {
+
+    }
+}

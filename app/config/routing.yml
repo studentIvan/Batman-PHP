@@ -1,0 +1,7 @@
+_welcome:
+    pattern: /
+    route: Main::Main::index
+
+_demo:
+    pattern: /demo
+    route: Main::Main::index

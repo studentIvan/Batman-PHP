@@ -1,0 +1,15 @@
+===============================
+        * Batman PHP *
+===============================
+* Php applications framework *
+===============================
+
+1. Install requirements: 
+* php composer.phar install
+2. Compile app/config/routing.yml
+* Apache + Mod Rewrite: php bin/manager.php compile
+* Nginx: php bin/manager.php compile n
+3. PHPUnit recommended for TDD
+
+Recommended version of php >= 5.3.8
+Source code is distributed under GNU General Public License

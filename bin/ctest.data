@@ -1,0 +1,22 @@
+<?php
+namespace {%=Bundle=%}Tests\Controllers;
+require_once 'PHPUnit/Autoload.php';
+
+/**
+ * Unit test of controller {%=Controller=%}
+ *
+ * @todo create method in this test, e.g. mytest
+ *
+ * Using: php bin/manager.php test {%=Controller=%} mytest
+ * for specific bundle use: php bin/manager.php test {%=Controller=%} mytest c {%=Bundle=%}
+ *
+ * See PHPUnit manual for more:
+ * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
+ */
+class {%=Controller=%}Test extends \PHPUnit_Framework_TestCase {
+
+    public function __construct() {
+        $this->component = new \{%=Bundle=%}\Controllers\{%=Controller=%}();
+    }
+
+}

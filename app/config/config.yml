@@ -1,0 +1,13 @@
+framework:
+    secret: jdaifdsa0fhau9403hfu90ahur90fje9ujf0ajeu9c0u9a0er0macu9r0mau903a4mu90mu90DJUW90JUD90
+    timezone: Europe/Moscow
+    environment: dev
+    
+application:
+    default: Main
+    autoload_solutions: []
+    
+database:
+    host: localhost
+    port: 3306
+    charset: UTF8

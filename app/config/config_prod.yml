@@ -1,0 +1,4 @@
+database:
+    dbname:   mydb
+    user:     root
+    password: 234

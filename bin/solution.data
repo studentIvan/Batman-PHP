@@ -1,0 +1,10 @@
+<?php
+namespace {%=Bundle=%}\Solutions;
+
+/**
+ * {%=Solution=%} solution
+ *
+ */
+class {%=Solution=%} {
+    
+}
