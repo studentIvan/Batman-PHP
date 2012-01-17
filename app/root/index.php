@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP T.H.O.R.
+ * Batman PHP
  */
 error_reporting(-1);
 chdir('../..');
