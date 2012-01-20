@@ -42,7 +42,7 @@ class Config {
     public static function phpConfigure() {
         if (self::get('framework', 'timezone'))
             date_default_timezone_set(self::get('framework', 'timezone'));
-        if (self::get('framework', 'environment') == 'prod') {
+        if (self::get('framework', 'phpdebug') == false) {
             error_reporting(0);
             //ini_set('display_errors', 'Off');
         } else {

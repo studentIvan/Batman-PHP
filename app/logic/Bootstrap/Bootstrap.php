@@ -6,6 +6,10 @@ namespace Bootstrap;
  */
 class Bootstrap extends \Framework\Core\WebApplication {
     public static function boot() {
-        parent::boot();
+        try {
+            parent::boot();
+        } catch (\Exception $e) {
+            echo "Exception: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString();
+        }
     }
 }

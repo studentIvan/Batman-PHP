@@ -1,4 +1,11 @@
+framework:
+    phpdebug: Yes
+
 database:
     dbname:   mydb
     user:     root
     password:
+
+twig:
+    auto_reload: Yes
+    use_cache: No

@@ -28,6 +28,7 @@ class Router
                         $method = $x[2];
                         if (isset($x[3]) && !empty($x[3])) {
                             $option = $x[3];
+                            if ($option == '') $option = null;
                         }
                     }
                 }

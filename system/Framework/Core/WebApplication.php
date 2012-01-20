@@ -2,6 +2,9 @@
 namespace Framework\Core;
 use \Framework\Core\Config;
 use \Framework\Core\Router;
+use \Framework\Core\Template;
+use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpFoundation\Response;
 
 class WebApplication {
 
@@ -20,6 +23,7 @@ class WebApplication {
         extract(Router::directing());
         $loadString = '\\' . $bundle . '\\Controllers\\' . $controller;
         $_controller = new $loadString();
+        $_controller->tpl = new Template($bundle);
 
         /**
          * Loading "autoload_solutions"
@@ -37,7 +41,15 @@ class WebApplication {
         /**
          * Run controller method
          */
-        $_controller->$method($option);
+        $request = new Request();
+        $response = new Response();
+
+        if ($option !== null) {
+            $_controller->$method($option, $request, $response);
+        } else {
+            $_controller->$method($request, $response);
+        }
+
     }
 
 }
