@@ -41,7 +41,7 @@ class WebApplication {
         /**
          * Run controller method
          */
-        $request = new Request();
+        $request = Request::createFromGlobals();
         $response = new Response();
 
         if ($option !== null) {
