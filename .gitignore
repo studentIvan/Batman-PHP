@@ -2,5 +2,4 @@
 vendor/*
 composer.lock
 app/root/.htaccess
-app/cache/??*
 nginx.inc
