@@ -8,14 +8,14 @@ use \Symfony\Component\HttpFoundation\Response;
  {%=AutoloadedSolutions=%}
  * You can use Symfony2 HttpFoundation component: 
  * @link http://symfony.com/doc/current/components/http_foundation.html
- * @link https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/README.md
+ * @link http://api.symfony.com/2.0/Symfony/Component/HttpFoundation.html
+ * @property \Framework\Core\Template $tpl
  */
 class {%=Controller=%} {
 
     /**
      * Controller constructor.
      * Called on application boot.
-     * @see Application.php
      */
     public function __construct() {
 
@@ -25,9 +25,11 @@ class {%=Controller=%} {
      * Controller index method
      *
      * @required
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @return void
      */
-    public function index() {
+    public function index(Request $request, Response $response) {
 
     }
 }

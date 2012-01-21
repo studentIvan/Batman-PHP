@@ -26,6 +26,7 @@ $loader->registerNamespaces(array(
     'Framework\Tests'                       => 'system',
     'Framework\Common'                      => 'system',
     'Framework\Packages'                    => 'system',
+    'Framework\Interfaces'                  => 'system',
 ));
 $loader->registerPrefixes(array(
     'Twig_'                                 => 'vendor/twig/twig/lib',

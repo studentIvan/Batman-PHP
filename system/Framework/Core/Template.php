@@ -95,7 +95,7 @@ class Template {
      * @return string
      */
     public function render($template, $engine = false) {
-        $callStr = '_render_' . (($engine) ? $engine : $this->engine);
+        $callStr = '_render_' . (($engine) ? ucfirst($engine) : $this->engine);
         return $this->$callStr($template);
     }
 }
