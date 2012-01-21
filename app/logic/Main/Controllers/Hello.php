@@ -11,9 +11,8 @@ use \Symfony\Component\HttpFoundation\Response;
 class Hello {
 
     public function index($name, Request $request, Response $response) {
-
         $this->tpl->match('name', $name);
-        $response->setContent($this->tpl->send('hello'));
+        $response->setContent($this->tpl->render('hello'));
         $response->send();
     }
 }

@@ -66,7 +66,7 @@ class Template {
      * @param string $template
      * @return string
      */
-    protected function _send_Twig($template)
+    protected function _render_Twig($template)
     {
         if (!$this->runner) $this->runner = $this->_init_Twig($this->bundle);
         return $this->runner->render($template . '.html.twig', $this->matches);
@@ -76,23 +76,26 @@ class Template {
      * @param string $template
      * @return string
      */
-    protected function _send_Native($template) {
+    protected function _render_Native($template) {
+        $this->runner = $template;
+        unset($template);
         ob_start();
         extract($this->matches, EXTR_SKIP);
-        include "app/logic/{$this->bundle}/Views/{$template}.phtml";
+        include "app/logic/{$this->bundle}/Views/{$this->runner}.phtml";
         $parsed = ob_get_contents();
         ob_end_clean();
         return $parsed;
     }
 
     /**
-     * Send template data to user
+     * Render template data and return as string
      *
      * @param string $template Name of template-file (without extension)
-     * @return void
+     * @param bool|string $engine Specific template engine
+     * @return string
      */
-    public function send($template) {
-        $callStr = '_send_' . $this->engine;
+    public function render($template, $engine = false) {
+        $callStr = '_render_' . (($engine) ? $engine : $this->engine);
         return $this->$callStr($template);
     }
 }
