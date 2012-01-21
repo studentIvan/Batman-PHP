@@ -2,6 +2,5 @@
 vendor/*
 composer.lock
 app/root/.htaccess
-app/cache/*
-app/cache/!.githack
+app/cache/??*
 nginx.inc
