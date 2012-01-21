@@ -2,7 +2,6 @@
 namespace Main\Controllers;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
-use \Framework\Core\Template;
 
 /**
  * Hello controller

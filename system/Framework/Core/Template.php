@@ -7,6 +7,7 @@ class Template {
     protected $matches = array();
     protected $bundle;
     protected $engine;
+    protected $runner = false;
 
     /**
      * @param string $bundle
@@ -75,8 +76,8 @@ class Template {
      */
     protected function _send_Twig($template)
     {
-        $tpl = $this->_init_Twig($this->bundle);
-        return $tpl->render($template . '.html.twig', $this->matches);
+        if (!$this->runner) $this->runner = $this->_init_Twig($this->bundle);
+        return $this->runner->render($template . '.html.twig', $this->matches);
     }
 
     /**
