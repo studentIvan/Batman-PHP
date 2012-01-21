@@ -1,6 +1,7 @@
 <?php
 namespace Bootstrap;
-
+use \Framework\Core\Config;
+use \Framework\Common\Log;
 /**
  * Bootstrap
  */
@@ -9,7 +10,12 @@ class Bootstrap extends \Framework\Core\WebApplication {
         try {
             parent::boot();
         } catch (\Exception $e) {
-            echo "Exception: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString();
+            if (Config::get('framework', 'phpdebug')) {
+                echo "Exception: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString();
+            } else {
+                Log::writeException($e);
+                echo "<b>Notice:</b> system error";
+            }
         }
     }
 }

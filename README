@@ -12,10 +12,20 @@
 3. PHPUnit recommended for TDD
 
 ===============================
+* Directories & files chmod *
+===============================
+
+app/cache - 0777
+app/logs - 0777
+bin/manager.php - +x
+composer.phar - +x
+
+===============================
 * Philosophy *
 ===============================
 
 1. Avoid the transmission of the variables in paths, use POST for that
+2. The application routing must not depend on specific web-server
 
 ===============================
 * Requirements *

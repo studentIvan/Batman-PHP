@@ -18,6 +18,11 @@ class WebApplication {
         $bundle = $controller = $method = '';
 
         /**
+         * Application Error Resolver
+         */
+        set_error_handler('\\Framework\\Core\\Terminator::terminate');
+
+        /**
          * Routing
          */
         extract(Router::directing());
