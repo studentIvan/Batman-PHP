@@ -6,7 +6,7 @@ framework:
 application:
     default: Main
     autoload_solutions: []
-    template_engine: Twig
+    template_engine: Native
     
 database:
     host: localhost

@@ -32,14 +32,6 @@ class Template {
     }
 
     /**
-     * @param string $bundle
-     * @return void
-     */
-    protected function _init_Native($bundle = 'Main') {
-        
-    }
-
-    /**
      * Match template variables
      *
      * @example $this->tpl->match('name', 'Ivan');
@@ -85,7 +77,12 @@ class Template {
      * @return string
      */
     protected function _send_Native($template) {
-        return 'not complete';
+        ob_start();
+        extract($this->matches, EXTR_SKIP);
+        include "app/logic/{$this->bundle}/Views/{$template}.phtml";
+        $parsed = ob_get_contents();
+        ob_end_clean();
+        return $parsed;
     }
 
     /**
