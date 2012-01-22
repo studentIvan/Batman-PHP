@@ -26,7 +26,7 @@ $console
 			foreach (Yaml::parse('app/config/routing.yml') as $rule) {
 				$output->writeln('routing ' . $rule['pattern']);
 				$rule['pattern'] = ltrim($rule['pattern'], '/');
-				$q = "\nRewriteRule ^{$rule['pattern']}$ /index.php?{$rule['route']}";
+				$q = "\nRewriteRule ^{$rule['pattern']}$ /index.php?{$rule['route']} [L]";
 				$output->writeln(trim($q)); $rules .= $q;
 				$output->writeln('============================================================');
 			}
