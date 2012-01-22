@@ -17,6 +17,17 @@ class {%=Controller=%}Test extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
         $this->component = new \{%=Bundle=%}\Controllers\{%=Controller=%}();
+        $this->component->tpl = new \Framework\Core\Template('{%=Bundle=%}');
+    }
+
+    public function index() {
+        $request = new \Symfony\Component\HttpFoundation\Request();
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        ob_start();
+        $this->component->index($request, $response);
+        $content = ob_get_clean();
+        //$this->assertEquals('', $content);
+        //$this->assertRegExp('/foo/', $content);
     }
 
 }

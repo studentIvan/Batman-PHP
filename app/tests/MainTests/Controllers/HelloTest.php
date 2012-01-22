@@ -17,13 +17,16 @@ class HelloTest extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
         $this->component = new \Main\Controllers\Hello();
+        $this->component->tpl = new \Framework\Core\Template('Main');
     }
     
     public function test() {
+        $request = new \Symfony\Component\HttpFoundation\Request();
+        $response = new \Symfony\Component\HttpFoundation\Response();
         ob_start();
-        $this->component->index('World');
+        $this->component->index('World', $request, $response);
         $content = ob_get_clean();
-        $this->assertEquals($content, 'Hello World');
+        $this->assertRegExp('/Hello World/', $content);
     }
 
 }

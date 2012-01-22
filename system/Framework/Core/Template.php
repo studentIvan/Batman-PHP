@@ -77,14 +77,10 @@ class Template {
      * @return string
      */
     protected function _render_Native($template) {
-        $this->runner = $template;
-        unset($template);
-        ob_start();
-        extract($this->matches, EXTR_SKIP);
+        $this->runner = $template; unset($template);
+        ob_start(); extract($this->matches, EXTR_SKIP);
         include "app/logic/{$this->bundle}/Views/{$this->runner}.phtml";
-        $parsed = ob_get_contents();
-        ob_end_clean();
-        return $parsed;
+        return ob_get_clean();
     }
 
     /**
