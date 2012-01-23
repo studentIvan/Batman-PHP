@@ -13,4 +13,41 @@ class WebRequest extends Request
     public function post($var, $default = null, $deep = false) {
         return $this->request->get($var, $default, $deep);
     }
+
+    /**
+     * @param mixed $var
+     * @return string|bool
+     */
+    public function postStr($var) {
+        $v = $this->request->get($var);
+        return ($v && is_array($v)) ? false : $v;
+    }
+
+    /**
+     * @param mixed $var
+     * @return array|bool
+     */
+    public function postArray($var)
+    {
+        $v = $this->request->get($var);
+        return ($v && is_array($v)) ? $v : false;
+    }
+
+    /**
+     * @param mixed $var
+     * @return integer|bool
+     */
+    public function postInt($var)
+    {
+        $v = $this->request->get($var);
+        return ($v && is_array($v)) ? false : intval($v);
+    }
+
+    /**
+     * @static
+     * @return \Framework\Common\WebRequest
+     */
+    public static function createFromGlobals() {
+        return parent::createFromGlobals();
+    }
 }

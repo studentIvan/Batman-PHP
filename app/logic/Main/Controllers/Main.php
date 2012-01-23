@@ -1,7 +1,7 @@
 <?php
 namespace Main\Controllers;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \Framework\Common\WebRequest;
+use \Framework\Common\WebResponse;
 use \Main\Solutions;
 
 class Main {
@@ -9,8 +9,8 @@ class Main {
 		$this->simple = new Solutions\Simple();
 	}
 	
-	function index() {
-		$response = new Response($this->simple->test());
+	function index(WebRequest $request, WebResponse $response) {
+		$response->setContent($this->simple->test());
 		$response->send();
 	}
 }
