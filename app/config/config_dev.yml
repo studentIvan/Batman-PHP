@@ -1,5 +1,5 @@
 framework:
-    phpdebug: Yes
+    phpdebug: true
 
 database:
     dbname:   mydb
@@ -7,5 +7,5 @@ database:
     password:
 
 twig:
-    auto_reload: Yes
-    use_cache:
+    auto_reload: true
+    use_cache: false

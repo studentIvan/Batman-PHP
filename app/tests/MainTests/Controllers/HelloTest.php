@@ -1,11 +1,14 @@
 <?php
 namespace MainTests\Controllers;
+use \Framework\Common\WebRequest;
+use \Framework\Common\WebResponse;
+use \Framework\Core\Template;
+use \Main\Controllers\Hello;
+
 require_once 'PHPUnit/Autoload.php';
 
 /**
  * Unit test of controller Hello
- *
- * @todo create method in this test, e.g. mytest
  *
  * Using: php bin/manager.php test Hello mytest
  * for specific bundle use: php bin/manager.php test Hello mytest c Main
@@ -16,17 +19,17 @@ require_once 'PHPUnit/Autoload.php';
 class HelloTest extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
-        $this->component = new \Main\Controllers\Hello();
-        $this->component->tpl = new \Framework\Core\Template('Main');
+        $this->component = new Hello();
+        $this->component->tpl = new Template('Main');
     }
     
     public function test() {
-        $request = new \Symfony\Component\HttpFoundation\Request();
-        $response = new \Symfony\Component\HttpFoundation\Response();
+        $request = new WebRequest();
+        $response = new WebResponse();
         ob_start();
         $this->component->index('World', $request, $response);
         $content = ob_get_clean();
-        $this->assertRegExp('/Hello World/', $content);
+        $this->assertRegExp('/Hello <b>World<\/b>/', $content);
     }
 
 }

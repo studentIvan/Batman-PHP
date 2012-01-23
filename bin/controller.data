@@ -1,35 +1,17 @@
 <?php
 namespace {%=Bundle=%}\Controllers;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \Framework\Common\WebRequest;
+use \Framework\Common\WebResponse;
 
 /**
  * {%=Controller=%} controller
  {%=AutoloadedSolutions=%}
- * You can use Symfony2 HttpFoundation component: 
- * @link http://symfony.com/doc/current/components/http_foundation.html
  * @link http://api.symfony.com/2.0/Symfony/Component/HttpFoundation.html
  * @property \Framework\Core\Template $tpl
  */
-class {%=Controller=%} {
-
-    /**
-     * Controller constructor.
-     * Called on application boot.
-     */
-    public function __construct() {
-
-    }
-
-    /**
-     * Controller index method
-     *
-     * @required
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @return void
-     */
-    public function index(Request $request, Response $response) {
-
+class {%=Controller=%}
+{
+    public function index(WebRequest $request, WebResponse $response) {
+        /* write some code here */
     }
 }

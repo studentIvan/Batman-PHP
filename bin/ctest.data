@@ -1,5 +1,10 @@
 <?php
 namespace {%=Bundle=%}Tests\Controllers;
+use \Framework\Common\WebRequest;
+use \Framework\Common\WebResponse;
+use \Framework\Core\Template;
+use \{%=Bundle=%}\Controllers\{%=Controller=%};
+
 require_once 'PHPUnit/Autoload.php';
 
 /**
@@ -16,13 +21,13 @@ require_once 'PHPUnit/Autoload.php';
 class {%=Controller=%}Test extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
-        $this->component = new \{%=Bundle=%}\Controllers\{%=Controller=%}();
-        $this->component->tpl = new \Framework\Core\Template('{%=Bundle=%}');
+        $this->component = new {%=Controller=%}();
+        $this->component->tpl = new Template('{%=Bundle=%}');
     }
 
     public function index() {
-        $request = new \Symfony\Component\HttpFoundation\Request();
-        $response = new \Symfony\Component\HttpFoundation\Response();
+        $request = new WebRequest();
+        $response = new WebResponse();
         ob_start();
         $this->component->index($request, $response);
         $content = ob_get_clean();

@@ -1,5 +1,7 @@
 <?php
 namespace {%=Bundle=%}Tests\Solutions;
+use \{%=Bundle=%}\Solutions\{%=Solution=%};
+
 require_once 'PHPUnit/Autoload.php';
 
 /**
@@ -17,7 +19,7 @@ require_once 'PHPUnit/Autoload.php';
 class {%=Solution=%}Test extends \PHPUnit_Framework_TestCase {
 
     public function __construct() {
-        $this->component = new \{%=Bundle=%}\Solutions\{%=Solution=%}();
+        $this->component = new {%=Solution=%}();
     }
     
 }

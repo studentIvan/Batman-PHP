@@ -3,8 +3,8 @@ namespace Framework\Core;
 use \Framework\Core\Config;
 use \Framework\Core\Router;
 use \Framework\Core\Template;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use \Framework\Common\WebRequest;
+use \Framework\Common\WebResponse;
 
 class WebApplication {
 
@@ -46,8 +46,8 @@ class WebApplication {
         /**
          * Run controller method
          */
-        $request = Request::createFromGlobals();
-        $response = new Response();
+        $request = WebRequest::createFromGlobals();
+        $response = new WebResponse();
 
         if ($option !== null) {
             $_controller->$method($option, $request, $response);
