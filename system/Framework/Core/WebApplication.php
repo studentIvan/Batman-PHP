@@ -36,9 +36,9 @@ class WebApplication {
          */
         $_solutions = Config::get('application', 'autoload_solutions');
         if ($_solutions) {
-            foreach ($_solutions as $_solution) {
-                $_solution = strtolower($_solution);
-                $loadString = '\\' . $bundle . '\\Solutions\\' . ucfirst($_solution);
+            foreach ($_solutions as $__solution) {
+                list($_bundle, $_solution) = explode(':', strtolower($__solution));
+                $loadString = '\\' . $_bundle . '\\Solutions\\' . ucfirst($_solution);
                 $_controller->$_solution = new $loadString();
             }
         }

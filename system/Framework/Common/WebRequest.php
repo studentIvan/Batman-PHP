@@ -27,8 +27,7 @@ class WebRequest extends Request
      * @param mixed $var
      * @return array|bool
      */
-    public function postArray($var)
-    {
+    public function postArray($var) {
         $v = $this->request->get($var);
         return ($v && is_array($v)) ? $v : false;
     }
@@ -37,8 +36,7 @@ class WebRequest extends Request
      * @param mixed $var
      * @return integer|bool
      */
-    public function postInt($var)
-    {
+    public function postInt($var) {
         $v = $this->request->get($var);
         return ($v && is_array($v)) ? false : intval($v);
     }

@@ -20,8 +20,9 @@ class Defender
     }
 
     /**
-     * Experimental function
+     * Give array from variable
      *
+     * @experimental
      * @param mixed $var
      * @param bool $clean
      * @return array
@@ -39,6 +40,7 @@ class Defender
     /**
      * Detect and remove invisible characters in string
      *
+     * @experimental
      * @param string $str
      * @return string
      */
