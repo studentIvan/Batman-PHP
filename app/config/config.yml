@@ -6,7 +6,7 @@ framework:
 application:
     default: Main
     autoload_solutions: [] # Main:Simple, Main:Users, Dummy:Other...
-    template_engine: Native # Native, Twig
+    template_engine: Twig # Native, Twig
     log_file_max_size_mb: 2
     
 database:
