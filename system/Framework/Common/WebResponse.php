@@ -4,9 +4,12 @@ use \Symfony\Component\HttpFoundation\Response;
 
 class WebResponse extends Response
 {
-    public function sendJSON() {
-        $content = $this->getContent();
+    /**
+     * @param mixed $content
+     */
+    public function setJSON($content = false) {
         $this->setContent(json_encode($content));
-        $this->send();
+        $this->headers->set('Content-Type', 'application/json');
     }
+
 }

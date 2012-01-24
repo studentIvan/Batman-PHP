@@ -3,6 +3,7 @@ namespace Framework\Core;
 use \Framework\Core\Config;
 use \Framework\Core\Router;
 use \Framework\Core\Template;
+use \Framework\Core\PackageLoader;
 use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
 
@@ -28,7 +29,9 @@ class WebApplication {
         extract(Router::directing());
         $loadString = '\\' . $bundle . '\\Controllers\\' . $controller;
         $_controller = new $loadString();
-        $_controller->tpl = new Template($bundle);
+        if ($_controller instanceof Controller) {
+            $_controller->tpl = new Template($bundle);
+        }
 
         /**
          * Loading "autoload_solutions"

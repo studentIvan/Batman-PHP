@@ -5,6 +5,15 @@ use \Symfony\Component\HttpFoundation\Request;
 class WebRequest extends Request
 {
     /**
+     * @throws \Exception
+     */
+    public function protectAjax() {
+        if (!$this->isXmlHttpRequest()) {
+            throw new \Exception('Ajax only');
+        }
+    }
+
+    /**
      * @param string $var The key
      * @param null|mixed $default The default value if the parameter key does not exist
      * @param bool $deep If true, a path like foo[bar] will find deeper items

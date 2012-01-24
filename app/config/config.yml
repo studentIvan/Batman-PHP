@@ -8,6 +8,10 @@ application:
     autoload_solutions: [] # Main:Simple, Main:Users, Dummy:Other...
     template_engine: Twig # Native, Twig
     log_file_max_size_mb: 2
+
+recaptcha:
+    public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
+    private_key: 6LeSIMgSAAAAADs7b2hVOeQPTceB5I1DaTuU1HaP
     
 database:
     host: localhost
