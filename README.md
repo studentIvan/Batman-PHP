@@ -5,10 +5,10 @@
 ### Setup
 1. Install requirements: <br>
 <br><code>php composer.phar install</code><br><br>
-2. Compile app/config/routing.yml<br>
-<br><i>Apache + Mod Rewrite</i>:<br><code>php bin/manager.php compile</code><br>
-<br><i>Nginx</i>:<br><code>php bin/manager.php compile n</code><br><br>
-3. PHPUnit recommended for TDD
+2. Compile <b>app/config/routing.yml</b><br>
+<br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php compile</code><br>
+<br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php compile n</code><br><br>
+3. PHPUnit recommended for Test Drive Development
 
 ### Directories & files chmod
 * app/cache - <b>0777</b>
