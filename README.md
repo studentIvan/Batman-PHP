@@ -24,3 +24,14 @@
 + Require all composer vendors (in json file)
 + Recommended version of php >= <b>5.3.8</b>
 + Source code is distributed under <b>GNU General Public License</b>
+
+### Copyrights
+##### Powered by Symfony2 components
+Yaml, HttpFoundation, Console, Class-Loader<br>
+(c) Symfony Project 
+
+##### This framework uses Twig template engine
+(c) Fabien Potencier
+
+##### This framework uses SwiftMailer
+(c) Chris Corbyn, Fabien Potencier
