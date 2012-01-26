@@ -68,7 +68,7 @@ $console
 		}
 		catch (\Exception $e) 
 		{
-			$output->writeln($e->getMessage());
+            $output->writeln('Test failed with exception: ' . $e->getMessage());
 			$stop = true;
 		}
         $time_end = microtime(true);

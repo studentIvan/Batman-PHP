@@ -15,14 +15,6 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
 			'option' => null,
 		), Router::directing());
 		
-		$_SERVER['QUERY_STRING'] = 'Blabla';
-		$this->assertEquals(array(
-			'bundle' => 'Blabla',
-			'controller' => 'Main',
-			'method' => 'index',
-			'option' => null,
-		), Router::directing());
-		
 		$_SERVER['QUERY_STRING'] = 'Main::Main::index::4';
 		$this->assertEquals(array(
 			'bundle' => 'Main',
@@ -32,11 +24,15 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
 		), Router::directing());
 		
 		$_SERVER['QUERY_STRING'] = 'Main::Fucking';
-		$this->assertEquals(array(
-			'bundle' => 'Main',
-			'controller' => 'Main',
-			'method' => 'index',
-			'option' => null,
-		), Router::directing());
+		try {
+            $this->assertEquals(array(
+                'bundle' => 'Main',
+                'controller' => 'Main',
+                'method' => 'index',
+                'option' => null,
+            ), Router::directing());
+        } catch (\Exceptions\NotFoundException $e) {
+            echo "Main::Fucking Not Found Exception\n";
+        }
 	}
 }
