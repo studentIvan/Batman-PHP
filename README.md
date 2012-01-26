@@ -1,6 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
+## Version 0.1-ALPHA-DEV
 
 ### Setup
 1. Install requirements: <br>
@@ -34,4 +35,4 @@ Yaml, HttpFoundation, Console, Class-Loader<br>
 (c) Fabien Potencier
 
 ##### This framework uses SwiftMailer
-(c) Chris Corbyn, Fabien Potencier
+(c) Chris Corbyn

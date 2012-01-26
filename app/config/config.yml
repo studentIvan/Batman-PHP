@@ -12,6 +12,11 @@ application:
 recaptcha:
     public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
     private_key: 6LeSIMgSAAAAADs7b2hVOeQPTceB5I1DaTuU1HaP
+
+swiftmailer:
+    smtp: smtp.yandex.ru
+    email: php.batman@yandex.ru
+    password: batman.php
     
 database:
     host: localhost
