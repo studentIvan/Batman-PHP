@@ -22,6 +22,7 @@ $loader->registerNamespaces(array(
     'Symfony\Component\Yaml'                => 'vendor/symfony/yaml',
 
 /** Framework Data */
+    'Exceptions'                            => 'system',
     'Framework\Core'                        => 'system',
     'Framework\Tests'                       => 'system',
     'Framework\Common'                      => 'system',

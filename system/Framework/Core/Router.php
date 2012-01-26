@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Core;
 use \Framework\Core\Config;
+use \Exceptions\NotFoundException;
 
 /**
  * [Bundle]::[Controller]::[Method]::[Option]
@@ -35,10 +36,12 @@ class Router
             }
         }
         $loadString = '\\' . $bundle . '\\Controllers\\' . $controller;
-        if (!class_exists($loadString, true))
-            $controller = 'Main';
-        if (!method_exists($loadString, $method))
-            $method = 'index';
+        $found = (class_exists($loadString, true) && method_exists($loadString, $method));
+
+        if (!$found) {
+            throw new NotFoundException($loadString);
+        }
+
         return array(
             'bundle' => $bundle,
             'controller' => $controller,
