@@ -41,7 +41,7 @@ class Bootstrap extends WebApplication
              */
             header('HTTP/1.0 404 Not Found');
             $template = new Template('Bootstrap');
-            echo $template->match('path', $_SERVER['REQUEST_URI'])->render('404', 'native');
+            echo $template->render('404', 'native');
         } catch (Exception $e) {
             /**
              * Simple other exceptions handler
