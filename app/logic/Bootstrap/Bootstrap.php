@@ -33,14 +33,14 @@ class Bootstrap extends WebApplication
              * Simple 403 error page
              */
             header('HTTP/1.0 403 Forbidden');
-            $template = new Template('Bootstrap');
+            $template = new Template();
             echo $template->render('403', 'native');
         } catch (NotFoundException $e) {
             /**
              * Simple 404 error page
              */
             header('HTTP/1.0 404 Not Found');
-            $template = new Template('Bootstrap');
+            $template = new Template();
             echo $template->render('404', 'native');
         } catch (Exception $e) {
             /**

@@ -12,7 +12,7 @@ class Template {
     /**
      * @param string $bundle
      */
-    public function __construct($bundle) {
+    public function __construct($bundle = 'Bootstrap') {
         $engine = Config::get('application', 'template_engine');
         $this->engine = ($engine) ? $engine : 'Native';
         $this->bundle = $bundle;
