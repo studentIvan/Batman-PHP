@@ -31,6 +31,7 @@ $loader->registerNamespaces(array(
 ));
 $loader->registerPrefixes(array(
     'Twig_'                                 => 'vendor/twig/twig/lib',
+    'Swift_'                                => 'vendor/swiftmailer/swiftmailer/lib/classes',
 ));
 $loader->register();
 Framework\Core\Config::init();

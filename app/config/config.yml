@@ -13,10 +13,15 @@ recaptcha:
     public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
     private_key: 6LeSIMgSAAAAADs7b2hVOeQPTceB5I1DaTuU1HaP
 
-swiftmailer:
-    smtp: smtp.yandex.ru
-    email: php.batman@yandex.ru
+swift_transport:
+    host: smtp.yandex.ru:25
+    username: php.batman@yandex.ru
     password: batman.php
+
+swift_vcard:
+    email: php.batman@yandex.ru
+    first_name: Batman
+    last_name: Php
     
 database:
     host: localhost
