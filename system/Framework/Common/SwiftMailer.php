@@ -2,7 +2,7 @@
 namespace Framework\Common;
 use \Framework\Core\Config;
 
-class SwiftAdapter {
+class SwiftMailer {
 
     /**
      * @var bool
