@@ -33,7 +33,7 @@ $console
 			file_put_contents('app/root/.htaccess', trim($rules));
 			$output->writeln('Complete!');
 		} else {
-			$rules = '';
+            $rules = file_get_contents('app/config/nginx.inc.txt');
 			foreach (Yaml::parse('app/config/routing.yml') as $rule) {
 				$output->writeln('routing ' . $rule['pattern']);
 				$q = "\nrewrite ^{$rule['pattern']}$ /index.php?{$rule['route']} last;";
@@ -108,7 +108,7 @@ $console
 		}
 		catch (\Exception $e) 
 		{
-			$output->writeln($e->getMessage());
+            $output->writeln('Test failed with exception: ' . $e->getMessage());
 			$stop = true;
 		}
         $time_end = microtime(true);
