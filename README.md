@@ -6,7 +6,7 @@
 ### Setup
 1. Install requirements and optimize: <br>
 <br><code>php composer.phar install</code><br>
-<br><code>php bin/manager.php optimize</code><br><br>
+<code>php bin/manager.php optimize</code><br><br>
 2. Compile <b>app/config/routing.yml</b><br>
 <br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php compile</code><br>
 <br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php compile n</code><br><br>
