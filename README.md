@@ -37,3 +37,6 @@ Yaml, HttpFoundation, Console, Class-Loader<br>
 
 ##### This framework uses SwiftMailer
 (c) Chris Corbyn
+
+##### This framework uses Doctrine 2 Database Abstraction Layer
+(c) Doctrine Project
