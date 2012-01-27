@@ -187,8 +187,8 @@ $console
 			file_put_contents($targetTestFile, str_replace(
 				array('{%=Bundle=%}', '{%=Controller=%}'), array($bundle, $name), $tpl
 			));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Controller <info>%s</info> created succesfull!', $targetFile)));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created succesfull!', $targetTestFile)));
+			$output->writeln(str_replace(getcwd(), '', sprintf('Controller <info>%s</info> created successful!', $targetFile)));
+			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created successful!', $targetTestFile)));
 			break;
 			
 			case 's':
@@ -207,8 +207,8 @@ $console
 			file_put_contents($targetTestFile, str_replace(
 				array('{%=Bundle=%}', '{%=Solution=%}'), array($bundle, $name), $tpl
 			));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Solution <info>%s</info> created succesfull!', $targetFile)));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created succesfull!', $targetTestFile)));
+			$output->writeln(str_replace(getcwd(), '', sprintf('Solution <info>%s</info> created successful!', $targetFile)));
+			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created successful!', $targetTestFile)));
 			break;
 		}
     })

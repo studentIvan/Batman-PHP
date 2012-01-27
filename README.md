@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1-ALPHA-DEV
+## Version 0.1.1-ALPHA-DEV
 
 ### Setup
 1. Install requirements and optimize: <br>
@@ -10,7 +10,7 @@
 2. Compile <b>app/config/routing.yml</b><br>
 <br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php compile</code><br>
 <br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php compile n</code><br><br>
-3. PHPUnit recommended for Test Drive Development
+3. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
 ### Directories & files chmod
 * app/cache - <b>0777</b>

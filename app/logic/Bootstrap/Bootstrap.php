@@ -27,7 +27,8 @@ class Bootstrap extends WebApplication
             /**
              * Simple runtime errors handler
              */
-            echo "RuntimeException: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString();
+            echo "RuntimeException: " . $e->getMessage() .
+                (Config::get('framework', 'phpdebug') ? "<br><pre>" . $e->getTraceAsString() : "");
         } catch (ForbiddenException $e) {
             /**
              * Simple 403 error page

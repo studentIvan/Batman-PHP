@@ -25,5 +25,5 @@ swift_vcard:
     
 database:
     host: localhost
-    port: 3306
+    driver: pdo_mysql
     charset: UTF8

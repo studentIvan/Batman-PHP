@@ -7,27 +7,21 @@ $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
 /** Application Architecture */
     'Main'                                  => 'app/logic',
-    'Main\Controllers'                      => 'app/logic',
-    'Main\Solutions'                        => 'app/logic',
     'Bootstrap'                             => 'app/logic',
-
-/** Test Drive Development */
     'MainTests'                             => 'app/tests',
-    'MainTests\Controllers'                 => 'app/tests',
-    'MainTests\Solutions'                   => 'app/tests',
 
 /** Symfony Components */
     'Symfony\Component\HttpFoundation'      => 'vendor/symfony/http-foundation',
     'Symfony\Component\Console'             => 'vendor/symfony/console',
     'Symfony\Component\Yaml'                => 'vendor/symfony/yaml',
 
+/** Doctrine Project */
+    'Doctrine\Common'                       => 'vendor/doctrine/common/lib',
+    'Doctrine\DBAL'                         => 'vendor/doctrine/dbal/lib',
+
 /** Framework Data */
     'Exceptions'                            => 'system',
-    'Framework\Core'                        => 'system',
-    'Framework\Tests'                       => 'system',
-    'Framework\Common'                      => 'system',
-    'Framework\Packages'                    => 'system',
-    'Framework\Interfaces'                  => 'system',
+    'Framework'                             => 'system',
 ));
 $loader->registerPrefixes(array(
     'Twig_'                                 => 'vendor/twig/twig/lib',

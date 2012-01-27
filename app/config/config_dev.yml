@@ -2,7 +2,7 @@ framework:
     phpdebug: true
 
 database:
-    dbname:   mydb
+    dbname:   batman
     user:     root
     password:
 
