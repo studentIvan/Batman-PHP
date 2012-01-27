@@ -14,6 +14,27 @@ use \Symfony\Component\Yaml\Yaml;
  */
 $console = new Application('Batman PHP Console Manager', '1.0.0');
 $console
+    ->register('optimize')
+    ->setDescription('Clean garbage from vendor dir.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $map = array(
+            'vendor/swiftmailer/swiftmailer/doc',
+            'vendor/swiftmailer/swiftmailer/tests',
+            'vendor/swiftmailer/swiftmailer/test-suite',
+            'vendor/swiftmailer/swiftmailer/notes',
+            'vendor/twig/twig/doc',
+            'vendor/twig/twig/test',
+            'vendor/twig/twig/bin',
+            'vendor/doctrine/common/tests',
+            'vendor/doctrine/dbal/tests',
+        );
+        foreach ($map as $path) {
+            $output->writeln("remove $path ...");
+            rrmdir($path);
+        }
+    })
+;
+$console
     ->register('compile')
     ->setDefinition(array(
 		new InputArgument('server', InputArgument::OPTIONAL, 'Webserver (a - apache (default), n - nginx)', 'a'),
@@ -192,4 +213,18 @@ $console
 		}
     })
 ;
+
+function rrmdir($dir) {
+   if (is_dir($dir)) {
+     $objects = scandir($dir);
+     foreach ($objects as $object) {
+       if ($object != "." && $object != "..") {
+         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+       }
+     }
+     reset($objects);
+     rmdir($dir);
+   }
+ }
+
 $console->run();
