@@ -1,7 +1,7 @@
 <?php
 namespace Framework;
 
-class __framework__
+class Batman
 {
 
 }
