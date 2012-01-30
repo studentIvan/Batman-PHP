@@ -13,12 +13,9 @@ class UnicodeSchema extends Schema
      * @return \Doctrine\DBAL\Schema\Table
      */
     public function createTable($tableName) {
-        $charset = Config::get('database_migration', 'charset');
-        $collate = Config::get('database_migration', 'collate');
-        $table = new Table($tableName, array(), array(), array(), 0, array(
-            'charset' => ($charset) ? $charset : null,
-            'collate' => ($collate) ? $collate : null,
-        ));
+        $migrateConfig = Config::get('database_migration');
+        if (!is_array($migrateConfig)) $migrateConfig = array();
+        $table = new Table($tableName, array(), array(), array(), 0, $migrateConfig);
         $this->_addTable($table);
         return $table;
     }
