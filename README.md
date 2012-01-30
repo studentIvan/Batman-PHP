@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.2-ALPHA-DEV
+## Version 0.1.3-ALPHA-DEV
 
 ### Setup
 1. Install requirements and optimize: <br>
@@ -29,24 +29,23 @@
 
 ### Available console commands
 <pre>
-  help                      Displays help for a command
-  list                      Lists commands
 controller
-  controller:create         Create new controller.
-  controller:test           Run PHPUnit test for application controller.
+  controller:create          Create new controller.
+  controller:test            Run PHPUnit test for application controller.
 database
-  database:create           Create database (drop if exists).
-  database:schema:create    Create new schema for migration.
-  database:schema:migrate   Create tables in database (drop if exists).
+  database:create            Create database (drop if exists).
+  database:schema:create     Create new schema for migration.
+  database:schema:generate   Create new schema for migration.
+  database:schema:migrate    Create tables in database (drop if exists).
 framework
-  framework:optimize        Clean garbage from vendor dir.
-  framework:test            Run PHPUnit test for framework element.
+  framework:optimize         Clean garbage from vendor dir.
+  framework:test             Run PHPUnit test for framework element.
 router
-  router:compile:apache     Compile routing for apache + mod rewrite.
-  router:compile:nginx      Compile routing for nginx.
+  router:compile:apache      Compile routing for apache + mod rewrite.
+  router:compile:nginx       Compile routing for nginx.
 solution
-  solution:create           Create new solution.
-  solution:test             Run PHPUnit test for application solution.
+  solution:create            Create new solution.
+  solution:test              Run PHPUnit test for application solution.
 </pre>
 
 ### Copyrights
