@@ -10,7 +10,7 @@ function script(InputInterface $input, OutputInterface $output)
     $dbConfig = Config::get($input->getArgument('database'));
     $name = isset($dbConfig['path']) ? $dbConfig['path'] : $dbConfig['dbname'];
     $tmpConnection = Database::newNoDbInstance($input->getArgument('database'));
-    $dbMigrateConfig = Config::get('database_migration');
+    $dbMigrateConfig = Config::get('manager.database');
     $created = false;
     $mysqlPlatformCollate = "
             ALTER DATABASE $name

@@ -34,11 +34,11 @@ class SwiftMailer {
         if (!self::$registered) self::register();
         if ($transport)
         {
-            if (!$host = Config::get('swift_transport', 'host'))
+            if (!$host = Config::get('swift.transport', 'host'))
                 throw new \Swift_IoException('Error loading swift_transport host configuration');
-            if (!$username = Config::get('swift_transport', 'username'))
+            if (!$username = Config::get('swift.transport', 'username'))
                 throw new \Swift_IoException('Error loading swift_transport username configuration');
-            if (!$password = Config::get('swift_transport', 'password'))
+            if (!$password = Config::get('swift.transport', 'password'))
                 throw new \Swift_IoException('Error loading swift_transport password configuration');
 
             list($server, $port) = explode(':', $host);
@@ -66,11 +66,11 @@ class SwiftMailer {
      */
     public static function createMessage($subject, $to, $body) {
         if (!self::$registered) self::register();
-        if (!$email = Config::get('swift_vcard', 'email'))
+        if (!$email = Config::get('swift.vcard', 'email'))
             throw new \Swift_IoException('Error loading swift_vcard email configuration');
-        if (!$firstName = Config::get('swift_vcard', 'first_name'))
+        if (!$firstName = Config::get('swift.vcard', 'first_name'))
             throw new \Swift_IoException('Error loading swift_vcard first_name configuration');
-        if (!$lastName = Config::get('swift_vcard', 'last_name'))
+        if (!$lastName = Config::get('swift.vcard', 'last_name'))
             throw new \Swift_IoException('Error loading swift_vcard last_name configuration');
 
         return
