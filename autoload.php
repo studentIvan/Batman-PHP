@@ -2,6 +2,7 @@
 /**
  * Batman PHP Autoloader
  */
+if (!defined('CONSOLE')) chdir('../..');
 require_once 'vendor/symfony/class-loader/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(

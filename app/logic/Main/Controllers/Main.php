@@ -9,8 +9,7 @@ class Main {
 		$this->simple = new Solutions\Simple();
 	}
 	
-	function index(WebRequest $request, WebResponse $response) {
-		$response->setContent($this->simple->test());
-		$response->send();
+	function index(WebResponse $response) {
+		$response->send($this->simple->test());
 	}
 }

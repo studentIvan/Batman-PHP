@@ -21,7 +21,7 @@ class Database
     /**
      * @static
      * @param string $appConfig
-     * @return \Doctrine\DBAL\Doctrine\DBAL\Connection
+     * @return \Doctrine\DBAL\Connection
      */
     public static function newNoDbInstance($appConfig = 'database') {
         $config = Config::get($appConfig);
@@ -31,10 +31,11 @@ class Database
 
     /**
      * @static
+     * @param string $time
      * @return string
      */
-    public static function getDateTime() {
-        $dateTime = new \DateTime('now');
+    public static function getDateTime($time = 'now') {
+        $dateTime = new \DateTime($time);
         return $dateTime->format('Y-m-d H:i:sP');
     }
 }

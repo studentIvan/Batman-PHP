@@ -12,4 +12,27 @@ class WebResponse extends Response
         $this->headers->set('Content-Type', 'application/json');
     }
 
+    /**
+     * @param bool|string $content
+     * @param bool $json
+     */
+    public function send($content = false, $json = false)
+    {
+        if ($content)
+        {
+            if ($json) {
+                $this->setJSON($content);
+            } else {
+                $this->setContent($content);
+            }
+        }
+
+        $this->sendHeaders();
+        $this->sendContent();
+
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        }
+    }
+
 }

@@ -17,11 +17,11 @@ function script($server, OutputInterface $output) {
 
     foreach (Yaml::parse('app/config/routing.yml') as $rule) {
         $output->writeln('routing ' . $rule['pattern']);
-        $rule['pattern'] = preg_replace('/\<\S+\>/', '([^/]+)', $rule['pattern']);
-        $rule['pattern'] = ltrim($rule['pattern'], '/');
+        $rule['pattern'] = preg_replace('/<[^<]+>/', '([^/]+)', $rule['pattern']);
         if (isset($rule['backslash']) && $rule['backslash']) {
             $rule['pattern'] .= '(?:/)?';
         }
+        $rule['pattern'] = ltrim($rule['pattern'], '/');
         $q = str_replace(array('%p%', '%r%'), array($rule['pattern'], $rule['route']), $template);
         $output->writeln('<info>' . trim($q) . '</info>');
         $rules .= $q;

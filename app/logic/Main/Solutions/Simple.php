@@ -1,8 +1,9 @@
 <?php
 namespace Main\Solutions;
 
-class Simple {
-	function test() {
+class Simple
+{
+	public function test() {
 		return 'eeeee';
 	}
 }

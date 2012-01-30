@@ -10,3 +10,8 @@ hello:
     pattern: /hello/<name>
     route: Main::Hello::index::$1
     backslash: true
+
+users:
+    pattern: /users/?<action>?/?<option>?
+    route: Main::Users::$1::$2
+    backslash: true

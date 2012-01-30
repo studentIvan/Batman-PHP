@@ -1,8 +1,9 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
+define('CONSOLE', true);
 if (preg_match('/bin/', getcwd())) chdir('..');
-require_once 'autoload.php';
+require_once __DIR__ . '/../autoload.php';
 use \Symfony\Component\Console\Application;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Input\InputArgument;

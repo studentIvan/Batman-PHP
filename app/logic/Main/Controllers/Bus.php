@@ -12,20 +12,18 @@ use \Framework\Packages\ReCaptcha;
  */
 class Bus extends Controller
 {
-    public function index(WebRequest $request, WebResponse $response) {
+    public function index(WebResponse $response, WebRequest $request) {
         /* write some code here */
     }
 
-    public function verifyCaptcha(WebRequest $request, WebResponse $response) {
+    public function verifyCaptcha(WebResponse $response, WebRequest $request) {
         $request->protectAjax();
         $captcha = new ReCaptcha();
-        $response->setJSON($captcha->verify($request));
-        $response->send();
+        $response->send($captcha->verify($request), true);
     }
 
-    public function getCaptchaPublicKey(WebRequest $request, WebResponse $response) {
+    public function getCaptchaPublicKey(WebResponse $response, WebRequest $request) {
         $request->protectAjax();
-        $response->setJSON(ReCaptcha::getPublicKey());
-        $response->send();
+        $response->send(ReCaptcha::getPublicKey(), true);
     }
 }
