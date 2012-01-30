@@ -15,8 +15,18 @@ class Database
      * @return \Doctrine\DBAL\Connection
      */
     public static function newInstance($appConfig = 'database') {
-        $cfg = new Configuration();
-        return DriverManager::getConnection(Config::get($appConfig), $cfg);
+        return DriverManager::getConnection(Config::get($appConfig));
+    }
+
+    /**
+     * @static
+     * @param string $appConfig
+     * @return \Doctrine\DBAL\Doctrine\DBAL\Connection
+     */
+    public static function newNoDbInstance($appConfig = 'database') {
+        $config = Config::get($appConfig);
+        unset($config['dbname']);
+        return DriverManager::getConnection($config);
     }
 
     /**

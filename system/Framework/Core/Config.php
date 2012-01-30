@@ -14,10 +14,10 @@ class Config {
      */
     public static function init() {
         self::$data = Yaml::parse('app\config\config.yml');
-        if (isset(self::$data['framework']['environment']))
+        if (isset(self::$data['application']['environment']))
             self::$data = array_replace_recursive(
                 self::$data, Yaml::parse(
-                    'app\config\config_' . self::$data['framework']['environment'] . '.yml'
+                    'app\config\config_' . self::$data['application']['environment'] . '.yml'
                 )
             );
         self::phpConfigure();

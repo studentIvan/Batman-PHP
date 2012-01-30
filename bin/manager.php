@@ -14,7 +14,7 @@ use \Symfony\Component\Yaml\Yaml;
  */
 $console = new Application('Batman PHP Console Manager', '1.0.0');
 $console
-    ->register('optimize')
+    ->register('framework:optimize')
     ->setDescription('Clean garbage from vendor dir.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $map = array(
@@ -29,188 +29,140 @@ $console
             'vendor/doctrine/dbal/tests',
         );
         foreach ($map as $path) {
-            $output->writeln("remove $path ...");
+            $output->writeln("<info>remove $path ...</info>");
             rrmdir($path);
         }
     })
 ;
 $console
-    ->register('compile')
+    ->register('database:create')
     ->setDefinition(array(
-		new InputArgument('server', InputArgument::OPTIONAL, 'Webserver (a - apache (default), n - nginx)', 'a'),
-    ))
-    ->setDescription('Compile routing for specific web server.')
+		new InputArgument('database', InputArgument::OPTIONAL, 'Database configuration name', 'database')
+	))
+    ->setDescription('Create database (drop if exists).')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
-        if ($input->getArgument('server') == 'a') {
-			$rules = file_get_contents('app/config/htaccess.txt');
-			$rules .= "\n\nRewriteEngine On\nRewriteBase /";
-			foreach (Yaml::parse('app/config/routing.yml') as $rule) {
-				$output->writeln('routing ' . $rule['pattern']);
-				$rule['pattern'] = ltrim($rule['pattern'], '/');
-				$q = "\nRewriteRule ^{$rule['pattern']}$ /index.php?{$rule['route']} [L]";
-				$output->writeln(trim($q)); $rules .= $q;
-				$output->writeln('============================================================');
-			}
-			file_put_contents('app/root/.htaccess', trim($rules));
-			$output->writeln('Complete!');
-		} else {
-            $rules = file_get_contents('app/config/nginx.inc.txt');
-			foreach (Yaml::parse('app/config/routing.yml') as $rule) {
-				$output->writeln('routing ' . $rule['pattern']);
-				$q = "\nrewrite ^{$rule['pattern']}$ /index.php?{$rule['route']} last;";
-				$output->writeln(trim($q)); $rules .= $q;
-				$output->writeln('============================================================');
-			}
-			file_put_contents('nginx.inc', trim($rules));
-			$output->writeln('Complete!');
-		}
+        $conn = \Framework\Common\Database::newInstance($input->getArgument('database'));
+        $dbconfig = \Framework\Core\Config::get($input->getArgument('database'));
+        $name = isset($dbconfig['path']) ? $dbconfig['path'] : $dbconfig['dbname'];
+        $tmpConnection = \Framework\Common\Database::newNoDbInstance($input->getArgument('database'));
+
+        try {
+            $tmpConnection->getSchemaManager()->createDatabase($name);
+            $output->writeln(sprintf('<info>Created database for connection named %s</info>', $name));
+        } catch (\Exception $e) {
+            try {
+                $tmpConnection->getSchemaManager()->dropDatabase($name);
+                $tmpConnection->getSchemaManager()->createDatabase($name);
+                $output->writeln(sprintf('<info>Existed database %s was dropped</info>', $name));
+                $output->writeln(sprintf('<info>Created database named %s</info>', $name));
+            } catch (\Exception $e) {
+                $output->writeln(sprintf('<error>Could not create database named %s</error>', $name));
+                $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            }
+        }
+
+        $tmpConnection->close();
     })
 ;
 $console
-    ->register('ftest')
+    ->register('database:schema:create')
+    ->setDefinition(array(
+        new InputArgument('schema', InputArgument::REQUIRED, 'Schema name')
+    ))
+    ->setDescription('Create new schema for migration.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/create_migration.php';
+        script($input, $output);
+    })
+;
+$console
+    ->register('database:schema:migrate')
+    ->setDefinition(array(
+		new InputArgument('migration', InputArgument::REQUIRED, 'File name in app/migration'),
+		new InputArgument('database', InputArgument::OPTIONAL, 'Database configuration name', 'database'),
+    ))
+    ->setDescription('Create tables in database (drop if exists).')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/migrate.php';
+        script($input, $output);
+    })
+;
+$console
+    ->register('router:compile:apache')
+    ->setDescription('Compile routing for apache + mod rewrite.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/compile.php';
+        script('apache', $output);
+    })
+;
+$console
+    ->register('router:compile:nginx')
+    ->setDescription('Compile routing for nginx.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/compile.php';
+        script('nginx', $output);
+    })
+;
+$console
+    ->register('framework:test')
     ->setDefinition(array(
 		new InputArgument('name', InputArgument::REQUIRED, 'Element name'),
         new InputArgument('method', InputArgument::OPTIONAL, 'Test name', 'test'),
     ))
     ->setDescription('Run PHPUnit test for framework element.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
-        $m = number_format(memory_get_usage() / 1024 / 1024, 3);
-        $output->writeln("memory usage: {$m}MB");
-        $name = ucfirst($input->getArgument('name'));
-        $method = $input->getArgument('method');
-		$location = '\\Framework\\Tests\\' . $name . 'Test';
-		$output->writeln(sprintf('Running <info>%s</info>...', "$location()->$method()"));
-        $time_start = microtime(true);
-		$request = new $location();
-		$stop = false;
-		try 
-		{
-			$request->$method();
-		}
-		catch (\Exception $e) 
-		{
-            $output->writeln('Test failed with exception: ' . $e->getMessage());
-			$stop = true;
-		}
-        $time_end = microtime(true);
-        $time = $time_end - $time_start;
-        $ml = number_format(memory_get_usage() / 1024 / 1024, 3);
-        $output->writeln('memory usage after: ' . $ml . 'MB (+' . ($ml*1-$m*1) . 'MB)');
-        $output->writeln('time: ' . number_format($time, 4) . ' sec');
-		if (!$stop) {
-			$output->writeln('Test complete!');
-		}
+        include __DIR__ . '/scripts/framework_test.php';
+        script($input, $output);
     })
 ;
 $console
-    ->register('test')
+    ->register('controller:test')
     ->setDefinition(array(
-		new InputArgument('name', InputArgument::REQUIRED, 'Component name'),
+		new InputArgument('name', InputArgument::REQUIRED, 'Controller name'),
         new InputArgument('method', InputArgument::OPTIONAL, 'Test name', 'test'),
-        new InputArgument('type', InputArgument::OPTIONAL, 'Component type (c - controller/s - solution (default))', 's'),
 		new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
     ))
-    ->setDescription('Run PHPUnit test for application component.')
+    ->setDescription('Run PHPUnit test for application controller.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
-        $m = number_format(memory_get_usage() / 1024 / 1024, 3);
-        $output->writeln("memory usage: {$m}MB");
-        $type = ($input->getArgument('type') == 'c') ? 'Controllers' : 'Solutions';
-        $name = ucfirst($input->getArgument('name'));
-        $method = $input->getArgument('method');
-        $bundle = $input->getArgument('bundle');
-		$location = '\\' . $bundle . 'Tests\\' . $type . '\\' . $name . 'Test';
-		$output->writeln(sprintf('Running <info>%s</info>...', "$location()->$method()"));
-        $time_start = microtime(true);
-		$request = new $location();
-		$stop = false;
-		try 
-		{
-			$request->$method();
-		}
-		catch (\Exception $e) 
-		{
-            $output->writeln('Test failed with exception: ' . $e->getMessage());
-			$stop = true;
-		}
-        $time_end = microtime(true);
-        $time = $time_end - $time_start;
-        $ml = number_format(memory_get_usage() / 1024 / 1024, 3);
-        $output->writeln('memory usage after: ' . $ml . 'MB (+' . ($ml*1-$m*1) . 'MB)');
-        $output->writeln('time: ' . number_format($time, 4) . ' sec');
-		if (!$stop) {
-			$output->writeln('Test complete!');
-		}
+        include __DIR__ . '/scripts/test.php';
+        script($input, $output, 'controller');
     })
 ;
 $console
-    ->register('create')
+    ->register('solution:test')
     ->setDefinition(array(
-		new InputArgument('name', InputArgument::REQUIRED, 'Component name'),
-        new InputArgument('type', InputArgument::OPTIONAL, 'Component type (c - controller (default)/s - solution)', 'c'),
+		new InputArgument('name', InputArgument::REQUIRED, 'Solution name'),
+        new InputArgument('method', InputArgument::OPTIONAL, 'Test name', 'test'),
 		new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
     ))
-    ->setDescription('Create new component.')
+    ->setDescription('Run PHPUnit test for application solution.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
-		$name = ucfirst(strtolower($input->getArgument('name')));
-        $bundle = ucfirst(strtolower($input->getArgument('bundle')));
-		$bundleLocation = getcwd() . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, "app/logic/$bundle");
-		$bundleTestsLocation = getcwd() . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, "app/tests/{$bundle}Tests");
-		clearstatcache();
-        switch ($input->getArgument('type')) {
-			case 'c':
-			//create controller
-			$targetLocation = $bundleLocation . DIRECTORY_SEPARATOR . 'Controllers';
-			$targetTestsLocation = $bundleTestsLocation . DIRECTORY_SEPARATOR . 'Controllers';
-			if (!is_dir($targetLocation)) mkdir($targetLocation, '0755', true);
-			if (!is_dir($targetTestsLocation)) mkdir($targetTestsLocation, '0755', true);
-			$targetFile = $targetLocation . DIRECTORY_SEPARATOR . "{$name}.php";
-			$targetTestFile = $targetTestsLocation . DIRECTORY_SEPARATOR . "{$name}Test.php";
-			$tpl = file_get_contents('bin' . DIRECTORY_SEPARATOR . 'controller.data');
-			$aslData = \Framework\Core\Config::get('application', 'autoload_solutions');
-			$autoloadedSolutions = '* ';
-			if ($aslData)
-			{
-				$autoloadedSolutions .= "\n * Autoloaded solutions: ";
-				foreach ($aslData as $solution) 
-				{
-					$solution = strtolower($solution);
-					$callString = '\\Main\\Solutions\\' . ucfirst($solution);
-					$autoloadedSolutions .= "\n * @property $callString \${$solution}";
-				}
-				$autoloadedSolutions .= "\n * ";
-			}
-			file_put_contents($targetFile, str_replace(
-				array('{%=Bundle=%}', '{%=Controller=%}', '{%=AutoloadedSolutions=%}'), 
-				array($bundle, $name, $autoloadedSolutions), $tpl
-			));
-			$tpl = file_get_contents('bin' . DIRECTORY_SEPARATOR . 'ctest.data');
-			file_put_contents($targetTestFile, str_replace(
-				array('{%=Bundle=%}', '{%=Controller=%}'), array($bundle, $name), $tpl
-			));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Controller <info>%s</info> created successful!', $targetFile)));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created successful!', $targetTestFile)));
-			break;
-			
-			case 's':
-			//create solution
-			$targetLocation = $bundleLocation . DIRECTORY_SEPARATOR . 'Solutions';
-			$targetTestsLocation = $bundleTestsLocation . DIRECTORY_SEPARATOR . 'Solutions';
-			if (!is_dir($targetLocation)) mkdir($targetLocation, '0755', true);
-			if (!is_dir($targetTestsLocation)) mkdir($targetTestsLocation, '0755', true);
-			$targetFile = $targetLocation . DIRECTORY_SEPARATOR . "{$name}.php";
-			$targetTestFile = $targetTestsLocation . DIRECTORY_SEPARATOR . "{$name}Test.php";
-			$tpl = file_get_contents('bin' . DIRECTORY_SEPARATOR . 'solution.data');
-			file_put_contents($targetFile, str_replace(
-				array('{%=Bundle=%}', '{%=Solution=%}'), array($bundle, $name), $tpl
-			));
-			$tpl = file_get_contents('bin' . DIRECTORY_SEPARATOR . 'stest.data');
-			file_put_contents($targetTestFile, str_replace(
-				array('{%=Bundle=%}', '{%=Solution=%}'), array($bundle, $name), $tpl
-			));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Solution <info>%s</info> created successful!', $targetFile)));
-			$output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created successful!', $targetTestFile)));
-			break;
-		}
+        include __DIR__ . '/scripts/test.php';
+        script($input, $output, 'solution');
+    })
+;
+$console
+    ->register('controller:create')
+    ->setDefinition(array(
+		new InputArgument('name', InputArgument::REQUIRED, 'Controller name'),
+		new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
+    ))
+    ->setDescription('Create new controller.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/component_create.php';
+        script($input, $output, 'controller');
+    })
+;
+$console
+    ->register('solution:create')
+    ->setDefinition(array(
+		new InputArgument('name', InputArgument::REQUIRED, 'Solution name'),
+		new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
+    ))
+    ->setDescription('Create new solution.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/component_create.php';
+        script($input, $output, 'solution');
     })
 ;
 

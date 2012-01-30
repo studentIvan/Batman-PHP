@@ -4,10 +4,11 @@ use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
 use \Framework\Core\Template;
 use \Main\Controllers\Main;
+use \PHPUnit_Framework_TestCase as TestCase;
 
 require_once 'PHPUnit/Autoload.php';
 
-class MainTest extends \PHPUnit_Framework_TestCase {
+class MainTest extends TestCase {
 
 	public function __construct() {
 		$this->component = new Main();

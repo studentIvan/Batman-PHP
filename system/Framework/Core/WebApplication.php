@@ -3,18 +3,21 @@ namespace Framework\Core;
 use \Framework\Core\Config;
 use \Framework\Core\Router;
 use \Framework\Core\Template;
-use \Framework\Core\PackageLoader;
 use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
 
-class WebApplication {
-
+class WebApplication
+{
     /**
      * @static
      * @return void
      */
     public static function boot()
     {
+        if (Config::get('application', 'forbidden_all')) {
+            throw new \Exceptions\ForbiddenException('Application was turned off');
+        }
+
         $option = null;
         $bundle = $controller = $method = '';
 
@@ -59,5 +62,4 @@ class WebApplication {
         }
 
     }
-
 }

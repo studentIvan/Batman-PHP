@@ -1,10 +1,15 @@
 <?php
 namespace Framework\Common;
+use \Framework\Core\Config;
 
 class Defender
 {
     public $charset = 'UTF-8';
     protected $inv = array('/%0[0-8bcef]/', '/%1[0-9a-f]/', '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S');
+
+    public function __construct() {
+        $this->charset = Config::get('application', 'charset');
+    }
 
     /**
      * Clears the string against XSS

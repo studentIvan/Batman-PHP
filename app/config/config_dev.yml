@@ -8,4 +8,4 @@ database:
 
 twig:
     auto_reload: true
-    use_cache: false
+    cache: false

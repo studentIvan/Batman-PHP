@@ -1,10 +1,10 @@
 <?php
 namespace Framework\Packages;
-use \Framework\Interfaces\Package;
+use \Framework\Interfaces\PackageInterface;
 use \Framework\Core\Config;
 use \Framework\Common\WebRequest;
 
-class ReCaptcha implements Package
+class ReCaptcha implements PackageInterface
 {
     protected $publicKey;
     protected $privateKey;

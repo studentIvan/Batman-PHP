@@ -24,10 +24,7 @@ class Template {
      */
     protected function _init_Twig($bundle = 'Main') {
         $loader = new \Twig_Loader_Filesystem(realpath("app/logic/$bundle/Views"));
-        $auto_reload = Config::get('twig', 'auto_reload');
-        $use_cache = Config::get('twig', 'use_cache') ? 'app/cache' : false;
-        $cfg = array('cache' => $use_cache, 'auto_reload' => $auto_reload);
-        $object = new \Twig_Environment($loader, $cfg);
+        $object = new \Twig_Environment($loader, Config::get('twig'));
         return $object;
     }
 

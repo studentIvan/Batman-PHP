@@ -7,5 +7,6 @@ index_alternate:
     route: Main::Main::index
 
 hello:
-    pattern: /hello/([a-zA-Z]+)(?:/)?
+    pattern: /hello/<name>
     route: Main::Hello::index::$1
+    backslash: true

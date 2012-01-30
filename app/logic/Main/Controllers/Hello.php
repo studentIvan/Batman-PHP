@@ -7,10 +7,7 @@ use \Framework\Core\Controller;
 class Hello extends Controller
 {
     public function index($name, WebRequest $request, WebResponse $response) {
-        $this->tpl->match(array(
-            'name' => $name,
-            'path' => $request->getPathInfo(),
-        ));
+        $this->tpl->match('name', $name);
         $response->setContent($this->tpl->render('hello'));
         $response->send();
     }

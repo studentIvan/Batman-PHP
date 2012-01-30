@@ -18,6 +18,7 @@ $loader->registerNamespaces(array(
 /** Doctrine Project */
     'Doctrine\Common'                       => 'vendor/doctrine/common/lib',
     'Doctrine\DBAL'                         => 'vendor/doctrine/dbal/lib',
+    'Schema'                                => 'app/migration',
 
 /** Framework Data */
     'Exceptions'                            => 'system',

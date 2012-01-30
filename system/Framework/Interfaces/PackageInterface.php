@@ -1,7 +1,7 @@
 <?php
 namespace Framework\Interfaces;
 
-interface Package
+interface PackageInterface
 {
     /**
      * Return package information

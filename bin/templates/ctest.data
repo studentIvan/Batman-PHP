@@ -4,6 +4,7 @@ use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
 use \Framework\Core\Template;
 use \{%=Bundle=%}\Controllers\{%=Controller=%};
+use \PHPUnit_Framework_TestCase as TestCase;
 
 require_once 'PHPUnit/Autoload.php';
 
@@ -18,7 +19,7 @@ require_once 'PHPUnit/Autoload.php';
  * See PHPUnit manual for more:
  * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
  */
-class {%=Controller=%}Test extends \PHPUnit_Framework_TestCase {
+class {%=Controller=%}Test extends TestCase {
 
     public function __construct() {
         $this->component = new {%=Controller=%}();

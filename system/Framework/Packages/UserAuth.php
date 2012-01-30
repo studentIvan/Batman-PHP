@@ -1,8 +1,9 @@
 <?php
 namespace Framework\Packages;
-use \Framework\Interfaces\Package;
+use \Framework\Interfaces\PackageInterface;
+use \Framework\Common\Database;
 
-class UserAuth implements Package
+class UserAuth implements PackageInterface
 {
     public function __construct() {
 

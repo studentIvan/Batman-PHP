@@ -1,0 +1,25 @@
+<?php
+namespace Schema;
+use \Framework\Interfaces\SchemaInterface;
+use \Framework\Common\Migrate;
+
+/**
+ * @link http://www.doctrine-project.org/docs/dbal/2.0/en/reference/schema-representation.html
+ */
+class {%=Schema=%}Migrate extends Migrate implements SchemaInterface
+{
+    public function __invoke() {
+    /**
+     * EXAMPLE CODE
+     * @todo remove this shit!
+     */
+    /**
+        $users = $this->schema->createTable('users');
+        $users->addColumn('id', $this->integer, array('unsigned' => true, 'autoincrement' => true));
+        $users->addColumn('username', $this->string, array('length' => 32));
+        $users->addColumn('password', $this->string, array('length' => 32));
+        $users->addColumn('regtime', $this->datetime);
+        $users->setPrimaryKey(array('id'));
+    */
+    }
+}

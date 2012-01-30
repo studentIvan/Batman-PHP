@@ -1,13 +1,15 @@
 framework:
-    secret: jdaifdsa0fhau9403hfu90ahur90fje9ujf0ajeu9c0u9a0er0macu9r0mau903a4mu90mu90DJUW90JUD90
     timezone: Europe/Moscow
-    environment: dev
-    
+
 application:
     default: Main
+    environment: dev
+    forbidden_all: false
     autoload_solutions: [] # Main:Simple, Main:Users, Dummy:Other...
     template_engine: Twig # Native, Twig
     log_file_max_size_mb: 2
+    charset: UTF-8
+    secret: j9sge02edfl9cv49mvZDh90fsuFDSFJd9sfvvdsm90a4j2QJSANf12o01e24
 
 recaptcha:
     public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
@@ -17,6 +19,7 @@ swift_transport:
     host: smtp.yandex.ru:25
     username: php.batman@yandex.ru
     password: batman.php
+    encryption: ssl
 
 swift_vcard:
     email: php.batman@yandex.ru
@@ -27,3 +30,12 @@ database:
     host: localhost
     driver: pdo_mysql
     charset: UTF8
+
+database_migration:
+    charset: utf8
+    collate: utf8_general_ci
+
+twig:
+    strict_variables: false
+    autoescape: true
+    charset: UTF-8

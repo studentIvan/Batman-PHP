@@ -1,15 +1,15 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.1-ALPHA-DEV
+## Version 0.1.2-ALPHA-DEV
 
 ### Setup
 1. Install requirements and optimize: <br>
 <br><code>php composer.phar install</code><br>
-<code>php bin/manager.php optimize</code><br><br>
+<code>php bin/manager.php framework:optimize</code><br><br>
 2. Compile <b>app/config/routing.yml</b><br>
-<br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php compile</code><br>
-<br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php compile n</code><br><br>
+<br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php router:compile:apache</code><br>
+<br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php router:compile:nginx</code><br><br>
 3. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
 ### Directories & files chmod
@@ -26,6 +26,28 @@
 + Require all composer vendors (in json file)
 + Recommended version of php >= <b>5.3.8</b>
 + Source code is distributed under <b>GNU General Public License</b>
+
+### Available console commands
+<pre>
+  help                      Displays help for a command
+  list                      Lists commands
+controller
+  controller:create         Create new controller.
+  controller:test           Run PHPUnit test for application controller.
+database
+  database:create           Create database (drop if exists).
+  database:schema:create    Create new schema for migration.
+  database:schema:migrate   Create tables in database (drop if exists).
+framework
+  framework:optimize        Clean garbage from vendor dir.
+  framework:test            Run PHPUnit test for framework element.
+router
+  router:compile:apache     Compile routing for apache + mod rewrite.
+  router:compile:nginx      Compile routing for nginx.
+solution
+  solution:create           Create new solution.
+  solution:test             Run PHPUnit test for application solution.
+</pre>
 
 ### Copyrights
 ##### Powered by Symfony2 components
