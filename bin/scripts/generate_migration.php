@@ -102,9 +102,9 @@ function script(InputInterface $input, OutputInterface $output)
                     $value = 'false';
                 if ($value != 'true' and $value != 'false')
                     $value = "'$value'";
-                $joined .= "'$key' => $value,";
+                $joined .= "'$key' => $value, ";
             }
-            $joined = rtrim($joined, ',');
+            $joined = rtrim(trim($joined), ',');
             $joined = ", array($joined)";
         }
         $gMap .= "\n        \$table->addColumn('{$_column}', \$this->{$_type}{$joined});";

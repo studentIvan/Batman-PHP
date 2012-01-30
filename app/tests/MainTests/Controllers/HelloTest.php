@@ -10,9 +10,6 @@ require_once 'PHPUnit/Autoload.php';
 /**
  * Unit test of controller Hello
  *
- * Using: php bin/manager.php test Hello mytest
- * for specific bundle use: php bin/manager.php test Hello mytest c Main
- *
  * See PHPUnit manual for more:
  * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
  */

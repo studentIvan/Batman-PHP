@@ -11,10 +11,8 @@ require_once 'PHPUnit/Autoload.php';
 /**
  * Unit test of controller {%=Controller=%}
  *
- * @todo create method in this test, e.g. mytest
- *
- * Using: php bin/manager.php test {%=Controller=%} mytest
- * for specific bundle use: php bin/manager.php test {%=Controller=%} mytest c {%=Bundle=%}
+ * Using: php bin/manager.php controller:test {%=Controller=%} mytest (name test by default)
+ * for specific bundle use: php bin/manager.php controller:test {%=Controller=%} test {%=Bundle=%}
  *
  * See PHPUnit manual for more:
  * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
@@ -26,7 +24,7 @@ class {%=Controller=%}Test extends TestCase {
         $this->component->tpl = new Template('{%=Bundle=%}');
     }
 
-    public function index() {
+    public function test() {
         $request = new WebRequest();
         $response = new WebResponse();
         ob_start();
