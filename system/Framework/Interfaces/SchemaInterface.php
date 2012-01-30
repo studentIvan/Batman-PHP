@@ -6,7 +6,7 @@ use \Doctrine\DBAL\Connection;
 interface SchemaInterface
 {
     public function __invoke();
-    public function create(AbstractPlatform $platform, Connection $conn);
+    public function create(Connection $conn, $path);
     public function save(AbstractPlatform $platform, $path);
     public function __construct();
 }

@@ -57,6 +57,18 @@ $console
     })
 ;
 $console
+    ->register('database:schema:generate')
+    ->setDefinition(array(
+        new InputArgument('schema', InputArgument::REQUIRED, 'Schema name'),
+        new InputArgument('map', InputArgument::REQUIRED, 'Generator map'),
+    ))
+    ->setDescription('Create new schema for migration.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/generate_migration.php';
+        script($input, $output);
+    })
+;
+$console
     ->register('database:schema:migrate')
     ->setDefinition(array(
 		new InputArgument('migration', InputArgument::REQUIRED, 'File name in app/migration'),

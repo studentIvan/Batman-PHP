@@ -14,10 +14,11 @@ function script(InputInterface $input, OutputInterface $output) {
      * @var \Framework\Common\Migrate $migrate
      */
     $migrate = new $callStr();
-    $migrate->save($platform, "app/migration/SQL.cache/$schema");
+    if (!file_exists("app/migration/SQL.cache/$schema.$pName.create.sql"))
+        $migrate->save($platform, "app/migration/SQL.cache/$schema");
     $output->writeln("<info>SQL cache app/migration/SQL.cache/$schema.$pName.create.sql created</info>");
     $output->writeln("<info>SQL cache app/migration/SQL.cache/$schema.$pName.drop.sql created</info>");
     $output->writeln("<info>Running SQL operations on $dbName database...</info>");
-    $migrate->create($platform, $conn);
+    $migrate->create($conn, "app/migration/SQL.cache/$schema");
     $output->writeln("<info>Migration schema $callStr migrated successful</info>");
 }

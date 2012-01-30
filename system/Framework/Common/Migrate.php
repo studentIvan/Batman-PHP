@@ -35,6 +35,10 @@ abstract class Migrate
 
     }
 
+    /**
+     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
+     * @param string $path
+     */
     public function save(AbstractPlatform $platform, $path) {
         $create = $this->schema->toSql($platform);
         $drop = $this->schema->toDropSql($platform);
@@ -43,9 +47,14 @@ abstract class Migrate
         file_put_contents("$path.$name.drop.sql", join("\n", $drop));
     }
 
-    public function create(AbstractPlatform $platform, Connection $conn) {
-        $create = $this->schema->toSql($platform);
-        $drop = $this->schema->toDropSql($platform);
+    /**
+     * @param \Doctrine\DBAL\Connection $conn
+     * @param string $path
+     */
+    public function create(Connection $conn, $path) {
+        $name = $conn->getDatabasePlatform()->getName();
+        $create = file("$path.$name.create.sql");
+        $drop = file("$path.$name.drop.sql");
         try {
             foreach ($create as $sql) $conn->query($sql);
         } catch (\PDOException $e) {
