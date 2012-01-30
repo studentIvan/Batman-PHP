@@ -2,16 +2,15 @@
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 
-function script(InputInterface $input, OutputInterface $output) {
+function script(InputInterface $input, OutputInterface $output)
+{
     $schema = ucfirst($input->getArgument('schema'));
     $tableName = strtolower($schema);
     $map = strtolower($input->getArgument('map'));
     $targetFile = "app/migration/Schema/{$schema}Migrate.php";
     $tpl = file_get_contents('bin/templates/migration_generator.data');
-    // users "username:string password:string"
     $gMap = "\$table = \$this->schema->createTable('$tableName');";
-    $data = array();
-    $pKey = array();
+    $pKey = $data = array();
     $datetimeExists = false;
     foreach (explode(' ', $map) as $element) {
         list($column, $type) = explode(':', $element);
@@ -35,7 +34,6 @@ function script(InputInterface $input, OutputInterface $output) {
     $data = array_replace_recursive($data, $oldData);
     if (!$datetimeExists) {
         $data['created'] = array('type' => 'datetime');
-        $datetimeExists = true;
     }
     foreach ($data as $_column => $_params) {
         $_type = $_params['type'];
