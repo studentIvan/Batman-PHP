@@ -2,7 +2,7 @@
 namespace Framework\Common;
 use \Doctrine\DBAL\Connection;
 use \Doctrine\DBAL\Platforms\AbstractPlatform;
-use \Framework\Common\UnicodeSchema;
+use \Doctrine\DBAL\Schema\Schema;
 
 abstract class Migrate
 {
@@ -22,12 +22,12 @@ abstract class Migrate
     public $text = 'text';
 
     /**
-     * @var \Framework\Common\UnicodeSchema
+     * @var \Doctrine\DBAL\Schema\Schema
      */
     protected $schema;
 
     public function __construct() {
-        $this->schema = new UnicodeSchema();
+        $this->schema = new Schema();
         $this();
     }
 

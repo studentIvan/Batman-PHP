@@ -41,27 +41,8 @@ $console
 	))
     ->setDescription('Create database (drop if exists).')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
-        $conn = \Framework\Common\Database::newInstance($input->getArgument('database'));
-        $dbconfig = \Framework\Core\Config::get($input->getArgument('database'));
-        $name = isset($dbconfig['path']) ? $dbconfig['path'] : $dbconfig['dbname'];
-        $tmpConnection = \Framework\Common\Database::newNoDbInstance($input->getArgument('database'));
-
-        try {
-            $tmpConnection->getSchemaManager()->createDatabase($name);
-            $output->writeln(sprintf('<info>Created database for connection named %s</info>', $name));
-        } catch (\Exception $e) {
-            try {
-                $tmpConnection->getSchemaManager()->dropDatabase($name);
-                $tmpConnection->getSchemaManager()->createDatabase($name);
-                $output->writeln(sprintf('<info>Existed database %s was dropped</info>', $name));
-                $output->writeln(sprintf('<info>Created database named %s</info>', $name));
-            } catch (\Exception $e) {
-                $output->writeln(sprintf('<error>Could not create database named %s</error>', $name));
-                $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
-            }
-        }
-
-        $tmpConnection->close();
+        include __DIR__ . '/scripts/create_database.php';
+        script($input, $output);
     })
 ;
 $console
