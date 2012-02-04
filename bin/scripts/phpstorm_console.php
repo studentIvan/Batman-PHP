@@ -67,7 +67,7 @@ function script(InputInterface $input, OutputInterface $output, Application $con
     $schemaTarget = '.idea/commandlinetools/schemas/';
 
     if (!file_exists($schemaTarget . $schemaName)) {
-        copy($schema, $schemaTarget);
+        copy($schema, $schemaTarget . $schemaName);
         $output->writeln("<info>File $cwd/{$schemaTarget}{$schemaName} created</info>");
     }
 
