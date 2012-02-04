@@ -1,10 +1,7 @@
 <?php
 namespace {%=Bundle=%}\Solutions;
+use \Framework\Common\DBSolution;
 
-/**
- * {%=Solution=%} solution
- *
- */
-class {%=Solution=%} {
+class {%=Solution=%} extends DBSolution {
     
 }

@@ -1,22 +1,9 @@
 <?php
 namespace Main\Solutions;
-use \Doctrine\DBAL\Connection;
+use \Framework\Common\DBSolution;
 
-/**
- * User solution
- *
- */
-class Users
+class Users extends DBSolution
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    protected $db;
-
-    public function __construct(Connection $conn) {
-        $this->db = $conn;
-    }
-
     public function add($username, $password) {
         $this->db->insert('users', array(
             'username' => $username,
