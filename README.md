@@ -11,9 +11,7 @@
 <br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php router:compile:apache</code><br>
 <br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php router:compile:nginx</code><br><br>
 3. For PhpStorm IDE try:<br>
-<br><code>php bin/manager.php phpstorm:console:generate</code><br>
-<img src="http://s002.youpic.su/pictures/1328302800/d09046acedb0acf0e8d9970f0de42de7.png" /><br>
-<br><br>
+<br><code>php bin/manager.php phpstorm:console:generate</code><br><br>
 4. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
 ### Directories & files chmod
