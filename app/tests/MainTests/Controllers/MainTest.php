@@ -18,7 +18,7 @@ class MainTest extends TestCase {
         $request = WebRequest::createFromGlobals();
         $response = new WebResponse();
         ob_start();
-        $this->component->index($request, $response);
+        $this->component->index($response, $request);
         $content = ob_get_clean();
         $this->assertEquals('eeeee', $content);
 	}

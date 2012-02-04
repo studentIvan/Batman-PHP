@@ -63,7 +63,7 @@ $console
         new InputArgument('schema', InputArgument::REQUIRED, 'Schema name'),
         new InputArgument('map', InputArgument::REQUIRED, 'Generator map'),
     ))
-    ->setDescription('Create new schema for migration.')
+    ->setDescription('Generate new schema for migration.')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         include __DIR__ . '/scripts/generate_migration.php';
         script($input, $output);
@@ -160,12 +160,25 @@ $console
     })
 ;
 
+$console
+    ->register('phpstorm:console:generate')
+    ->setDescription('Generate Batman-PHP console commands XML-helper for Idea IDE (PhpStorm).')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        global $console;
+        include __DIR__ . '/scripts/phpstorm_console.php';
+        script($input, $output, $console);
+    })
+;
+
 function rrmdir($dir) {
    if (is_dir($dir)) {
      $objects = scandir($dir);
      foreach ($objects as $object) {
        if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+         if (filetype($dir."/".$object) == "dir")
+             rrmdir($dir."/".$object);
+         else
+             unlink($dir."/".$object);
        }
      }
      reset($objects);

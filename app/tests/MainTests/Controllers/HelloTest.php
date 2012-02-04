@@ -24,7 +24,7 @@ class HelloTest extends \PHPUnit_Framework_TestCase {
         $request = new WebRequest();
         $response = new WebResponse();
         ob_start();
-        $this->component->index('World', $request, $response);
+        $this->component->index('World', $response, $request);
         $content = ob_get_clean();
         $this->assertRegExp('/Hello <b>World<\/b>/', $content);
     }

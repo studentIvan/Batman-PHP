@@ -29,7 +29,7 @@ class BusTest extends \PHPUnit_Framework_TestCase {
         $request = new WebRequest();
         $response = new WebResponse();
         ob_start();
-        $this->component->index($request, $response);
+        $this->component->index($response, $request);
         $content = ob_get_clean();
         //$this->assertEquals('', $content);
         //$this->assertRegExp('/foo/', $content);

@@ -1,6 +1,7 @@
 <?php
 namespace MainTests\Solutions;
 use \Main\Solutions\Users;
+use \Framework\Common\Database;
 use \PHPUnit_Framework_TestCase as TestCase;
 
 require_once 'PHPUnit/Autoload.php';
@@ -16,11 +17,15 @@ require_once 'PHPUnit/Autoload.php';
  * See PHPUnit manual for more:
  * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
  */
- */
+
 class UsersTest extends TestCase {
 
     public function __construct() {
-        $this->component = new Users();
+        $this->component = new Users(Database::newInstance());
+    }
+
+    public function test() {
+
     }
     
 }
