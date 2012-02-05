@@ -1,18 +1,16 @@
 <?php
 namespace Main\Solutions;
 use \Framework\Common\DBSolution;
+use \Main\Models\User;
 
 class Users extends DBSolution
 {
     public function add($username, $password) {
-        $this->db->insert('users', array(
-            'username' => $username,
-            'password' => md5($password),
-            'created' => date('Y-m-d H:i:sP'),
-        ));
+        $this->save(new User($username, $password));
     }
 
     public function listing() {
-        return $this->db->fetchAll("SELECT * FROM users");
+        $sql = $this->procedure()->select('*')->from($this, 'u');
+        return $this->db->fetchAll($sql);
     }
 }

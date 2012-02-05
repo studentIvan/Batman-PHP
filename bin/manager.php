@@ -159,7 +159,18 @@ $console
         script($input, $output, 'solution');
     })
 ;
-
+$console
+    ->register('model:create')
+    ->setDefinition(array(
+    new InputArgument('name', InputArgument::REQUIRED, 'Model name'),
+    new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
+))
+    ->setDescription('Create new model.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+    include __DIR__ . '/scripts/component_create.php';
+    script($input, $output, 'model');
+})
+;
 $console
     ->register('phpstorm:console:generate')
     ->setDescription('Generate Batman-PHP console commands XML-helper for Idea IDE (PhpStorm).')

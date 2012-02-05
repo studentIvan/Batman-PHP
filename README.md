@@ -31,8 +31,6 @@
 
 ### Available console commands
 <pre>
-  help                        Displays help for a command
-  list                        Lists commands
 controller
   controller:create           Create new controller.
   controller:test             Run PHPUnit test for application controller.
@@ -44,6 +42,8 @@ database
 framework
   framework:optimize          Clean garbage from vendor dir.
   framework:test              Run PHPUnit test for framework element.
+model
+  model:create                Create new model.
 phpstorm
   phpstorm:console:generate   Generate Batman-PHP console commands XML-helper for Idea IDE (PhpStorm).
 router

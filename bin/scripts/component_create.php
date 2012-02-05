@@ -62,5 +62,17 @@ function script(InputInterface $input, OutputInterface $output, $type)
             $output->writeln(str_replace(getcwd(), '', sprintf('Solution <info>%s</info> created successful!', $targetFile)));
             $output->writeln(str_replace(getcwd(), '', sprintf('Test <info>%s</info> created successful!', $targetTestFile)));
             break;
+
+        case 'model':
+            //create model
+            $targetLocation = $bundleLocation . DIRECTORY_SEPARATOR . 'Models';
+            if (!is_dir($targetLocation)) mkdir($targetLocation, '0755', true);
+            $targetFile = $targetLocation . DIRECTORY_SEPARATOR . "{$name}.php";
+            $tpl = file_get_contents('bin/templates/model.data');
+            file_put_contents($targetFile, str_replace(
+                array('{%=Bundle=%}', '{%=Model=%}'), array($bundle, $name), $tpl
+            ));
+            $output->writeln(str_replace(getcwd(), '', sprintf('Model <info>%s</info> created successful!', $targetFile)));
+            break;
     }
 }
