@@ -1,0 +1,42 @@
+meta:
+    charset.utf8: <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    charset.cp1251: <meta http-equiv="Content-Type" content="text/html; charset=Windows-1251">
+
+js:
+    # с помощью статического загрузчика яндекса можно загружать библиотеки "на лету"
+    yandex.loader: <script src="//yandex.st/jslibs/loader.js" type="text/javascript"></script>
+    # http://dojotoolkit.org/documentation/
+    dojo: <script src="//yandex.st/dojo/1.7.1/dojo/dojo.js" type="text/javascript"></script>
+    # http://api.jquery.com/
+    jquery: <script src="//yandex.st/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    # fancybox используется для создания галерей, всплывающих изображений, затемняющих экран
+    jquery.fancybox: <script src="//yandex.st/jquery/fancybox/2.0.3/jquery.fancybox.min.js" type="text/javascript"></script>
+    # highlight используется для client-side подсветки синтаксиса различного кода
+    highlight: <script src="//yandex.st/highlightjs/6.1/highlight.min.js" type="text/javascript"></script>
+    # swfobject используется для кроссплатформенной валидной вставки flash-роликов на страницу
+    jquery.swfobject: <script src="//yandex.st/jquery/swfobject/1.1.1/jquery.swfobject.min.js" type="text/javascript"></script>
+    swfobject: <script src="//yandex.st/swfobject/2.2/swfobject.min.js" type="text/javascript"></script>
+    # flot используется для построения графиков различной сложности
+    jquery.flot: <script src="//yandex.st/jquery/flot/0.7/jquery.flot.min.js" type="text/javascript"></script>
+    # templates для создания client-side шаблонов разметки
+    jquery.templates: <script src="//yandex.st/jquery/tmpl/1.0.0pre/jquery.tmpl.min.js" type="text/javascript"></script>
+    # jquery user interface
+    jquery.ui: <script src="//yandex.st/jquery-ui/1.8.17/jquery-ui.min.js" type="text/javascript"></script>
+    # jquery ui datepicker i18n
+    jquery.ui.datepicker.ru: <script src="//yandex.st/jquery-ui/1.8.17/i18n/jquery.ui.datepicker-ru.min.js" type="text/javascript"></script>
+    # http://mochikit.com/
+    mochikit: <script src="//yandex.st/mochikit/1.4.2/mochikit.min.js" type="text/javascript"></script>
+    # http://www.modernizr.com/
+    modernizr: <script src="//yandex.st/modernizr/2.0.6/modernizr.min.js" type="text/javascript"></script>
+    # коровьи инструменты
+    mootools: <script src="//yandex.st/mootools/1.3.1/mootools.min.js" type="text/javascript"></script>
+    # прототип
+    prototype: <script src="//yandex.st/prototype/1.7.0.0/prototype.min.js" type="text/javascript"></script>
+    # пюре
+    pure: <script src="//yandex.st/pure/2.48/pure.min.js" type="text/javascript"></script>
+    # векторная графика
+    raphael: <script src="//yandex.st/raphael/2.0.1/raphael.min.js" type="text/javascript"></script>
+    # http://ru.rightjs.org няшная библиотека виджетов
+    rightjs: <script src="//yandex.st/rightjs/2.1.1/right-min.js" type="text/javascript"></script>
+    # yahoo user interface library
+    yui: <script src="//yandex.st/yui/3.4.1/yui/yui-min.js" type="text/javascript"></script>
