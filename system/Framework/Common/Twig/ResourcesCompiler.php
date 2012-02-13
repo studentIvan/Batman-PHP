@@ -39,7 +39,7 @@ class ResourcesCompiler extends \Twig_Compiler
 
     protected function _jsAssetic($matches)
     {
-        preg_match_all('/#rjs:.+?href="(.+?)"\>:endrjs/', $matches[0], $scripts);
+        preg_match_all('/#rjs:.+?src="(.+?)".+?\>:endrjs/', $matches[0], $scripts);
         $assetCache = 'app/root/javascripts/asset/' . md5(join('', $scripts[1])) . '.js';
         $assets = array();
         foreach($scripts[1] as $script) {
