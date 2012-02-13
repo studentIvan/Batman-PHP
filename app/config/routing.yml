@@ -1,10 +1,11 @@
-index_rule:
+index:
     pattern: /
-    route: Main::Main::index
+    route: Main::Main
 
-index_alternate:
-    pattern: /demo
-    route: Main::Main::index
+admin:
+    pattern: /admin
+    route: Admin::Panel
+    backslash: true
 
 hello:
     pattern: /hello/<name>

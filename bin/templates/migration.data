@@ -1,12 +1,11 @@
 <?php
 namespace Schema;
-use \Framework\Interfaces\SchemaInterface;
 use \Framework\Common\Migrate;
 
 /**
  * @link http://www.doctrine-project.org/docs/dbal/2.0/en/reference/schema-representation.html
  */
-class {%=Schema=%}Migrate extends Migrate implements SchemaInterface
+class {%=Schema=%}Migrate extends Migrate
 {
     public function __invoke() {
     /**

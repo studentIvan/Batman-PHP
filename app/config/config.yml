@@ -39,3 +39,9 @@ twig:
     strict_variables: false
     autoescape: true
     charset: UTF-8
+    extensions: [Resources]
+
+admin:
+    login: Admin
+    password: 12345
+    bundles: [Main]

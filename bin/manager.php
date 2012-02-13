@@ -28,6 +28,8 @@ $console
             'vendor/twig/twig/bin',
             'vendor/doctrine/common/tests',
             'vendor/doctrine/dbal/tests',
+            'vendor/kriswallsmith/assetic/docs',
+            'vendor/kriswallsmith/assetic/tests',
         );
         foreach ($map as $path) {
             $output->writeln("<info>remove $path ...</info>");

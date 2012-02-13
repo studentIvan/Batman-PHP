@@ -25,6 +25,10 @@ class Template {
     protected function _init_Twig($bundle = 'Main') {
         $loader = new \Twig_Loader_Filesystem(realpath("app/logic/$bundle/Views"));
         $object = new \Twig_Environment($loader, Config::get('twig'));
+        foreach (Config::get('twig', 'extensions') as $extName) {
+            $loadStr = "\\Framework\\Common\\Twig\\{$extName}Extension";
+            $object->addExtension(new $loadStr());
+        }
         return $object;
     }
 
@@ -73,7 +77,8 @@ class Template {
      * @param string $template
      * @return string
      */
-    protected function _render_Native($template) {
+    protected function _render_Native($template)
+    {
         $this->runner = $template; unset($template);
         ob_start(); extract($this->matches, EXTR_SKIP);
         include "app/logic/{$this->bundle}/Views/{$this->runner}.phtml";

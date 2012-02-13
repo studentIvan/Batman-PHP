@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Common;
 use \Symfony\Component\HttpFoundation\Request;
+use \Exceptions\ForbiddenException;
 
 class WebRequest extends Request
 {
@@ -9,7 +10,7 @@ class WebRequest extends Request
      */
     public function protectAjax() {
         if (!$this->isXmlHttpRequest()) {
-            throw new \Exception('Ajax only');
+            throw new ForbiddenException('Ajax only');
         }
     }
 

@@ -7,11 +7,10 @@ use \Framework\Core\Controller;
 /**
  * {%=Controller=%} controller
  {%=AutoloadedSolutions=%}
- * @link http://api.symfony.com/2.0/Symfony/Component/HttpFoundation.html
  */
 class {%=Controller=%} extends Controller
 {
-    public function index(WebRequest $request, WebResponse $response) {
+    public function index(WebResponse $response, WebRequest $request) {
         /* write some code here */
     }
 }

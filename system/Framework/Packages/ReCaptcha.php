@@ -1,10 +1,9 @@
 <?php
 namespace Framework\Packages;
-use \Framework\Interfaces\PackageInterface;
 use \Framework\Core\Config;
 use \Framework\Common\WebRequest;
 
-class ReCaptcha implements PackageInterface
+class ReCaptcha
 {
     protected $publicKey;
     protected $privateKey;
@@ -46,17 +45,5 @@ class ReCaptcha implements PackageInterface
         } else {
             return false;
         }
-    }
-
-    public function getPackageInfo() {
-        return array(
-            'about' => 'ReCaptcha Library Port for Batman-PHP',
-            'settings_group' => 'recaptcha',
-            'settings' => array(
-                'public_key' => 'ReCaptcha Public Key',
-                'private_key' => 'ReCaptcha Private Key',
-            ),
-            'version' => '0.1'
-        );
     }
 }

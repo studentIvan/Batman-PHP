@@ -9,6 +9,11 @@ class Config {
     protected static $data = array();
 
     /**
+     * @var bool
+     */
+    protected static $resourcesLoaded = false;
+
+    /**
      * @static
      * @return void
      */
@@ -21,6 +26,17 @@ class Config {
                 )
             );
         self::phpConfigure();
+    }
+
+    /**
+     * @static
+     * @return void
+     */
+    public static function loadResources() {
+        if (!self::$resourcesLoaded) {
+            self::$data = array_replace_recursive(self::$data, Yaml::parse('app\config\resources.yml'));
+            self::$resourcesLoaded = true;
+        }
     }
 
     /**

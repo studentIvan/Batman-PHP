@@ -8,5 +8,8 @@ namespace Framework\Core;
  */
 abstract class Controller
 {
+    /**
+     * @var \Framework\Core\Template
+     */
     public $tpl;
 }

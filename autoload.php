@@ -9,17 +9,19 @@ $loader->registerNamespaces(array(
 /** Application Architecture */
     'Main'                                  => 'app/logic',
     'Bootstrap'                             => 'app/logic',
+    'Admin'                                 => 'app/logic',
+    'AdminTests'                            => 'app/tests',
     'MainTests'                             => 'app/tests',
+    'Schema'                                => 'app/migration',
 
-/** Symfony Components */
+/** Vendors */
     'Symfony\Component\HttpFoundation'      => 'vendor/symfony/http-foundation',
     'Symfony\Component\Console'             => 'vendor/symfony/console',
     'Symfony\Component\Yaml'                => 'vendor/symfony/yaml',
-
-/** Doctrine Project */
+    'Symfony\Component\Process'             => 'vendor/symfony/process',
     'Doctrine\Common'                       => 'vendor/doctrine/common/lib',
     'Doctrine\DBAL'                         => 'vendor/doctrine/dbal/lib',
-    'Schema'                                => 'app/migration',
+    'Assetic'                               => 'vendor/kriswallsmith/assetic/src',
 
 /** Framework Data */
     'Exceptions'                            => 'system',

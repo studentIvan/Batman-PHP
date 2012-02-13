@@ -3,8 +3,9 @@ namespace Framework\Common;
 use \Doctrine\DBAL\Connection;
 use \Doctrine\DBAL\Platforms\AbstractPlatform;
 use \Doctrine\DBAL\Schema\Schema;
+use \Framework\Interfaces\SchemaInterface;
 
-abstract class Migrate
+abstract class Migrate implements SchemaInterface
 {
     /**
      * Schema data-types:
