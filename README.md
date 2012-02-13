@@ -56,7 +56,7 @@ solution
 
 ### Copyrights
 ##### Powered by Symfony2 components
-Yaml, HttpFoundation, Console, Class-Loader<br>
+Yaml, HttpFoundation, Console, Class-Loader, Process<br>
 (c) Symfony Project 
 
 ##### This framework uses Twig template engine
@@ -67,3 +67,6 @@ Yaml, HttpFoundation, Console, Class-Loader<br>
 
 ##### This framework uses Doctrine 2 Database Abstraction Layer
 (c) Doctrine Project
+
+##### This framework uses Assetic
+(c) Kris Wallsmith
