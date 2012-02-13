@@ -1,0 +1,28 @@
+Perl LESS Watcher by studentIvan
+
+Based on CSS::LESSp;
+
+Description:
+Auto *.less in *.css compiler as simple perl-script. Copy script in styles directory, run and start working.
+
+Complect:
+1. lesswatcher.pl - Watcher edition (no compress, no CSS::Packer needed)
+2. lesscompressor.pl - Compressor edition (watch & compile & compress)
+
+Features:
+* Periodic (every 2 sec) automatic compilations.
+* Not processor overloading (very low %, or even zero).
+* Dont use extra resources of your PC.
+	e.g.: SimpLESS using 25-35 mb of your RAM, WTF?
+
+Warnings:
+Script only works with existing files in directory. If you create a new less-styles - restart watcher manually.
+
+System requirements:
+* PERL 5
+* CSS::LESSp ( http://search.cpan.org/~drinchev/CSS-LESSp-0.86/lib/CSS/LESSp.pm )
+	cpan install CSS::LESSp
+* EV ( http://search.cpan.org/dist/EV/EV.pm )
+	cpan install EV
+** CSS::Packer needed for compressor-edition only (if using)
+	cpan install CSS::Packer

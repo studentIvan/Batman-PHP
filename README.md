@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.3-ALPHA-DEV
+## Version 0.1.4-ALPHA-DEV
 
 ### Setup
 1. Install requirements and optimize: <br>
