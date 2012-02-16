@@ -26,12 +26,10 @@ class ResourcesSetNode extends \Twig_Node
 
         switch ($this->type) {
             case 'js':
-                $resource = "<script src=\"$resource\" type=\"text/javascript\"></script>";
-                $compiler->write("#rjs:$resource:endrjs\n");
+                $compiler->write("echo '<script src=\"$resource\" type=\"text/javascript\"></script>\n';\n");
                 break;
             case 'css':
-                $resource = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$resource\">";
-                $compiler->write("#rcss:$resource:endrcss\n");
+                $compiler->write("echo '<link rel=\"stylesheet\" type=\"text/css\" href=\"$resource\">\n';\n");
                 break;
             default:
                 $compiler->write("echo '$resource\n';\n");

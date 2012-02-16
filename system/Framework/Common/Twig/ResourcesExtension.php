@@ -10,8 +10,4 @@ class ResourcesExtension extends \Twig_Extension
     public function getTokenParsers() {
         return array(new ResourcesTokenParser());
     }
-
-    public function initRuntime(\Twig_Environment $env) {
-        $env->setCompiler(new ResourcesCompiler($env));
-    }
 }
