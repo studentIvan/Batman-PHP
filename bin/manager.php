@@ -141,14 +141,14 @@ $console
 $console
     ->register('model:create')
     ->setDefinition(array(
-    new InputArgument('name', InputArgument::REQUIRED, 'Model name'),
-    new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
-))
-    ->setDescription('Create new model.')
-    ->setCode(function (InputInterface $input, OutputInterface $output) {
-    include __DIR__ . '/scripts/component_create.php';
-    script($input, $output, 'model');
-})
+        new InputArgument('name', InputArgument::REQUIRED, 'Model name'),
+        new InputArgument('bundle', InputArgument::OPTIONAL, 'Bundle (default Main)', 'Main'),
+    ))
+        ->setDescription('Create new model.')
+        ->setCode(function (InputInterface $input, OutputInterface $output) {
+        include __DIR__ . '/scripts/component_create.php';
+        script($input, $output, 'model');
+    })
 ;
 $console
     ->register('phpstorm:console:generate')

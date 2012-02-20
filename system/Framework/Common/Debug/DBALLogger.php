@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Common\Debug;
 use \Doctrine\DBAL\Logging\SQLLogger;
+use \Doctrine\DBAL\Query\QueryBuilder;
 use \Zend\Registry;
 
 class DBALLogger implements SQLLogger
@@ -16,27 +17,19 @@ class DBALLogger implements SQLLogger
     public function startQuery($sql, array $params = null, array $types = null)
     {
         $registry = Registry::getInstance();
-        $registry->debugger_sql_counter++;
-        /*$params = $params || array();
-        $types = $types || array();
+        $result = array();
+
+        if ($sql instanceof QueryBuilder) {
+            $result['Database_Platform'] = $sql->getConnection()->getDatabasePlatform()->getName();
+        }
+
+        $result['SQL'] = strval($sql);
+        $result['start'] = microtime(true);
 
         if (!isset($registry->sql_debug_data))
-        {
-            $registry->sql_debug_data = array(json_encode(array(
-                'query' => $sql,
-                'params' => $params,
-                'types' => $types,
-            )));
-        }
-        else
-        {
-            $registry->sql_debug_data[] = json_encode(array(
-                'query' => $sql,
-                'params' => $params,
-                'types' => $types,
-            ));
-        }*/
+            $registry->sql_debug_data = array();
 
+        $registry->sql_debug_data[] = $result;
     }
 
     /**
@@ -46,6 +39,11 @@ class DBALLogger implements SQLLogger
      */
     public function stopQuery()
     {
-
+        $registry = Registry::getInstance();
+        end($registry->sql_debug_data);
+        $key = key($registry->sql_debug_data);
+        $start = $registry->sql_debug_data[$key]['start'];
+        unset($registry->sql_debug_data[$key]['start']);
+        $registry->sql_debug_data[$key]['Execution_time'] = number_format(microtime(true) - $start, 5) . ' ms';
     }
 }

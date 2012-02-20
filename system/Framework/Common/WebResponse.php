@@ -41,8 +41,23 @@ class WebResponse extends Response
     protected function _toolbarInject($html)
     {
         $registry = Registry::getInstance();
-        $sqlCounter = isset($registry->debugger_sql_counter) ? $registry->debugger_sql_counter : 0;
-        $toolbar_body = "Batman-PHP Debugger | Time: 0.000 ms | DBAL Queries: $sqlCounter";
+        $sqlDebugData = isset($registry->sql_debug_data) ? $registry->sql_debug_data : array();
+        $sqlCounter = count($sqlDebugData);
+        $sqlDebugDataJson = json_encode($sqlDebugData);
+        $global = json_encode(array(
+            'server' => $_SERVER,
+            'post' => $_POST,
+            'get' => $_GET,
+            'cookie' => $_COOKIE,
+        ));
+        $memory = number_format(memory_get_usage() / 1024 / 1024, 3);
+        $time = number_format((microtime(true) - DEBUG_TOOLBAR_START_TIME), 4);
+        $toolbar_body = "Batman-PHP Debugger | Time: $time ms |
+        <a href='#' title='Dump sql queries data into console'
+        onclick='console.info(\"Queries information: %o\", $sqlDebugDataJson);'>DBAL Queries: $sqlCounter</a> |
+        <a href='#' title='Dump global variables into console'
+        onclick='console.info(\"Global variables: %o\", $global);'>Global variables</a> |
+        Memory: {$memory} mb";
         ob_start(); include "system/Framework/Common/Debug/Views/toolbar.phtml";
         return str_replace('</body>', ob_get_clean() . '</body>', $html);
     }
