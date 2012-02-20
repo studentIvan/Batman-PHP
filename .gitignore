@@ -1,6 +1,4 @@
 .idea
-vendor/*
-composer.lock
 app/root/.htaccess
 nginx.inc
 TODO.php

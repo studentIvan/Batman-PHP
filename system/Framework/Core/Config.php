@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Core;
 use \Symfony\Component\Yaml\Yaml;
+use \Symfony\Component\Yaml\Exception\ParseException;
 
 class Config {
     /**
@@ -17,15 +18,28 @@ class Config {
      * @static
      * @return void
      */
-    public static function init() {
-        self::$data = Yaml::parse('app\config\config.yml');
-        if (isset(self::$data['application']['environment']))
-            self::$data = array_replace_recursive(
-                self::$data, Yaml::parse(
-                    'app\config\config_' . self::$data['application']['environment'] . '.yml'
-                )
-            );
-        self::phpConfigure();
+    public static function init()
+    {
+        try
+        {
+            self::$data = Yaml::parse('app\config\config.yml');
+
+            if (isset(self::$data['application']['environment']))
+            {
+                self::$data = array_replace_recursive(
+                    self::$data, Yaml::parse(
+                        'app\config\config_' . self::$data['application']['environment'] . '.yml'
+                    )
+                );
+            }
+
+            self::phpConfigure();
+        }
+        catch (ParseException $e)
+        {
+            echo $e->getMessage();
+            exit;
+        }
     }
 
     /**

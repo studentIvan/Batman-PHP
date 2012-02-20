@@ -1,5 +1,6 @@
 framework:
     phpdebug: true
+    debug_toolbar: true
 
 database:
     dbname:   batman

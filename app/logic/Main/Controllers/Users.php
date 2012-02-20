@@ -12,23 +12,27 @@ use \Framework\Common\Database;
  */
 class Users extends Controller
 {
-    public function __construct() {
-        $this->conn = Database::newInstance();
-        $this->users = new \Main\Solutions\Users($this->conn);
+    public function __construct()
+    {
+        $this->users = new \Main\Solutions\Users();
     }
 
-    public function index(WebResponse $response, WebRequest $request) {
+    public function index(WebResponse $response, WebRequest $request)
+    {
         $this->tpl->match('users', $this->users->listing());
         $response->send($this->tpl->render('users/list'));
     }
 
-    public function add(WebResponse $response, WebRequest $request) {
-        $username = $request->postStr('username');
-        if ($username) {
+    public function add(WebResponse $response, WebRequest $request)
+    {
+        if ($username = $request->postStr('username'))
+        {
             $this->users->add($username, rand(100, 999));
             $this->tpl->match('username', $username);
             $response->send($this->tpl->render('users/add'));
-        } else {
+        }
+        else
+        {
             header('Location: /users/');
             exit;
         }

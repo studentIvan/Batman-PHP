@@ -15,10 +15,13 @@ abstract class DBSolution
     protected $tableName;
 
     /**
-     * @param \Doctrine\DBAL\Connection $conn
+     * @param bool|\Doctrine\DBAL\Connection $conn
      */
-    public function __construct(Connection $conn)
+    public function __construct($conn = false)
     {
+        if (($conn instanceof Connection) == false) {
+            $conn = Database::getInstance();
+        }
         $this->db = $conn;
         $class = get_called_class();
         $this->tableName = strtolower(substr($class, strrpos($class, '\\')+1));

@@ -3,7 +3,7 @@
  * Batman PHP Autoloader
  */
 if (!defined('CONSOLE')) chdir('../..');
-require_once 'vendor/symfony/class-loader/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+require_once 'vendors/symfony/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
 /** Application Architecture */
@@ -15,21 +15,18 @@ $loader->registerNamespaces(array(
     'Schema'                                => 'app/migration',
 
 /** Vendors */
-    'Symfony\Component\HttpFoundation'      => 'vendor/symfony/http-foundation',
-    'Symfony\Component\Console'             => 'vendor/symfony/console',
-    'Symfony\Component\Yaml'                => 'vendor/symfony/yaml',
-    'Symfony\Component\Process'             => 'vendor/symfony/process',
-    'Doctrine\Common'                       => 'vendor/doctrine/common/lib',
-    'Doctrine\DBAL'                         => 'vendor/doctrine/dbal/lib',
-    'Assetic'                               => 'vendor/kriswallsmith/assetic/src',
+    'Symfony'                               => 'vendors/symfony',
+    'Doctrine'                              => 'vendors/doctrine',
+    'Assetic'                               => 'vendors/assetic',
+    'Zend'                                  => 'vendors/zend',
 
 /** Framework Data */
     'Exceptions'                            => 'system',
     'Framework'                             => 'system',
 ));
 $loader->registerPrefixes(array(
-    'Twig_'                                 => 'vendor/twig/twig/lib',
-    'Swift_'                                => 'vendor/swiftmailer/swiftmailer/lib/classes',
+    'Twig_'                                 => 'vendors/twig',
+    'Swift_'                                => 'vendors/swiftmailer/classes',
 ));
 $loader->register();
 Framework\Core\Config::init();

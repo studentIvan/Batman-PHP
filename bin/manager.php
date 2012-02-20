@@ -15,29 +15,6 @@ use \Symfony\Component\Yaml\Yaml;
  */
 $console = new Application('Batman PHP Console Manager', '1.0.0');
 $console
-    ->register('framework:optimize')
-    ->setDescription('Clean garbage from vendor dir.')
-    ->setCode(function (InputInterface $input, OutputInterface $output) {
-        $map = array(
-            'vendor/swiftmailer/swiftmailer/doc',
-            'vendor/swiftmailer/swiftmailer/tests',
-            'vendor/swiftmailer/swiftmailer/test-suite',
-            'vendor/swiftmailer/swiftmailer/notes',
-            'vendor/twig/twig/doc',
-            'vendor/twig/twig/test',
-            'vendor/twig/twig/bin',
-            'vendor/doctrine/common/tests',
-            'vendor/doctrine/dbal/tests',
-            'vendor/kriswallsmith/assetic/docs',
-            'vendor/kriswallsmith/assetic/tests',
-        );
-        foreach ($map as $path) {
-            $output->writeln("<info>remove $path ...</info>");
-            rrmdir($path);
-        }
-    })
-;
-$console
     ->register('database:create')
     ->setDefinition(array(
 		new InputArgument('database', InputArgument::OPTIONAL, 'Database configuration name', 'database')

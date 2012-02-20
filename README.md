@@ -1,33 +1,29 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.4-ALPHA-DEV
+## Version 0.1.5-ALPHA-DEV
 
 ### Setup
-1. Install requirements and optimize: <br>
-<br><code>php composer.phar install</code><br>
-<code>php bin/manager.php framework:optimize</code><br><br>
-2. Compile <b>app/config/routing.yml</b><br>
+1. Compile <b>app/config/routing.yml</b><br>
 <br><i>Apache + Mod Rewrite</i>:<br><br><code>php bin/manager.php router:compile:apache</code><br>
 <br><i>Nginx (Engine-X)</i>:<br><br><code>php bin/manager.php router:compile:nginx</code><br><br>
-3. For PhpStorm IDE try:<br>
+2. For PhpStorm IDE try:<br>
 <br><code>php bin/manager.php phpstorm:console:generate</code><br><br>
-4. Install PEAR/PHPUnit (recommended for Test Drive Development)
+3. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
 ### Directories & files chmod
 * app/cache - <b>0777</b>
 * app/logs - <b>0777</b>
 * bin/manager.php - <b>+x</b>
-* composer.phar - <b>+x</b>
 
 ### Philosophy
 1. Avoid the transmission of the variables in paths, use POST for that
 2. The application routing must not depend on specific web-server
 
-### Requirements
-+ Require all composer vendors (in json file)
+### Info
 + Recommended version of php >= <b>5.3.8</b>
 + Source code is distributed under <b>GNU General Public License</b>
++ Included some vendors
 
 ### Available console commands
 <pre>
@@ -40,7 +36,6 @@ database
   database:schema:generate    Generate new schema for migration.
   database:schema:migrate     Create tables in database (drop if exists).
 framework
-  framework:optimize          Clean garbage from vendor dir.
   framework:test              Run PHPUnit test for framework element.
 model
   model:create                Create new model.
@@ -70,3 +65,7 @@ Yaml, HttpFoundation, Console, Class-Loader, Process<br>
 
 ##### This framework uses Assetic
 (c) Kris Wallsmith
+
+##### This framework uses Zend Framework 2 components
+Registry<br>
+(c) Zend Technologies USA Inc.

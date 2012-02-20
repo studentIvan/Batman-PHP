@@ -6,10 +6,10 @@ use \Framework\Core\Config;
 
 function script(InputInterface $input, OutputInterface $output)
 {
-    $conn = Database::newInstance($input->getArgument('database'));
+    $conn = Database::getInstance($input->getArgument('database'));
     $dbConfig = Config::get($input->getArgument('database'));
     $name = isset($dbConfig['path']) ? $dbConfig['path'] : $dbConfig['dbname'];
-    $tmpConnection = Database::newNoDbInstance($input->getArgument('database'));
+    $tmpConnection = Database::newFreeInstance($input->getArgument('database'));
     $dbMigrateConfig = Config::get('manager.database');
     $created = false;
     $mysqlPlatformCollate = "

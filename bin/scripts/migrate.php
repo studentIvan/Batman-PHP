@@ -5,7 +5,7 @@ use \Framework\Common\Database;
 
 function script(InputInterface $input, OutputInterface $output) {
     $schema = $input->getArgument('migration');
-    $conn = Database::newInstance($input->getArgument('database'));
+    $conn = Database::getInstance($input->getArgument('database'));
     $platform = $conn->getDatabasePlatform();
     $pName = $platform->getName();
     $dbName = $conn->getDatabase();

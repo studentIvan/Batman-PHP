@@ -12,7 +12,8 @@ class Template {
     /**
      * @param string $bundle
      */
-    public function __construct($bundle = 'Bootstrap') {
+    public function __construct($bundle = 'Bootstrap')
+    {
         $engine = Config::get('application', 'template_engine');
         $this->engine = ($engine) ? $engine : 'Native';
         $this->bundle = $bundle;
@@ -22,13 +23,15 @@ class Template {
      * @param string $bundle
      * @return \Twig_Environment
      */
-    protected function _init_Twig($bundle = 'Main') {
+    protected function _init_Twig($bundle = 'Main')
+    {
         $loader = new \Twig_Loader_Filesystem(realpath("app/logic/$bundle/Views"));
         $object = new \Twig_Environment($loader, Config::get('twig'));
         foreach (Config::get('twig', 'extensions') as $extName) {
             $loadStr = "\\Framework\\Common\\Twig\\{$extName}Extension";
             $object->addExtension(new $loadStr());
         }
+
         return $object;
     }
 
@@ -92,7 +95,8 @@ class Template {
      * @param bool|string $engine Specific template engine
      * @return string
      */
-    public function render($template, $engine = false) {
+    public function render($template, $engine = false)
+    {
         $callStr = '_render_' . (($engine) ? ucfirst($engine) : $this->engine);
         return $this->$callStr($template);
     }
