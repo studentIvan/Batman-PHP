@@ -17,7 +17,7 @@ $loader->registerNamespaces(array(
 /** Vendors */
     'Symfony'                               => 'vendors/symfony',
     'Doctrine'                              => 'vendors/doctrine',
-    'Assetic'                               => 'vendors/assetic',
+    'Assetic'                               => 'vendors/assetics',
     'Zend'                                  => 'vendors/zend',
 
 /** Framework Data */
