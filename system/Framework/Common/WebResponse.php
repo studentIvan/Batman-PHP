@@ -52,7 +52,9 @@ class WebResponse extends Response
         ));
         $memory = number_format(memory_get_usage() / 1024 / 1024, 3);
         $time = number_format((microtime(true) - DEBUG_TOOLBAR_START_TIME), 4);
-        $toolbar_body = "Batman-PHP Debugger | Time: $time ms |
+        if ($time > 1) $time = "<a style='border: none; color: #ff6347;'>$time</a>";
+        if ($time < 0.3) $time = "<a style='border: none; color: #C6E746;'>$time</a>";
+        $toolbar_body = "Batman-PHP Debugger | Time: $time sec |
         <a href='#' title='Dump sql queries data into console'
         onclick='console.info(\"Queries information: %o\", $sqlDebugDataJson);'>DBAL Queries: $sqlCounter</a> |
         <a href='#' title='Dump global variables into console'
