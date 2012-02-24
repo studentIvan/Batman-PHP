@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.5-ALPHA-DEV
+## Version 0.1.6-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>
@@ -24,6 +24,8 @@
 + Recommended version of php >= <b>5.3.8</b>
 + Source code is distributed under <b>BSD License</b> (changed 24.02.2012)
 + Included some vendors
++ Процесс разработки и отладки фреймворка выполняется под Windows 7 x64, Apache 2, PHP 5.3
++ Фреймворк находится в стадии разработки, не рекомендуется использовать его в своих проектах до стабильных релизов!
 
 ### Available console commands
 <pre>
