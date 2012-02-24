@@ -17,14 +17,20 @@ class Panel extends Controller
     public function __construct()
     {
         $this->session = new \Framework\Packages\UserAuth();
+        if (Config::get('framework', 'debug_toolbar'))
+        {
+            $frameworkCfg = Config::get('framework');
+            $frameworkCfg['debug_toolbar'] = false;
+            Config::set('framework', $frameworkCfg);
+        }
     }
 
     public function index(WebResponse $response, WebRequest $request)
     {
         $this->session->init($request, $response);
-        $this->tpl->match(array(
-            'session.auth' => $this->session->isAuth(),
-            'session.login' => $this->session->getLogin(),
+        $this->tpl->match('session', array(
+            'auth' => $this->session->isAuth(),
+            'login' => $this->session->getLogin(),
         ));
         $response->send($this->tpl->render('index', 'twig'));
     }

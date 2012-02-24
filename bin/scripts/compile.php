@@ -28,6 +28,7 @@ function script($server, OutputInterface $output) {
         $output->writeln('============================================================');
     }
 
-    file_put_contents('app/root/.htaccess', trim($rules));
+    $target =  ($server == 'apache') ? 'app/root/.htaccess' : 'nginx.inc';
+    file_put_contents($target, trim($rules));
     $output->writeln('Complete!');
 }

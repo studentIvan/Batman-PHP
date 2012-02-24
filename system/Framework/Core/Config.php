@@ -57,12 +57,21 @@ class Config {
      * @static
      * @param string $config
      * @param bool|string $subconfig
-     * @return bool|array
+     * @return mixed
      */
     public static function get($config, $subconfig = false) {
         return ($subconfig) ?
             (isset(self::$data[$config][$subconfig]) ? self::$data[$config][$subconfig] : false) :
             (isset(self::$data[$config]) ? self::$data[$config] : false);
+    }
+
+    /**
+     * @static
+     * @param string $key
+     * @param mixed $value
+     */
+    public static function set($key, $value) {
+        self::$data[$key] = $value;
     }
 
     /**
