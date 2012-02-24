@@ -22,13 +22,13 @@ class Config {
     {
         try
         {
-            self::$data = Yaml::parse('app\config\config.yml');
+            self::$data = Yaml::parse('app/config/config.yml');
 
             if (isset(self::$data['application']['environment']))
             {
                 self::$data = array_replace_recursive(
                     self::$data, Yaml::parse(
-                        'app\config\config_' . self::$data['application']['environment'] . '.yml'
+                        'app/config/config_' . self::$data['application']['environment'] . '.yml'
                     )
                 );
             }
@@ -48,7 +48,7 @@ class Config {
      */
     public static function loadResources() {
         if (!self::$resourcesLoaded) {
-            self::$data = array_replace_recursive(self::$data, Yaml::parse('app\config\resources.yml'));
+            self::$data = array_replace_recursive(self::$data, Yaml::parse('app/config/resources.yml'));
             self::$resourcesLoaded = true;
         }
     }
