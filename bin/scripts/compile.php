@@ -10,7 +10,7 @@ function script($server, OutputInterface $output) {
         $template = "\nRewriteRule ^%p%$ /index.php?%r% [L]";
     } elseif ($server == 'nginx') {
         $rules = file_get_contents('app/config/nginx.inc.txt');
-        $template = "\nrewrite ^%p%$ /index.php?%r% last;";
+        $template = "\nrewrite ^/%p%$ /index.php?%r% last;";
     } else {
         throw new \Exception('<error>WTF?</error>');
     }
