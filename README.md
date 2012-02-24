@@ -22,7 +22,7 @@
 
 ### Info
 + Recommended version of php >= <b>5.3.8</b>
-+ Source code is distributed under <b>GNU General Public License</b>
++ Source code is distributed under <b>BSD License</b> (changed 24.02.2012)
 + Included some vendors
 
 ### Available console commands
