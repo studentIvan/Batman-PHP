@@ -12,7 +12,7 @@
 3. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
 ##### Nginx configuration prototype:
-<pre>
+```nginx
 server {
     server_name mysite.com;
 
@@ -35,22 +35,22 @@ server {
         include        fastcgi_params;
     }
 }
-</pre>
+```
 
 ##### Apache configuration prototype:
-<pre>
+```apache
 <VirtualHost *>
     ServerName mysite.com
-	DocumentRoot "/srv/www/mysite.com/app/root"
+    DocumentRoot "/srv/www/mysite.com/app/root"
 
-	<Directory /srv/www/mysite.com/app/root>
+    <Directory /srv/www/mysite.com/app/root>
         DirectoryIndex index.php index.html
         AllowOverride All
         Order allow,deny
         Allow from all
     </Directory>
 </VirtualHost>
-</pre>
+```
 
 ### Directories & files chmod
 * app/cache - <b>0777</b>
