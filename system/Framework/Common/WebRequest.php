@@ -8,10 +8,21 @@ class WebRequest extends Request
     /**
      * @throws \Exception
      */
-    public function protectAjax() {
+    public function protectAjax()
+    {
         if (!$this->isXmlHttpRequest()) {
             throw new ForbiddenException('Ajax only');
         }
+    }
+
+    /**
+     * @param string $key The key
+     * @param null|mixed $default The default value if the parameter key does not exist
+     * @param bool $deep If true, a path like foo[bar] will find deeper items
+     * @return mixed|null
+     */
+    public function getCookie($key, $default = null, $deep = false){
+        return $this->cookies->get($key, $default, $deep);
     }
 
     /**

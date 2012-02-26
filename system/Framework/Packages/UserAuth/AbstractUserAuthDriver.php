@@ -2,9 +2,8 @@
 namespace Framework\Packages\UserAuth;
 use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
-use \Framework\Packages\UserAuth\Interfaces\UserAuthDriverInterface;
 
-abstract class AbstractUserAuthDriver implements UserAuthDriverInterface
+abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterface
 {
     /**
      * @var \Framework\Common\WebRequest
@@ -54,12 +53,36 @@ abstract class AbstractUserAuthDriver implements UserAuthDriverInterface
     }
 
     /**
-     * @param string $login
-     * @param string $password
+     * @param $login
+     * @param $password
+     * @throws Exceptions\AuthException
      */
-    public function auth($login, $password) {
-        $this->setData('auth', true);
-        $this->setData('login', $login);
-        $this->setData('password', $password);
+    public function auth($login, $password)
+    {
+        if ($this->getData('auth'))
+        {
+            throw new Exceptions\AuthException('User is already logged in', 1);
+        }
+        else
+        {
+            $this->setData('auth', true);
+            $this->setData('login', $login);
+        }
+    }
+
+    /**
+     * Exit
+     */
+    public function out()
+    {
+        if (!$this->getData('auth'))
+        {
+            throw new Exceptions\AuthException('User is not logged in', 2);
+        }
+        else
+        {
+            $this->setData('auth', false);
+            $this->setData('login', false);
+        }
     }
 }

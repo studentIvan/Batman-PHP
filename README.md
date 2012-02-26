@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.6-ALPHA-DEV
+## Version 0.1.7-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>
@@ -10,6 +10,47 @@
 2. For PhpStorm IDE try:<br>
 <br><code>php bin/manager.php phpstorm:console:generate</code><br><br>
 3. Install PEAR/PHPUnit (recommended for Test Drive Development)
+
+##### Nginx configuration prototype:
+<pre>
+server {
+    server_name mysite.com;
+
+    root /srv/www/mysite.com/app/root;
+    include /srv/www/mysite.com/nginx.inc;
+
+    location / {
+        index index.php index.html;
+    }
+
+    location ^~ /(images|styles|javascripts)/ {
+        expires 30d;
+        access_log off;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
+</pre>
+
+##### Apache configuration prototype:
+<pre>
+<VirtualHost *>
+    ServerName mysite.com
+	DocumentRoot "/srv/www/mysite.com/app/root"
+
+	<Directory /srv/www/mysite.com/app/root>
+        DirectoryIndex index.php index.html
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+</pre>
 
 ### Directories & files chmod
 * app/cache - <b>0777</b>

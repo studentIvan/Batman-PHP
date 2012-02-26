@@ -9,6 +9,7 @@ resources.css:
 
 resources.js:
     qunit: /javascripts/qunit/qunit.js
+    admin: /javascripts/admin/admin.js
     twitter_bootstrap_alerts: /javascripts/twitter/bootstrap-alerts.js
     twitter_bootstrap_buttons: /javascripts/twitter/bootstrap-buttons.js
     twitter_bootstrap_dropdown: /javascripts/twitter/bootstrap-dropdown.js

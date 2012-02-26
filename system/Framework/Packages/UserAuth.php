@@ -13,7 +13,7 @@ class UserAuth
     /**
      * @param string $driver
      */
-    public function __construct($driver = 'CookieSessionSecured') {
+    public function __construct($driver = 'NativePhpSession') {
         $callStr = '\\Framework\\Packages\\UserAuth\\Drivers\\' . $driver;
         $this->driver = new $callStr();
     }

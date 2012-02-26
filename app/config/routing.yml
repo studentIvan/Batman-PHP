@@ -3,8 +3,8 @@ index:
     route: Main::Main
 
 admin:
-    pattern: /admin
-    route: Admin::Panel
+    pattern: /admin/?<method>?
+    route: Admin::Panel::$1
     backslash: true
 
 hello:

@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Common;
 use \Symfony\Component\HttpFoundation\Response;
+use \Symfony\Component\HttpFoundation\Cookie;
 use \Framework\Core\Config;
 use \Zend\Registry;
 
@@ -38,6 +39,27 @@ class WebResponse extends Response
         parent::send();
     }
 
+    /**
+     * @param string $message
+     */
+    public function sendForbidden($message = '')
+    {
+        $this->setStatusCode(403, 'Forbidden');
+        $this->send($message);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Cookie $cookie
+     */
+    public function setCookie(Cookie $cookie)
+    {
+        $this->headers->setCookie($cookie);
+    }
+
+    /**
+     * @param string $html
+     * @return mixed
+     */
     protected function _toolbarInject($html)
     {
         $registry = Registry::getInstance();
