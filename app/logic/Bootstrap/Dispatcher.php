@@ -30,11 +30,10 @@ class Dispatcher
                     if (!file_exists('app/logs/' . $point))
                     {
                         Log::write('Runtime exception sended for admin', $point);
-                        $msg = SwiftMailer::createMessage(
+                        SwiftMailer::send(SwiftMailer::createMessage(
                             "Runtime exception [{$_SERVER['HTTP_HOST']}]",
                             $adminEmail, $e->getMessage()
-                        );
-                        SwiftMailer::send($msg);
+                        ));
                     }
                 }
             }
