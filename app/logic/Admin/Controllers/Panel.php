@@ -2,9 +2,12 @@
 namespace Admin\Controllers;
 use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
+
+use \Exceptions\ForbiddenException;
 use \Framework\Core\Controller;
 use \Framework\Core\Config;
-use \Exceptions\ForbiddenException;
+
+use \Framework\Packages\UserAuth;
 use \Framework\Packages\UserAuth\Exceptions\AuthException;
 
 /**
@@ -17,7 +20,7 @@ class Panel extends Controller
 
     public function __construct()
     {
-        $this->session = new \Framework\Packages\UserAuth('NativePhpSession');
+        $this->session = new UserAuth();
         if (Config::get('framework', 'debug_toolbar'))
         {
             $frameworkCfg = Config::get('framework');
@@ -26,13 +29,23 @@ class Panel extends Controller
         }
     }
 
-    public function index(WebResponse $response, WebRequest $request)
+    public function index(WebResponse $response)
     {
-        $this->tpl->match('session', array(
-            'auth' => $this->session->isAuth(),
-            'login' => $this->session->getLogin(),
-        ));
-        $response->send($this->tpl->render('index', 'twig'));
+        $response->send(
+            $this->tpl
+                ->match('auth', $this->session->isAuth())
+                ->render('index', 'twig')
+        );
+    }
+
+    public function out(WebResponse $response)
+    {
+        try {
+            $this->session->out();
+            header('Location: /admin/');
+        } catch (AuthException $e) {
+            throw new ForbiddenException($e->getMessage());
+        }
     }
 
     public function auth(WebResponse $response, WebRequest $request)

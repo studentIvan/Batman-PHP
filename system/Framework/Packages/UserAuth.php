@@ -37,10 +37,16 @@ class UserAuth
     /**
      * @param string $login
      * @param string $password
-     * @return array
      */
     public function auth($login, $password = '') {
-        return $this->driver->auth($login, $password);
+        $this->driver->auth($login, $password);
+    }
+
+    /**
+     * Exit
+     */
+    public function out() {
+        $this->driver->out();
     }
 
     /**

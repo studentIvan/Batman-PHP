@@ -13,6 +13,7 @@ $(document).ready(function() {
 
         if (login.length > 0 && password.length > 0)
         {
+            $("#auth-form .btn").html('Waiting...');
             $.ajax({
                 url: "/admin/auth",
                 type: "POST",
@@ -21,10 +22,14 @@ $(document).ready(function() {
                 statusCode:
                 {
                     403: function(data) {
-                        console.error(data);
+                        $("#auth-form .btn").html('Sign in');
+                        $("#xmodal-body").html(data.responseText);
+                        $("#myModal").modal();
                     },
                     200: function(data) {
-                        console.log(data);
+                        $("#auth-form")
+                            .after('<p class="pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/admin/out">exit</a></p>')
+                            .remove();
                     }
                 }
             });

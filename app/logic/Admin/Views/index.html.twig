@@ -9,8 +9,10 @@
     <![endif]-->
     {% resource css.twitter_bootstrap %}
     {% resource css.admin %}
+
     {% resource js.jquery %}
     {% resource js.admin %}
+    {% resource js.twitter_bootstrap_modal %}
 </head>
 <body>
 <div class="topbar">
@@ -20,11 +22,13 @@
             <ul class="nav">
                 {% block menu %}{% endblock %}
             </ul>
-            <form id="auth-form" action="" class="pull-right">
+            {% if auth %}
+            <p class="pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/admin/out">exit</a></p>
+            {% else %}<form id="auth-form" action="" class="pull-right">
                 <input class="input-small" id="login" type="text" placeholder="Username">
                 <input class="input-small" id="password" type="password" placeholder="Password">
                 <button class="btn">Sign in</button>
-            </form>
+            </form>{% endif %}
         </div>
     </div>
 </div>
@@ -47,5 +51,17 @@
     </footer>
 </div>
 <!-- /container -->
+<div class="modal" id="myModal" style="display: none">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Alert</h3>
+    </div>
+    <div class="modal-body">
+        <p id="xmodal-body">One fine body…</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary" onclick="$('#myModal').modal('hide')">Close</a>
+    </div>
+</div>
 </body>
 </html>
