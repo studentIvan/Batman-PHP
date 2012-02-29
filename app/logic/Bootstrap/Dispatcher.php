@@ -24,11 +24,19 @@ class Dispatcher
             } else {
                 Log::writeException($e);
                 echo "<b>Notice:</b> critical system error";
-                $msg = SwiftMailer::createMessage(
-                    "Runtime exception [{$_SERVER['HTTP_HOST']}]",
-                    Config::get('application', 'admin_email'), $e->getMessage()
-                );
-                SwiftMailer::send($msg);
+                if ($adminEmail = Config::get('application', 'admin_email'))
+                {
+                    $point = md5(date('Y-m-d H')) . '.log';
+                    if (!file_exists('app/logs/' . $point))
+                    {
+                        Log::write('Runtime exception sended for admin', $point);
+                        $msg = SwiftMailer::createMessage(
+                            "Runtime exception [{$_SERVER['HTTP_HOST']}]",
+                            $adminEmail, $e->getMessage()
+                        );
+                        SwiftMailer::send($msg);
+                    }
+                }
             }
         } catch (ForbiddenException $e) {
             /**
