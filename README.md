@@ -92,9 +92,9 @@ solution
   solution:create             Create new solution.
   solution:test               Run PHPUnit test for application solution.
 </pre>
-
-Example command for jquery environment (since 0.1.8-A-D):
-```bash
+<br>
+Example command for jquery environment (since 0.1.8-A-D):<br>
+```
 manager phpstorm:resource:helper jquery.dev.js
 ```
 
