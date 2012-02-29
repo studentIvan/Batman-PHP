@@ -7,6 +7,7 @@ use \Exceptions\NotFoundException;
 use \Framework\Core\Config;
 use \Framework\Common\Log;
 use \Framework\Core\Template;
+use \Framework\Common\SwiftMailer;
 
 class Dispatcher
 {
@@ -18,8 +19,17 @@ class Dispatcher
             /**
              * Simple runtime errors handler
              */
-            echo "RuntimeException: " . $e->getMessage() .
-                (Config::get('framework', 'phpdebug') ? "<br><pre>" . $e->getTraceAsString() : "");
+            if (Config::get('framework', 'phpdebug')) {
+                echo "RuntimeException: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString();
+            } else {
+                Log::writeException($e);
+                echo "<b>Notice:</b> critical system error";
+                $msg = SwiftMailer::createMessage(
+                    "Runtime exception [{$_SERVER['HTTP_HOST']}]",
+                    Config::get('application', 'admin_email'), $e->getMessage()
+                );
+                SwiftMailer::send($msg);
+            }
         } catch (ForbiddenException $e) {
             /**
              * Simple 403 error page

@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.7-ALPHA-DEV
+## Version 0.1.8-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>
@@ -11,7 +11,7 @@
 <br><code>php bin/manager.php phpstorm:console:generate</code><br><br>
 3. Install PEAR/PHPUnit (recommended for Test Drive Development)
 
-##### Nginx configuration prototype:
+##### Nginx+FCGI (e.g. php-fpm) configuration prototype:
 ```nginx
 server {
     server_name mysite.com;
@@ -63,7 +63,7 @@ server {
 
 ### Info
 + Recommended version of php >= <b>5.3.8</b>
-+ Source code is distributed under <b>BSD License</b> (changed 24.02.2012)
++ Source code is distributed under <b>BSD License</b> (since 24.02.2012)
 + Included some vendors
 + Процесс разработки и отладки фреймворка выполняется под Windows 7 x64, Apache 2, PHP 5.3
 + Фреймворк находится в стадии разработки, не рекомендуется использовать его в своих проектах до стабильных релизов!
@@ -84,6 +84,7 @@ model
   model:create                Create new model.
 phpstorm
   phpstorm:console:generate   Generate Batman-PHP console commands XML-helper for Idea IDE (PhpStorm).
+  phpstorm:resource:helper    Load external resource from resources.yml and save into bin/idehelper folder.
 router
   router:compile:apache       Compile routing for apache + mod rewrite.
   router:compile:nginx        Compile routing for nginx.
@@ -91,6 +92,11 @@ solution
   solution:create             Create new solution.
   solution:test               Run PHPUnit test for application solution.
 </pre>
+
+Example command for jquery environment (since 0.1.8-A-D):
+```bash
+manager phpstorm:resource:helper jquery.dev.js
+```
 
 ### Copyrights
 ##### Powered by Symfony2 components

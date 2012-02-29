@@ -10,12 +10,14 @@ application:
     log_file_max_size_mb: 2
     charset: UTF-8
     secret: j9sge02edfl9cv49mvZDh90fsuFDSFJd9sfvvdsm90a4j2QJSANf12o01e24
+    admin_email: admin@localhost # Set ur real active email adress (for script only)
 
 recaptcha:
     public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
     private_key: 6LeSIMgSAAAAADs7b2hVOeQPTceB5I1DaTuU1HaP
 
 swift.transport:
+    smtp: true # true => Swift_SmtpTransport or false => Swift_MailTransport
     host: smtp.yandex.ru:25
     username: php.batman@yandex.ru
     password: batman.php

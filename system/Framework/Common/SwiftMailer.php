@@ -26,13 +26,12 @@ class SwiftMailer {
      *
      * @static
      * @param \Swift_Mime_Message $message
-     * @param bool $transport Use SMTP-transport (locate swift_transport in config.yml)
      * @return int
      * @throws \Swift_IoException
      */
-    public static function send(\Swift_Mime_Message $message, $transport = true) {
+    public static function send(\Swift_Mime_Message $message) {
         if (!self::$registered) self::register();
-        if ($transport)
+        if (Config::get('swift.transport', 'smtp'))
         {
             if (!$host = Config::get('swift.transport', 'host'))
                 throw new \Swift_IoException('Error loading swift_transport host configuration');
@@ -48,7 +47,7 @@ class SwiftMailer {
                     ->setPassword($password)
                 ;
         } else {
-            $swiftTransport = Swift_MailTransport::newInstance();
+            $swiftTransport = \Swift_MailTransport::newInstance();
         }
         $mailer = \Swift_Mailer::newInstance($swiftTransport);
         return $mailer->send($message);

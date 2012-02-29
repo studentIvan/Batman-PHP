@@ -15,6 +15,17 @@ use \Symfony\Component\Yaml\Yaml;
  */
 $console = new Application('Batman PHP Console Manager', '1.0.0');
 $console
+    ->register('phpstorm:resource:helper')
+    ->setDefinition(array(
+    new InputArgument('resource', InputArgument::REQUIRED, 'Resource name dot type (e.g. qunit.js)')
+))
+    ->setDescription('Load external resource from resources.yml and save into bin/idehelper folder.')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+    include __DIR__ . '/scripts/ide_resource_helper.php';
+    script($input, $output);
+})
+;
+$console
     ->register('database:create')
     ->setDefinition(array(
 		new InputArgument('database', InputArgument::OPTIONAL, 'Database configuration name', 'database')

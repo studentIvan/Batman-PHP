@@ -1,41 +1,35 @@
-require(["dojo/dom", "dojo/_base/xhr", "dojo/domReady!"], function(dom, xhr)
-{
+$(document).ready(function() {
     /**
      * 1. Get admin content
      * 2. If unauth - init auth form
      * 3. On auth if 403 - display error
      * 4. If auth - get admin content
      */
-    dom.byId('greeting').innerHTML = '';
-    dom.byId('auth-form').onsubmit = function()
-    {
-        var inputs = this.getElementsByTagName('input');
-        if ((inputs[0].value.length > 0) && (inputs[1].value.length > 0))
+    $('#greeting').html('');
+    $("#auth-form").submit(function() {
+        var
+            login = $('#login').val(),
+            password = $('#password').val();
+
+        if (login.length > 0 && password.length > 0)
         {
-            xhr.get(
-            {
+            $.ajax({
                 url: "/admin/auth",
-                content:
+                type: "POST",
+                cache: false,
+                data: "login=" + login + "&password=" + password,
+                statusCode:
                 {
-                    login: inputs[0].value,
-                    password: inputs[1].value
-                },
-
-                load: function(result)
-                {
-                    alert(result);
-                },
-
-                error: function(result)
-                {
-                    if (result.status == 403)
-                    {
-                        alert('Wrong login or password');
+                    403: function(data) {
+                        console.error(data);
+                    },
+                    200: function(data) {
+                        console.log(data);
                     }
                 }
             });
         }
 
         return false;
-    }
+    });
 });
