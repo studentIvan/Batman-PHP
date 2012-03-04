@@ -3,54 +3,74 @@
 <head>
     {% resource meta.charset_utf8 %}
     <title>Batman Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
     <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     {% resource css.twitter_bootstrap %}
+    {% resource css.twitter_bootstrap_responsive %}
     {% resource css.admin %}
 
     {% resource js.jquery %}
+    {% resource js.twitter_bootstrap %}
     {% resource js.admin %}
-    {% resource js.twitter_bootstrap_modal %}
 </head>
 <body>
-<div class="topbar">
-    <div class="fill">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
+
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
             <a class="brand" href="#">Batman Admin</a>
-            <ul class="nav">
-                {% block menu %}{% endblock %}
-            </ul>
-            {% if auth %}
-            <p class="pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/admin/out">exit</a></p>
-            {% else %}<form id="auth-form" action="" class="pull-right">
+            <div class="nav-collapse">
+                <ul class="nav">
+                    {% block menu %}{% endblock %}
+                </ul>
+                {% if auth %}
+                <p class="navbar-text pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/{{ adminPath }}/out">exit</a></p>
+                {% else %}<form id="auth-form" action="/{{ adminPath }}/authManual" class="navbar-form pull-right">
                 <input class="input-small" id="login" type="text" placeholder="Username">
                 <input class="input-small" id="password" type="password" placeholder="Password">
-                <button class="btn">Sign in</button>
+                <button type="submit" class="btn">Sign in</button>
             </form>{% endif %}
+            </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="content">
-        <div class="page-header"><h1 id="greeting">Loading...</h1></div>
-        <div class="row">
-            <div class="span10">
-                <h2></h2>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="methods-listener" style="display: none;">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list"></ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="hero-unit" id="method-interface">
+                <h1>Enjoy</h1>
+                <br>
+                <p>Use <i>@administrative</i> phpDoc marker in methods of solutions.</p>
+                <p>Place indexed bundles in config.yml</p>
+                <br>
+                <p><a class="btn btn-primary btn-large" href="/">Go to the site &raquo;</a></p>
             </div>
-            <div class="span4">
-                <h3></h3>
-            </div>
-        </div>
-    </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
     <footer>
-        <p style="text-align: center">
-            <small>Powered by Batman-PHP</small>
-        </p>
+        <p>Powered by Batman-PHP</p>
     </footer>
-</div>
-<!-- /container -->
+
+</div><!--/.fluid-container-->
+
 <div class="modal" id="myModal" style="display: none">
     <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
@@ -63,5 +83,9 @@
         <a href="#" class="btn btn-primary" onclick="$('#myModal').modal('hide')">Close</a>
     </div>
 </div>
+<script type="text/javascript">
+    authorized = {% if auth %}1{% else %}0{% endif %};
+    adminPath = '{{ adminPath }}';
+</script>
 </body>
 </html>

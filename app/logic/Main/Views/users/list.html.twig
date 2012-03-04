@@ -1,23 +1,27 @@
 {% extends "skeleton/skeleton.html.twig" %}
 {% block content %}
-<div class="topbar">
-    <div class="fill">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="#">Users list</a>
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="content">
-        <ul>
-            {% for user in users %}
-            <li>{{ user.username }}</li>
-            {% endfor %}
-        </ul>
-        <form action="/users/add" method="post">
-            <div><input style="height: 25px" name="username" placeholder="Add new user"></div>
-            <div><input type="submit"></div>
-        </form>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span9">
+            <div class="hero-unit">
+                <ul>
+                    {% for user in users %}
+                    <li>{{ user.username }}</li>
+                    {% endfor %}
+                </ul>
+                <form action="/users/add" method="post">
+                    <div><input style="height: 25px" name="username" placeholder="Add new user"></div>
+                    <div><input type="submit"></div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

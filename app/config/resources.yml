@@ -5,19 +5,13 @@ resources.meta:
 resources.css:
     qunit: /styles/qunit/qunit.css
     twitter_bootstrap: /styles/twitter/bootstrap.min.css
+    twitter_bootstrap_responsive: /styles/twitter/bootstrap-responsive.min.css
     admin: /styles/admin/admin.css
 
 resources.js:
     qunit: /javascripts/qunit/qunit.js
     admin: /javascripts/admin/admin.js
-    twitter_bootstrap_alerts: /javascripts/twitter/bootstrap-alerts.js
-    twitter_bootstrap_buttons: /javascripts/twitter/bootstrap-buttons.js
-    twitter_bootstrap_dropdown: /javascripts/twitter/bootstrap-dropdown.js
-    twitter_bootstrap_modal: /javascripts/twitter/bootstrap-modal.js
-    twitter_bootstrap_popover: /javascripts/twitter/bootstrap-popover.js
-    twitter_bootstrap_scrollspy: /javascripts/twitter/bootstrap-scrollspy.js
-    twitter_bootstrap_tabs: /javascripts/twitter/bootstrap-tabs.js
-    twitter_bootstrap_twipsy: /javascripts/twitter/bootstrap-twipsy.js
+    twitter_bootstrap: /javascripts/twitter/bootstrap.min.js
     yandex_loader: //yandex.st/jslibs/loader.js
     dojo: //yandex.st/dojo/1.7.1/dojo/dojo.js
     jquery: //yandex.st/jquery/1.7.1/jquery.min.js

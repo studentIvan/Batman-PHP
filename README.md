@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.8-ALPHA-DEV
+## Version 0.1.9-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>

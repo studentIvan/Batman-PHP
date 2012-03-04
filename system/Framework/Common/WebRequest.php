@@ -8,7 +8,7 @@ class WebRequest extends Request
     /**
      * @throws \Exception
      */
-    public function protectAjax()
+    public function ifNotAjaxRequestThrowForbidden()
     {
         if (!$this->isXmlHttpRequest()) {
             throw new ForbiddenException('Ajax only');

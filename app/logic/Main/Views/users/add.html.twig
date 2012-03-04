@@ -1,16 +1,20 @@
 {% extends "skeleton/skeleton.html.twig" %}
 {% block content %}
-<div class="topbar">
-    <div class="fill">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="#">Users list</a>
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="content">
-        <div>User {{ username }} added!</div>
-        <div><a href="/users/">return</a></div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span9">
+            <div class="hero-unit">
+                <div>User {{ username }} added!</div>
+                <div><a href="/users/">return</a></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

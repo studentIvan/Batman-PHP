@@ -2,6 +2,7 @@
 namespace Framework\Packages;
 use \Framework\Common\WebRequest;
 use \Framework\Common\WebResponse;
+use \Exceptions\ForbiddenException;
 
 class UserAuth
 {
@@ -32,6 +33,15 @@ class UserAuth
      */
     public function isAuth() {
         return (bool)$this->driver->getData('auth');
+    }
+
+    /**
+     * If user not authorized throw new ForbiddenException
+     *
+     * @throws \Exceptions\ForbiddenException
+     */
+    public function ifNotAuthorizedThrowForbidden() {
+        if (!$this->isAuth()) throw new ForbiddenException();
     }
 
     /**

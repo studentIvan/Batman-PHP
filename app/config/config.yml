@@ -46,4 +46,5 @@ twig:
 admin:
     login: Admin
     password: 12345
-    bundles: [Main]
+    bundles: [Main] # indexed bundles (@administrative in methods)
+    path: admin

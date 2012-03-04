@@ -1,5 +1,4 @@
 <?php
 /**
- * @todo_batman: auth
- * @todo_batman: admin-panel
+ * @todo_batman: auth on cookies
  */
