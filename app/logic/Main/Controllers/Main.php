@@ -7,9 +7,9 @@ use \Framework\Common\WebRequest,
 
 class Main
 {
-	function index(WebResponse $response)
+    function index(WebResponse $response)
     {
         $welcome = new Solutions\Welcome();
-		$response->send($welcome->to());
-	}
+        $response->send($welcome->to());
+    }
 }

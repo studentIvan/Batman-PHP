@@ -3,8 +3,8 @@ namespace Main\Solutions;
 
 class Welcome
 {
-	public function to()
+    public function to()
     {
-		return 'Welcome to Batman-PHP';
-	}
+        return 'Welcome to Batman-PHP';
+    }
 }
