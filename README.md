@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.1.9.1-ALPHA-DEV
+## Version 0.2.0-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>
@@ -67,6 +67,7 @@ server {
 + Included some vendors
 + Процесс разработки и отладки фреймворка выполняется под Windows 7 x64, Apache 2, PHP 5.3
 + Фреймворк находится в стадии разработки, не рекомендуется использовать его в своих проектах до стабильных релизов!
++ Фреймворк ведет себя не корректно с suhosin patch, пока не могу сказать почему
 
 ### Available console commands
 <pre>

@@ -1,10 +1,10 @@
 <?php
 namespace Main\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Framework\Core\Controller;
 
-class Hello extends Controller
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse;
+
+class Hello extends \Framework\Core\Controller
 {
     public function index($name, WebResponse $response)
     {

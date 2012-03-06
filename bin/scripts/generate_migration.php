@@ -1,6 +1,6 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface;
 
 function script(InputInterface $input, OutputInterface $output)
 {
@@ -12,7 +12,9 @@ function script(InputInterface $input, OutputInterface $output)
     $gMap = "\$table = \$this->schema->createTable('$tableName');";
     $pKey = $data = array();
     $datetimeExists = false;
-    foreach (explode(' ', $map) as $element) {
+
+    foreach (explode(' ', $map) as $element)
+    {
         list($column, $type) = explode(':', $element);
         $data[$column] = array('type' => $type);
         if ($type == 'integer' && preg_match('/^(?:id(?:.+)?|(?:.+)?id)$/', $column)) {
@@ -22,22 +24,26 @@ function script(InputInterface $input, OutputInterface $output)
             $datetimeExists = true;
         }
     }
-    /**
-     * Intellect
-     */
+
     $oldData = $data;
     $data = array();
-    if (count($pKey) == 0 && !isset($oldData['id'])) {
+
+    if (count($pKey) == 0 && !isset($oldData['id']))
+    {
         $data['id'] = array('type' => 'integer', 'unsigned' => true, 'autoincrement' => true);
         $pKey[] = 'id';
     }
+
     $data = array_replace_recursive($data, $oldData);
     if (!$datetimeExists) {
         $data['created'] = array('type' => 'datetime');
     }
-    foreach ($data as $_column => $_params) {
+
+    foreach ($data as $_column => $_params)
+    {
         $_type = $_params['type'];
-        switch ($_column) {
+        switch ($_column)
+        {
             case 'username':
             case 'user_name':
             case 'login':
@@ -91,11 +97,15 @@ function script(InputInterface $input, OutputInterface $output)
                     $data[$_column]['length'] = '50';
                 }
         }
+
         $tmp = $data[$_column];
         unset($tmp['type']);
         $joined = '';
-        if (count($tmp) > 0) {
-            foreach ($tmp as $key => $value) {
+
+        if (count($tmp) > 0)
+        {
+            foreach ($tmp as $key => $value)
+            {
                 if ($value === true)
                     $value = 'true';
                 if ($value === false)
@@ -104,11 +114,14 @@ function script(InputInterface $input, OutputInterface $output)
                     $value = "'$value'";
                 $joined .= "'$key' => $value, ";
             }
+
             $joined = rtrim(trim($joined), ',');
             $joined = ", array($joined)";
         }
+
         $gMap .= "\n        \$table->addColumn('{$_column}', \$this->{$_type}{$joined});";
     }
+
     $gMap .= "\n        \$table->setPrimaryKey(array('{$pKey[0]}'));";
     file_put_contents($targetFile, str_replace(array('{%=Schema=%}', '{%=Map=%}'), array($schema, $gMap), $tpl));
     $output->writeln(sprintf('<info>Migration schema %s generated successful</info>', $targetFile));

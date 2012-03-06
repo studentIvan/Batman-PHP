@@ -1,9 +1,10 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Framework\Common\Database;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface,
+    \Framework\Common\Database;
 
-function script(InputInterface $input, OutputInterface $output) {
+function script(InputInterface $input, OutputInterface $output)
+{
     $schema = $input->getArgument('migration');
     $conn = Database::getInstance($input->getArgument('database'));
     $platform = $conn->getDatabasePlatform();

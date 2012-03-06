@@ -1,8 +1,9 @@
 <?php
 namespace Main\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Main\Solutions;
+
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse,
+    \Main\Solutions;
 
 class Main
 {

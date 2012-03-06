@@ -1,6 +1,6 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface;
 
 function script(InputInterface $input, OutputInterface $output)
 {
@@ -13,6 +13,7 @@ function script(InputInterface $input, OutputInterface $output)
     $time_start = microtime(true);
     $request = new $location();
     $stop = false;
+
     try
     {
         $request->$method();
@@ -22,11 +23,13 @@ function script(InputInterface $input, OutputInterface $output)
         $output->writeln('Test failed with exception: ' . $e->getMessage());
         $stop = true;
     }
+
     $time_end = microtime(true);
     $time = $time_end - $time_start;
     $ml = number_format(memory_get_usage() / 1024 / 1024, 3);
     $output->writeln('memory usage after: ' . $ml . 'MB (+' . ($ml * 1 - $m * 1) . 'MB)');
     $output->writeln('time: ' . number_format($time, 4) . ' sec');
+
     if (!$stop) {
         $output->writeln('Test complete!');
     }

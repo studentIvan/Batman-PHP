@@ -2,8 +2,8 @@
 namespace Framework\Common;
 use \Framework\Core\Config;
 
-class SwiftMailer {
-
+class SwiftMailer
+{
     /**
      * @var bool
      */
@@ -14,9 +14,10 @@ class SwiftMailer {
      *
      * @static
      */
-    protected static function register() {
+    protected static function register()
+    {
         if (!self::$registered) {
-            include_once 'vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+            include_once 'vendors/swiftmailer/swift_required.php';
             self::$registered = true;
         }
     }
@@ -29,8 +30,11 @@ class SwiftMailer {
      * @return int
      * @throws \Swift_IoException
      */
-    public static function send(\Swift_Mime_Message $message) {
-        if (!self::$registered) self::register();
+    public static function send(\Swift_Mime_Message $message)
+    {
+        if (!self::$registered)
+            self::register();
+
         if (Config::get('swift.transport', 'smtp'))
         {
             if (!$host = Config::get('swift.transport', 'host'))
@@ -41,14 +45,18 @@ class SwiftMailer {
                 throw new \Swift_IoException('Error loading swift_transport password configuration');
 
             list($server, $port) = explode(':', $host);
+
             $swiftTransport =
                 \Swift_SmtpTransport::newInstance($server, $port)
                     ->setUsername($username)
                     ->setPassword($password)
                 ;
-        } else {
+        }
+        else
+        {
             $swiftTransport = \Swift_MailTransport::newInstance();
         }
+
         $mailer = \Swift_Mailer::newInstance($swiftTransport);
         return $mailer->send($message);
     }
@@ -63,8 +71,11 @@ class SwiftMailer {
      * @return \Swift_Mime_Message
      * @throws \Swift_IoException
      */
-    public static function createMessage($subject, $to, $body) {
-        if (!self::$registered) self::register();
+    public static function createMessage($subject, $to, $body)
+    {
+        if (!self::$registered)
+            self::register();
+
         if (!$email = Config::get('swift.vcard', 'email'))
             throw new \Swift_IoException('Error loading swift_vcard email configuration');
         if (!$firstName = Config::get('swift.vcard', 'first_name'))

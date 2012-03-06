@@ -1,7 +1,8 @@
 <?php
 namespace Framework\Common;
-use \Symfony\Component\HttpFoundation\Request;
-use \Exceptions\ForbiddenException;
+
+use \Symfony\Component\HttpFoundation\Request,
+    \Exceptions\ForbiddenException;
 
 class WebRequest extends Request
 {

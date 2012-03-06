@@ -1,7 +1,8 @@
 <?php
 namespace Main\Solutions;
-use \Framework\Common\DBSolution;
-use \Main\Models\User;
+
+use \Framework\Common\DBSolution,
+    \Main\Models\User;
 
 class Users extends DBSolution
 {
@@ -10,14 +11,16 @@ class Users extends DBSolution
      * @param $password
      * @administrative
      */
-    public function add($username, $password) {
+    public function add($username, $password)
+    {
         $this->save(new User($username, $password));
     }
 
     /**
      * @return array
      */
-    public function listing() {
+    public function listing()
+    {
         $sql = $this->procedure()->select('*')->from($this, 'u');
         return $this->db->fetchAll($sql);
     }

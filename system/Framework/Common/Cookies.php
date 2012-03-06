@@ -1,6 +1,5 @@
 <?php
 namespace Framework\Common;
-use Framework\Common\Security;
 
 /**
  * Simple cookie helper (native php, bypass symfony request/response)
@@ -46,7 +45,7 @@ class Cookies
         {
             $time = $time || time()+28080000;
             $host = $host || ".{$_SERVER['HTTP_HOST']}";
-            setcookie($key, $value, $time, '/', $host);
+            setcookie($key, $value, $time, $path, $host);
         }
     }
 }

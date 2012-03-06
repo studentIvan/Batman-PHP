@@ -1,35 +1,32 @@
 <?php
 namespace {%=Bundle=%}Tests\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Framework\Core\Template;
-use \{%=Bundle=%}\Controllers\{%=Controller=%};
-use \PHPUnit_Framework_TestCase as TestCase;
+
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse,
+    \Framework\Core\Template,
+    \{%=Bundle=%}\Controllers\{%=Controller=%},
+    \PHPUnit_Framework_TestCase as TestCase;
 
 require_once 'PHPUnit/Autoload.php';
 
-/**
- * Unit test of controller {%=Controller=%}
- *
- * Using: php bin/manager.php controller:test {%=Controller=%} mytest (name test by default)
- * for specific bundle use: php bin/manager.php controller:test {%=Controller=%} test {%=Bundle=%}
- *
- * See PHPUnit manual for more:
- * @link http://www.phpunit.de/manual/3.6/en/writing-tests-for-phpunit.html
- */
-class {%=Controller=%}Test extends TestCase {
+class {%=Controller=%}Test extends TestCase
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->component = new {%=Controller=%}();
         $this->component->tpl = new Template('{%=Bundle=%}');
     }
 
-    public function test() {
+    public function test()
+    {
         $request = new WebRequest();
         $response = new WebResponse();
+
         ob_start();
         $this->component->index($response, $request);
         $content = ob_get_clean();
+
         //$this->assertEquals('', $content);
         //$this->assertRegExp('/foo/', $content);
     }

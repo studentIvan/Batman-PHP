@@ -8,7 +8,8 @@ abstract class Model
      *
      * @return array
      */
-    public function __invoke() {
+    public function __invoke()
+    {
         return $this->toArray();
     }
 
@@ -17,7 +18,8 @@ abstract class Model
      *
      * @return array
      */
-    public function toArray() {
+    public function toArray()
+    {
         return get_object_vars($this);
     }
 
@@ -28,15 +30,20 @@ abstract class Model
      * @param $arguments
      * @return mixed
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         $cmd = substr($name, 0, 3);
         $var = strtolower(str_replace($cmd, '', $name));
-        if ($cmd == 'set') {
-            if (isset($arguments[0]) && isset($var)) {
+        if ($cmd == 'set')
+        {
+            if (isset($arguments[0]) && isset($var))
+            {
                 $this->$var = $arguments[0];
                 return $this;
             }
-        } elseif ($cmd == 'get') {
+        }
+        elseif ($cmd == 'get')
+        {
             return (isset($this->$var)) ? $this->$var : null;
         }
     }

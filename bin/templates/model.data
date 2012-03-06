@@ -1,9 +1,7 @@
 <?php
 namespace {%=Bundle=%}\Models;
-use \Framework\Common\Model;
-use \Framework\Common\Security;
 
-class {%=Model=%} extends Model
+class {%=Model=%} extends \Framework\Common\Model
 {
-
+    /** add some properties/methods here */
 }

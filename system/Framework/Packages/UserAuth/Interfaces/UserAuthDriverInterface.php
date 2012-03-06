@@ -1,7 +1,8 @@
 <?php
 namespace Framework\Packages\UserAuth\Interfaces;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
+
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse;
 
 interface UserAuthDriverInterface
 {

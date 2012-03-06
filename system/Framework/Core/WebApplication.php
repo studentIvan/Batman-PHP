@@ -1,10 +1,13 @@
 <?php
 namespace Framework\Core;
-use \Framework\Core\Config;
-use \Framework\Core\Router;
-use \Framework\Core\Template;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
+
+use \Framework\Core\Config,
+    \Framework\Core\Router,
+    \Framework\Core\Template,
+    \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse,
+    \Exceptions\NotFoundException,
+    \Exceptions\ForbiddenException;
 
 class WebApplication
 {
@@ -15,11 +18,11 @@ class WebApplication
     public static function boot()
     {
         if (Config::get('application', 'forbidden_all')) {
-            throw new \Exceptions\ForbiddenException('Application was turned off');
+            throw new ForbiddenException('Application was turned off');
         }
 
         $option = null;
-        $bundle = $controller = $method = '';
+        $bundleName = $controllerName = $methodName = '';
 
         /**
          * Application Error Resolver
@@ -30,22 +33,23 @@ class WebApplication
          * Routing
          */
         extract(Router::directing());
-        $loadString = '\\' . $bundle . '\\Controllers\\' . $controller;
-        $_controller = new $loadString();
-        if ($_controller instanceof Controller) {
-            $_controller->tpl = new Template($bundle);
+        $loadString = "\\$bundleName\\Controllers\\$controllerName";
+        $controller = new $loadString();
+        if ($controller instanceof Controller) {
+            $controller->tpl = new Template($bundleName);
         }
 
         /**
          * Loading "autoload_solutions"
          * @see app/config/config.yml
          */
-        $_solutions = Config::get('application', 'autoload_solutions');
-        if ($_solutions) {
-            foreach ($_solutions as $__solution) {
-                list($_bundle, $_solution) = explode(':', strtolower($__solution));
-                $loadString = '\\' . $_bundle . '\\Solutions\\' . ucfirst($_solution);
-                $_controller->$_solution = new $loadString();
+        if ($autoloadSolutions = Config::get('application', 'autoload_solutions'))
+        {
+            foreach ($autoloadSolutions as $marker)
+            {
+                list($autoloadBundle, $loadedSolution) = explode(':', strtolower($marker));
+                $loadString = '\\' . $autoloadBundle . '\\Solutions\\' . ucfirst($loadedSolution);
+                $controller->$loadedSolution = new $loadString();
             }
         }
 
@@ -55,11 +59,19 @@ class WebApplication
         $request = WebRequest::createFromGlobals();
         $response = new WebResponse();
 
-        if ($option !== null) {
-            $_controller->$method($option, $response, $request);
-        } else {
-            $_controller->$method($response, $request);
-        }
+        /**
+         * @var $result \Framework\Common\WebResponse
+         */
+        $result = ($option !== null) ?
+            $controller->$methodName($option, $response, $request) :
+            $controller->$methodName($response, $request);
 
+        if ($result instanceof WebResponse) {
+            $result->send();
+        } elseif ($result === 403) {
+            throw new ForbiddenException();
+        } elseif ($result === 404) {
+            throw new NotFoundException();
+        }
     }
 }

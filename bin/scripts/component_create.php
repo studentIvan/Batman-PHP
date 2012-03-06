@@ -9,7 +9,9 @@ function script(InputInterface $input, OutputInterface $output, $type)
     $bundleLocation = getcwd() . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, "app/logic/$bundle");
     $bundleTestsLocation = getcwd() . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, "app/tests/{$bundle}Tests");
     clearstatcache();
-    switch ($type) {
+
+    switch ($type)
+    {
         case 'controller':
             //create controller
             $targetLocation = $bundleLocation . DIRECTORY_SEPARATOR . 'Controllers';
@@ -19,21 +21,8 @@ function script(InputInterface $input, OutputInterface $output, $type)
             $targetFile = $targetLocation . DIRECTORY_SEPARATOR . "{$name}.php";
             $targetTestFile = $targetTestsLocation . DIRECTORY_SEPARATOR . "{$name}Test.php";
             $tpl = file_get_contents('bin/templates/controller.data');
-            $aslData = \Framework\Core\Config::get('application', 'autoload_solutions');
-            $autoloadedSolutions = '* ';
-            if ($aslData) {
-                $autoloadedSolutions .= "\n * Autoloaded solutions: ";
-                foreach ($aslData as $solution)
-                {
-                    $solution = strtolower($solution);
-                    $callString = '\\Main\\Solutions\\' . ucfirst($solution);
-                    $autoloadedSolutions .= "\n * @property $callString \${$solution}";
-                }
-                $autoloadedSolutions .= "\n * ";
-            }
             file_put_contents($targetFile, str_replace(
-                array('{%=Bundle=%}', '{%=Controller=%}', '{%=AutoloadedSolutions=%}'),
-                array($bundle, $name, $autoloadedSolutions), $tpl
+                array('{%=Bundle=%}', '{%=Controller=%}'), array($bundle, $name), $tpl
             ));
             $tpl = file_get_contents('bin/templates/ctest.data');
             file_put_contents($targetTestFile, str_replace(

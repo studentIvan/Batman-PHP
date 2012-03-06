@@ -2,8 +2,8 @@
 namespace Framework\Core;
 use \Framework\Core\Config;
  
-class Template {
-
+class Template
+{
     protected $matches = array();
     protected $bundle;
     protected $engine;

@@ -4,12 +4,14 @@ ini_set('display_errors', 'On');
 define('CONSOLE', true);
 if (preg_match('/bin/', getcwd())) chdir('..');
 require_once __DIR__ . '/../autoload.php';
-use \Symfony\Component\Console\Application;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Input\InputArgument;
-use \Symfony\Component\Console\Input\InputOption;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Yaml\Yaml;
+
+use \Symfony\Component\Console\Application,
+    \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Input\InputArgument,
+    \Symfony\Component\Console\Input\InputOption,
+    \Symfony\Component\Console\Output\OutputInterface,
+    \Symfony\Component\Yaml\Yaml;
+
 /**
  * Batman PHP Console Manager
  */
@@ -170,21 +172,5 @@ $console
         script($input, $output, $console);
     })
 ;
-
-function rrmdir($dir) {
-   if (is_dir($dir)) {
-     $objects = scandir($dir);
-     foreach ($objects as $object) {
-       if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir")
-             rrmdir($dir."/".$object);
-         else
-             unlink($dir."/".$object);
-       }
-     }
-     reset($objects);
-     rmdir($dir);
-   }
- }
 
 $console->run();

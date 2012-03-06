@@ -1,9 +1,10 @@
 <?php
 namespace Framework\Common;
-use \Symfony\Component\HttpFoundation\Response;
-use \Symfony\Component\HttpFoundation\Cookie;
-use \Framework\Core\Config;
-use \Zend\Registry;
+
+use \Symfony\Component\HttpFoundation\Response,
+    \Symfony\Component\HttpFoundation\Cookie,
+    \Framework\Core\Config,
+    \Zend\Registry;
 
 class WebResponse extends Response
 {
@@ -72,6 +73,7 @@ class WebResponse extends Response
             'get' => $_GET,
             'cookie' => $_COOKIE,
         ));
+
         $memory = number_format(memory_get_usage() / 1024 / 1024, 3);
         $time = number_format((microtime(true) - DEBUG_TOOLBAR_START_TIME), 4);
         if ($time > 1) $time = "<a style='border: none; color: #ff6347;'>$time</a>";

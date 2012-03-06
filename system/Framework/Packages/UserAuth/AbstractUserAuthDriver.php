@@ -1,7 +1,8 @@
 <?php
 namespace Framework\Packages\UserAuth;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
+
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse;
 
 abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterface
 {
@@ -25,14 +26,16 @@ abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterf
      *
      * @param \Framework\Common\WebRequest $request
      */
-    public function setRequest(WebRequest $request) {
+    public function setRequest(WebRequest $request)
+    {
         $this->request = $request;
     }
 
     /**
      * @param \Framework\Common\WebResponse $response
      */
-    public function setResponse(WebResponse $response) {
+    public function setResponse(WebResponse $response)
+    {
         $this->response = $response;
     }
 
@@ -40,7 +43,8 @@ abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterf
      * @param string $key
      * @param mixed $value
      */
-    public function setData($key, $value) {
+    public function setData($key, $value)
+    {
         $this->_data[$key] = $value;
     }
 
@@ -48,7 +52,8 @@ abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterf
      * @param string $key
      * @return mixed
      */
-    public function getData($key) {
+    public function getData($key)
+    {
         return isset($this->_data[$key]) ? $this->_data[$key] : false;
     }
 

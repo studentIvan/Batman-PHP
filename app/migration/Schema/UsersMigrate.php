@@ -1,13 +1,13 @@
 <?php
 namespace Schema;
-use \Framework\Common\Migrate;
 
 /**
  * @link http://www.doctrine-project.org/docs/dbal/2.0/en/reference/schema-representation.html
  */
-class UsersMigrate extends Migrate
+class UsersMigrate extends \Framework\Common\Migrate
 {
-    public function __invoke() {
+    public function __invoke()
+    {
         $table = $this->schema->createTable('users');
         $table->addColumn('id', $this->integer, array('unsigned' => true, 'autoincrement' => true));
         $table->addColumn('username', $this->string, array('length' => '32'));

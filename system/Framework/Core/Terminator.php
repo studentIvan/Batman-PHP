@@ -1,7 +1,8 @@
 <?php
 namespace Framework\Core;
-use \Exceptions\NotFoundException;
-use \ErrorException;
+
+use \Exceptions\NotFoundException,
+    \ErrorException;
  
 class Terminator 
 {

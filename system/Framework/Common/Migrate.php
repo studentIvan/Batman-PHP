@@ -1,9 +1,10 @@
 <?php
 namespace Framework\Common;
-use \Doctrine\DBAL\Connection;
-use \Doctrine\DBAL\Platforms\AbstractPlatform;
-use \Doctrine\DBAL\Schema\Schema;
-use \Framework\Interfaces\SchemaInterface;
+
+use \Doctrine\DBAL\Connection,
+    \Doctrine\DBAL\Platforms\AbstractPlatform,
+    \Doctrine\DBAL\Schema\Schema,
+    \Framework\Interfaces\SchemaInterface;
 
 abstract class Migrate implements SchemaInterface
 {
@@ -27,20 +28,18 @@ abstract class Migrate implements SchemaInterface
      */
     protected $schema;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->schema = new Schema();
         $this();
-    }
-
-    public function __invoke() {
-
     }
 
     /**
      * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
      * @param string $path
      */
-    public function save(AbstractPlatform $platform, $path) {
+    public function save(AbstractPlatform $platform, $path)
+    {
         $create = $this->schema->toSql($platform);
         $drop = $this->schema->toDropSql($platform);
         $name = $platform->getName();
@@ -52,16 +51,22 @@ abstract class Migrate implements SchemaInterface
      * @param \Doctrine\DBAL\Connection $conn
      * @param string $path
      */
-    public function create(Connection $conn, $path) {
+    public function create(Connection $conn, $path)
+    {
         $name = $conn->getDatabasePlatform()->getName();
         $create = file("$path.$name.create.sql");
         $drop = file("$path.$name.drop.sql");
-        try {
+
+        try
+        {
             foreach ($create as $sql) $conn->query($sql);
-        } catch (\PDOException $e) {
+        }
+        catch (\PDOException $e)
+        {
             foreach ($drop as $sql) $conn->query($sql);
             foreach ($create as $sql) $conn->query($sql);
         }
+
         $conn->close();
     }
 }

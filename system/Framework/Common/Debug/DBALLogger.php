@@ -1,8 +1,9 @@
 <?php
 namespace Framework\Common\Debug;
-use \Doctrine\DBAL\Logging\SQLLogger;
-use \Doctrine\DBAL\Query\QueryBuilder;
-use \Zend\Registry;
+
+use \Doctrine\DBAL\Logging\SQLLogger,
+    \Doctrine\DBAL\Query\QueryBuilder,
+    \Zend\Registry;
 
 class DBALLogger implements SQLLogger
 {
@@ -19,7 +20,11 @@ class DBALLogger implements SQLLogger
         $registry = Registry::getInstance();
         $result = array();
 
-        if ($sql instanceof QueryBuilder) {
+        if ($sql instanceof QueryBuilder)
+        {
+            /**
+             * @var $sql \Doctrine\DBAL\Query\QueryBuilder
+             */
             $result['Database_Platform'] = $sql->getConnection()->getDatabasePlatform()->getName();
         }
 

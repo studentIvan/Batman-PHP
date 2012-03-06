@@ -1,9 +1,9 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Application;
-use \Framework\Common\Database;
-use \Framework\Core\Config;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface,
+    \Symfony\Component\Console\Application,
+    \Framework\Common\Database,
+    \Framework\Core\Config;
 
 function script(InputInterface $input, OutputInterface $output, Application $console)
 {
@@ -18,7 +18,9 @@ function script(InputInterface $input, OutputInterface $output, Application $con
     $framework->setAttribute('alias', 'manager');
     $framework->setAttribute('enabled', 'true');
     $framework->setAttribute('version', '1');
-    for ($i = 0; $i < count($out[1]); $i++) {
+
+    for ($i = 0; $i < count($out[1]); $i++)
+    {
         $command = $document->createElement('command');
         $name = $document->createElement('name', $out[1][$i]);
         $command->appendChild($name);
@@ -28,31 +30,43 @@ function script(InputInterface $input, OutputInterface $output, Application $con
         $command->appendChild($help);
         $commandObject = $console->find($out[1][$i]);
         $qArguments = false;
-        if ($commandObject) {
+
+        if ($commandObject)
+        {
             $qArguments = '';
             $arguments = $commandObject->getDefinition()->getArguments();
-            if ($arguments && count($arguments) > 0) {
-                foreach ($arguments as $argumentName => $argumentData) {
+
+            if ($arguments && count($arguments) > 0)
+            {
+                foreach ($arguments as $argumentName => $argumentData)
+                {
                     /** @var \Symfony\Component\Console\Input\InputArgument $argumentData */
                     $default = $argumentData->getDefault();
                     $tmp = $argumentName;
+
                     if ($default) {
                         $tmp .= '[=' . strval($default) . ']';
                     }
+
                     $qArguments .= " $tmp";
                 }
                 $qArguments = (trim($qArguments) == 'command') ? false : trim($qArguments);
             }
         }
-        if ($qArguments) {
+
+        if ($qArguments)
+        {
             $params = $document->createElement('params', $qArguments);
             $command->appendChild($params);
         }
+
         $framework->appendChild($command);
     }
+
     $document->appendChild($framework);
     $document->formatOutput = true;
     $cwd = getcwd();
+
     if (!is_dir('.idea/commandlinetools')) {
         mkdir('.idea/commandlinetools', 0777, true);
         $output->writeln("<info>Directory $cwd/.idea/commandlinetools created</info>");

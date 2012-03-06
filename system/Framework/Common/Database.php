@@ -1,10 +1,11 @@
 <?php
 namespace Framework\Common;
-use \Framework\Core\Config;
-use \Doctrine\DBAL\Configuration;
-use \Doctrine\DBAL\DriverManager;
-use \Framework\Common\Debug\DBALLogger;
-use \Zend\Registry;
+
+use \Framework\Core\Config,
+    \Doctrine\DBAL\Configuration,
+    \Doctrine\DBAL\DriverManager,
+    \Framework\Common\Debug\DBALLogger,
+    \Zend\Registry;
 
 class Database
 {
@@ -20,6 +21,7 @@ class Database
         if (!isset($registry["dbc_$appConfig"]))
         {
             $rtmConfig = new Configuration();
+
             if (Config::get('framework', 'debug_toolbar'))
             {
                 $rtmConfig->setSQLLogger(new DBALLogger());
@@ -41,16 +43,5 @@ class Database
         $config = Config::get($appConfig);
         unset($config['dbname']);
         return DriverManager::getConnection($config);
-    }
-
-    /**
-     * @static
-     * @param string $time
-     * @return string
-     */
-    public static function getDateTime($time = 'now')
-    {
-        $dateTime = new \DateTime($time);
-        return $dateTime->format('Y-m-d H:i:sP');
     }
 }

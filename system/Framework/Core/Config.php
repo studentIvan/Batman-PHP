@@ -1,9 +1,11 @@
 <?php
 namespace Framework\Core;
-use \Symfony\Component\Yaml\Yaml;
-use \Symfony\Component\Yaml\Exception\ParseException;
 
-class Config {
+use \Symfony\Component\Yaml\Yaml,
+    \Symfony\Component\Yaml\Exception\ParseException;
+
+class Config
+{
     /**
      * @var array
      */
@@ -46,8 +48,10 @@ class Config {
      * @static
      * @return void
      */
-    public static function loadResources() {
-        if (!self::$resourcesLoaded) {
+    public static function loadResources()
+    {
+        if (!self::$resourcesLoaded)
+        {
             self::$data = array_replace_recursive(self::$data, Yaml::parse('app/config/resources.yml'));
             self::$resourcesLoaded = true;
         }
@@ -59,7 +63,8 @@ class Config {
      * @param bool|string $subconfig
      * @return mixed
      */
-    public static function get($config, $subconfig = false) {
+    public static function get($config, $subconfig = false)
+    {
         return ($subconfig) ?
             (isset(self::$data[$config][$subconfig]) ? self::$data[$config][$subconfig] : false) :
             (isset(self::$data[$config]) ? self::$data[$config] : false);
@@ -70,7 +75,8 @@ class Config {
      * @param string $key
      * @param mixed $value
      */
-    public static function set($key, $value) {
+    public static function set($key, $value)
+    {
         self::$data[$key] = $value;
     }
 
@@ -78,10 +84,12 @@ class Config {
      * @static
      * @return void
      */
-    public static function phpConfigure() {
+    public static function phpConfigure()
+    {
         if (self::get('framework', 'timezone'))
             date_default_timezone_set(self::get('framework', 'timezone'));
-        if (self::get('framework', 'phpdebug') == false) {
+        if (self::get('framework', 'phpdebug') == false)
+        {
             error_reporting(0);
             //ini_set('display_errors', 'Off');
         } else {

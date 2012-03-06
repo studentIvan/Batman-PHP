@@ -1,8 +1,9 @@
 <?php
 namespace Framework\Packages;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Exceptions\ForbiddenException;
+
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse,
+    \Exceptions\ForbiddenException;
 
 class UserAuth
 {
@@ -14,7 +15,8 @@ class UserAuth
     /**
      * @param string $driver
      */
-    public function __construct($driver = 'NativePhpSession') {
+    public function __construct($driver = 'NativePhpSession')
+    {
         $callStr = '\\Framework\\Packages\\UserAuth\\Drivers\\' . $driver;
         $this->driver = new $callStr();
     }
@@ -23,7 +25,8 @@ class UserAuth
      * @param \Framework\Common\WebRequest $request
      * @param \Framework\Common\WebResponse $response
      */
-    public function init(WebRequest $request, WebResponse $response) {
+    public function init(WebRequest $request, WebResponse $response)
+    {
         $this->driver->setRequest($request);
         $this->driver->setResponse($response);
     }
@@ -31,7 +34,8 @@ class UserAuth
     /**
      * @return bool
      */
-    public function isAuth() {
+    public function isAuth()
+    {
         return (bool)$this->driver->getData('auth');
     }
 
@@ -40,7 +44,8 @@ class UserAuth
      *
      * @throws \Exceptions\ForbiddenException
      */
-    public function ifNotAuthorizedThrowForbidden() {
+    public function ifNotAuthorizedThrowForbidden()
+    {
         if (!$this->isAuth()) throw new ForbiddenException();
     }
 
@@ -48,35 +53,40 @@ class UserAuth
      * @param string $login
      * @param string $password
      */
-    public function auth($login, $password = '') {
+    public function auth($login, $password = '')
+    {
         $this->driver->auth($login, $password);
     }
 
     /**
      * Exit
      */
-    public function out() {
+    public function out()
+    {
         $this->driver->out();
     }
 
     /**
      * @return string
      */
-    public function getLogin() {
+    public function getLogin()
+    {
         return $this->driver->getData('login');
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->driver->getData('name');
     }
 
     /**
      * @return int
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return intval($this->driver->getData('uid'));
     }
 }

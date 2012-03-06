@@ -1,16 +1,10 @@
 <?php
 namespace Main\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Framework\Core\Controller;
-use \Framework\Common\Database;
 
-/**
- * Users controller
- * 
- * @link http://api.symfony.com/2.0/Symfony/Component/HttpFoundation.html
- */
-class Users extends Controller
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse;
+
+class Users extends \Framework\Core\Controller
 {
     public function __construct()
     {
@@ -34,7 +28,6 @@ class Users extends Controller
         else
         {
             header('Location: /users/');
-            exit;
         }
     }
 }

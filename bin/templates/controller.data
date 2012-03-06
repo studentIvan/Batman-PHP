@@ -1,16 +1,13 @@
 <?php
 namespace {%=Bundle=%}\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
-use \Framework\Core\Controller;
 
-/**
- * {%=Controller=%} controller
- {%=AutoloadedSolutions=%}
- */
-class {%=Controller=%} extends Controller
+use \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse;
+
+class {%=Controller=%} extends \Framework\Core\Controller
 {
-    public function index(WebResponse $response, WebRequest $request) {
+    public function index(WebResponse $response, WebRequest $request)
+    {
         /* write some code here */
     }
 }

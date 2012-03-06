@@ -1,13 +1,14 @@
 <?php
 namespace Bootstrap;
-use \Exception;
-use \RuntimeException;
-use \Exceptions\ForbiddenException;
-use \Exceptions\NotFoundException;
-use \Framework\Core\Config;
-use \Framework\Common\Log;
-use \Framework\Core\Template;
-use \Framework\Common\SwiftMailer;
+
+use \Exception,
+    \RuntimeException,
+    \Exceptions\ForbiddenException,
+    \Exceptions\NotFoundException,
+    \Framework\Core\Config,
+    \Framework\Common\Log,
+    \Framework\Core\Template,
+    \Framework\Common\SwiftMailer;
 
 class Dispatcher
 {
@@ -15,7 +16,9 @@ class Dispatcher
     {
         try {
             Bootstrap::boot();
-        } catch (RuntimeException $e) {
+        }
+        catch (RuntimeException $e)
+        {
             /**
              * Simple runtime errors handler
              */
@@ -37,21 +40,27 @@ class Dispatcher
                     }
                 }
             }
-        } catch (ForbiddenException $e) {
+        }
+        catch (ForbiddenException $e)
+        {
             /**
              * Simple 403 error page
              */
             header('HTTP/1.0 403 Forbidden');
             $template = new Template();
             echo $template->render('403', 'native');
-        } catch (NotFoundException $e) {
+        }
+        catch (NotFoundException $e)
+        {
             /**
              * Simple 404 error page
              */
             header('HTTP/1.0 404 Not Found');
             $template = new Template();
             echo $template->render('404', 'native');
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             /**
              * Simple other exceptions handler
              */

@@ -1,8 +1,9 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface;
 
-function script(InputInterface $input, OutputInterface $output) {
+function script(InputInterface $input, OutputInterface $output)
+{
     $schema = ucfirst($input->getArgument('schema'));
     $targetFile = "app/migration/Schema/{$schema}Migrate.php";
     $tpl = file_get_contents('bin/templates/migration.data');

@@ -1,21 +1,28 @@
 <?php
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Yaml\Yaml;
+use \Symfony\Component\Console\Input\InputInterface,
+    \Symfony\Component\Console\Output\OutputInterface,
+    \Symfony\Component\Yaml\Yaml;
 
-function script($server, OutputInterface $output) {
-    if ($server == 'apache') {
+function script($server, OutputInterface $output)
+{
+    if ($server == 'apache')
+    {
         $rules = file_get_contents('app/config/htaccess.txt') .
             "\n\nRewriteEngine On\nRewriteBase /";
         $template = "\nRewriteRule ^%p%$ /index.php?%r% [L]";
-    } elseif ($server == 'nginx') {
+    }
+    elseif ($server == 'nginx')
+    {
         $rules = file_get_contents('app/config/nginx.inc.txt');
         $template = "\nrewrite ^/%p%$ /index.php?%r% last;";
-    } else {
+    }
+    else
+    {
         throw new \Exception('<error>WTF?</error>');
     }
 
-    foreach (Yaml::parse('app/config/routing.yml') as $rule) {
+    foreach (Yaml::parse('app/config/routing.yml') as $rule)
+    {
         $output->writeln('routing ' . $rule['pattern']);
         $rule['pattern'] = preg_replace('/<[^<]+>/', '([^/]+)', $rule['pattern']);
         if (isset($rule['backslash']) && $rule['backslash']) {

@@ -1,21 +1,21 @@
 <?php
 namespace Admin\Controllers;
-use \Framework\Common\WebRequest;
-use \Framework\Common\WebResponse;
 
-use \Exceptions\ForbiddenException;
-use \Framework\Core\Controller;
-use \Framework\Core\Config;
-
-use \Framework\Packages\UserAuth;
-use \Framework\Packages\UserAuth\Exceptions\AuthException;
+use \Framework\Core\Config,
+    \Framework\Common\WebRequest,
+    \Framework\Common\WebResponse,
+    \Exceptions\ForbiddenException,
+    \Framework\Packages\UserAuth,
+    \Framework\Packages\UserAuth\Exceptions\AuthException;
 
 /**
- * Panel controller
- *
+ * Batman Admin Panel
  */
-class Panel extends Controller
+class Panel extends \Framework\Core\Controller
 {
+    /**
+     * @var \Framework\Packages\UserAuth
+     */
     protected $session;
 
     public function __construct()
@@ -29,7 +29,8 @@ class Panel extends Controller
         }
     }
 
-    public function authManual(WebResponse $response) {
+    public function authManual(WebResponse $response)
+    {
         $response->send('Not supported');
     }
 
@@ -39,7 +40,7 @@ class Panel extends Controller
             $this->tpl
                 ->match('auth', $this->session->isAuth())
                 ->match('adminPath', Config::get('admin', 'path'))
-                ->render('index', 'twig')
+                ->render('panel', 'twig')
         );
     }
 
@@ -61,20 +62,26 @@ class Panel extends Controller
                     foreach (get_class_methods($className) as $method)
                     {
                         $reflect = new \ReflectionMethod($className, $method);
-                        if ($reflect->isPublic()) {
+                        if ($reflect->isPublic())
+                        {
                             $reflectName = $reflect->getName();
                             if (strpos($reflectName, '_') !== false) continue;
                             if (!$phpDoc = $reflect->getDocComment()) continue;
-                            $ao = Config::get('admin', 'administrative_only');
-                            if ($ao and strpos($phpDoc, '@administrative') == false) continue;
+
+                            if (Config::get('admin', 'administrative_only') and
+                                strpos($phpDoc, '@administrative') == false) continue;
+
                             $map[$bundle][$solution][$reflectName] = array();
+
                             foreach ($reflect->getParameters() as $param)
                             {
                                 /**
                                  * @var $param \ReflectionParameter
                                  */
-                                if (!$param->isArray()) {
-                                    $map[$bundle][$solution][$reflectName][] = $param->getName();
+                                if (!$param->isArray())
+                                {
+                                    $map[$bundle][$solution]
+                                        [$reflectName][] = $param->getName();
                                 }
                                 else
                                 {
@@ -82,6 +89,7 @@ class Panel extends Controller
                                      * Arrays not supported in this version
                                      */
                                     unset($map[$bundle][$solution][$reflectName]);
+
                                     break;
                                 }
                             }

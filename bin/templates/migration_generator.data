@@ -1,13 +1,13 @@
 <?php
 namespace Schema;
-use \Framework\Common\Migrate;
 
 /**
  * @link http://www.doctrine-project.org/docs/dbal/2.0/en/reference/schema-representation.html
  */
-class {%=Schema=%}Migrate extends Migrate
+class {%=Schema=%}Migrate extends \Framework\Common\Migrate
 {
-    public function __invoke() {
+    public function __invoke()
+    {
         {%=Map=%}
     }
 }
