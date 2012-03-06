@@ -63,8 +63,10 @@ class Panel extends Controller
                         $reflect = new \ReflectionMethod($className, $method);
                         if ($reflect->isPublic()) {
                             $reflectName = $reflect->getName();
+                            if (strpos($reflectName, '_') !== false) continue;
                             if (!$phpDoc = $reflect->getDocComment()) continue;
-                            if (strpos($phpDoc, '@administrative') == false) continue;
+                            $ao = Config::get('admin', 'administrative_only');
+                            if ($ao and strpos($phpDoc, '@administrative') == false) continue;
                             $map[$bundle][$solution][$reflectName] = array();
                             foreach ($reflect->getParameters() as $param)
                             {

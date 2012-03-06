@@ -44,7 +44,8 @@ twig:
     extensions: [Resources]
 
 admin:
+    path: admin
     login: Admin
     password: 12345
-    bundles: [Main] # indexed bundles (@administrative in methods)
-    path: admin
+    bundles: [Main] # indexed bundles
+    administrative_only: true # (@administrative in methods)

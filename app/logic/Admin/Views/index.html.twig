@@ -20,12 +20,6 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
             <a class="brand" href="#">Batman Admin</a>
             <div class="nav-collapse">
                 <ul class="nav">
@@ -34,10 +28,10 @@
                 {% if auth %}
                 <p class="navbar-text pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/{{ adminPath }}/out">exit</a></p>
                 {% else %}<form id="auth-form" action="/{{ adminPath }}/authManual" class="navbar-form pull-right">
-                <input class="input-small" id="login" type="text" placeholder="Username">
-                <input class="input-small" id="password" type="password" placeholder="Password">
-                <button type="submit" class="btn">Sign in</button>
-            </form>{% endif %}
+                    <input class="input-small" id="login" type="text" placeholder="Username">
+                    <input class="input-small" id="password" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>{% endif %}
             </div><!--/.nav-collapse -->
         </div>
     </div>
@@ -55,10 +49,9 @@
             <div class="hero-unit" id="method-interface">
                 <h1>Enjoy</h1>
                 <br>
-                <p>Use <i>@administrative</i> phpDoc marker in methods of solutions.</p>
-                <p>Place indexed bundles in config.yml</p>
+                <p>Manipulate your solutions</p>
                 <br>
-                <p><a class="btn btn-primary btn-large" href="/">Go to the site &raquo;</a></p>
+                <p><a class="btn btn-primary btn-large" href="/">Go back to the site &raquo;</a></p>
             </div>
         </div><!--/span-->
     </div><!--/row-->
