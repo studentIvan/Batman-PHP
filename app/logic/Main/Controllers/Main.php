@@ -7,13 +7,9 @@ use \Framework\Common\WebRequest,
 
 class Main
 {
-	function __construct()
-    {
-		$this->simple = new Solutions\Simple();
-	}
-	
 	function index(WebResponse $response)
     {
-		$response->send($this->simple->test());
+        $welcome = new Solutions\Welcome();
+		$response->send($welcome->to());
 	}
 }

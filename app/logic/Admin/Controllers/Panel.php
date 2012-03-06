@@ -49,19 +49,24 @@ class Panel extends \Framework\Core\Controller
      */
     private function _getAdministrativeMap()
     {
-        if ($bundles = Config::get('admin', 'bundles')) {
+        if ($bundles = Config::get('admin', 'bundles'))
+        {
             $map = array();
+
             foreach ($bundles as $bundle)
             {
                 $map[$bundle] = array();
+
                 foreach (glob("app/logic/$bundle/Solutions/*.php") as $solution)
                 {
                     $solution = rtrim(basename($solution), '.php');
                     $map[$bundle][$solution] = array();
                     $className = "\\$bundle\\Solutions\\$solution";
+
                     foreach (get_class_methods($className) as $method)
                     {
                         $reflect = new \ReflectionMethod($className, $method);
+
                         if ($reflect->isPublic())
                         {
                             $reflectName = $reflect->getName();
@@ -126,6 +131,7 @@ class Panel extends \Framework\Core\Controller
         if ($needle = $request->postStr('needle'))
         {
             list($bundle, $solution, $method) = explode(':', $needle);
+
             if (isset($map[$bundle][$solution][$method]))
             {
                 foreach ($map[$bundle][$solution][$method] as $param)
