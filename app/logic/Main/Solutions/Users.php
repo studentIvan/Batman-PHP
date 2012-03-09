@@ -7,10 +7,10 @@ use \Framework\Common\DBSolution,
 class Users extends DBSolution
 {
     /**
+     * @admin_method Add new user
+     *
      * @param $username
      * @param $password
-     *
-     * @admin_method Add new user
      */
     public function add($username, $password)
     {
@@ -19,6 +19,7 @@ class Users extends DBSolution
 
     /**
      * @admin_method Display users
+     *
      * @param int $offset
      * @param int $limit
      * @return array
