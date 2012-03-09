@@ -149,7 +149,7 @@ class Panel extends \Framework\Core\Controller
                 {
                     try
                     {
-                        $db = Database::getInstance();
+                        $db = Database::getInstance($request->postStr('_dbcfg'));
                         $security = new Security();
                         $query = $db->query($sql);
 
@@ -187,8 +187,11 @@ class Panel extends \Framework\Core\Controller
                         }
                         else
                         {
-                            if (strpos($param, '_') !== 0)
+                            if (strpos($param, '_') !== 0) {
                                 $response->sendForbidden('some parameters are not received');
+                            } else {
+                                $methodParameters[] = false;
+                            }
                         }
                     }
 

@@ -1,6 +1,6 @@
 function showSqlMaster()
 {
-    $("#method-interface").html('<h1>SQL master</h1>\n<br>\n<hr>\n<div id="json-result" style="display: none"></div>\n<form class="form-horizontal">\n    <fieldset>\n        <div class="control-group">\n            <label class="control-label" for="p_sql">SQL</label>\n            <div class="controls">\n                <textarea id="p_sql" class="input-xlarge" name="_sql" cols="3" rows="3"></textarea>\n            </div>\n        </div>\n        <div class="control-group">\n            <label class="control-label" for="p_dbcfg">SQL</label>\n            <div class="controls">\n                <input id="p_dbcfg" class="input-xlarge" name="_dbcfg">\n            </div>\n        </div>\n        <div class="form-actions">\n            <button id="submit-144" class="btn btn-primary" type="submit">\n                <i class="icon-cog icon-white"></i>\n                Execute\n            </button>\n            <div id="submit-145" class="progress progress-info progress-striped active" style="width: 30%; display: none;">\n                <div class="bar" style="width: 100%;"></div>\n            </div>\n        </div>\n    </fieldset>\n</form>');
+    $("#method-interface").html('<h1>SQL master</h1>\n<br>\n<hr>\n<div id="json-result" style="display: none"></div>\n<form class="form-horizontal">\n    <fieldset>\n        <div class="control-group">\n            <label class="control-label" for="p_sql">SQL</label>\n            <div class="controls">\n                <textarea id="p_sql" class="input-xlarge" name="_sql" cols="3" rows="3"></textarea>\n            </div>\n        </div>\n        <div class="control-group">\n            <label class="control-label" for="p_dbcfg">connection</label>\n            <div class="controls">\n                <input id="p_dbcfg" class="input-xlarge" name="_dbcfg" value="database">\n            </div>\n        </div>\n        <div class="form-actions">\n            <button id="submit-144" class="btn btn-primary" type="submit">\n                <i class="icon-cog icon-white"></i>\n                Execute\n            </button>\n            <div id="submit-145" class="progress progress-info progress-striped active" style="width: 30%; display: none;">\n                <div class="bar" style="width: 100%;"></div>\n            </div>\n        </div>\n    </fieldset>\n</form>');
     $("#method-interface form").submit(function()
     {
         var postObject = {};
@@ -13,7 +13,7 @@ function showSqlMaster()
         $("#submit-144").css('display', 'none');
         $("#submit-145").css('display', 'block');
 
-        $.post('/' + adminPath + '/execute', postObject)
+        $.post('/' + adminPath + '/execute?r=' + Math.random(), postObject)
 
             .complete(function() {
                 $("#submit-144").css('display', 'block');
@@ -154,7 +154,7 @@ function setUpMethodInterface(menuLink)
         $("#submit-144").css('display', 'none');
         $("#submit-145").css('display', 'block');
 
-        $.post('/' + adminPath + '/execute', postObject)
+        $.post('/' + adminPath + '/execute?r=' + Math.random(), postObject)
 
             .complete(function() {
                 $("#submit-144").css('display', 'block');
