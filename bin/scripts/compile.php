@@ -23,11 +23,31 @@ function script($server, OutputInterface $output)
 
     foreach (Yaml::parse('app/config/routing.yml') as $rule)
     {
+        $rule['pattern'] = preg_replace(
+            '/\{([^}]+):([^}]+)\}/e', '\Framework\Core\Config::get("$1", "$2")', $rule['pattern']
+        );
+
+        $rule['route'] = preg_replace(
+            '/\{([^}]+):([^}]+)\}/e', '\Framework\Core\Config::get("$1", "$2")', $rule['route']
+        );
+
         $output->writeln('routing ' . $rule['pattern']);
+
+        preg_match_all('/<([^<]+)>/', $rule['pattern'], $overloadVars);
+
+        if (isset($overloadVars[1]))
+        {
+            $varId = 0;
+            foreach ($overloadVars[1] as $var) {
+                $rule['route'] = str_replace('$' . $var, '$' . (++$varId), $rule['route']);
+            }
+        }
+
         $rule['pattern'] = preg_replace('/<[^<]+>/', '([^/]+)', $rule['pattern']);
         if (isset($rule['backslash']) && $rule['backslash']) {
             $rule['pattern'] .= '(?:/)?';
         }
+
         $rule['pattern'] = ltrim($rule['pattern'], '/');
         $q = str_replace(array('%p%', '%r%'), array($rule['pattern'], $rule['route']), $template);
         $output->writeln('<info>' . trim($q) . '</info>');

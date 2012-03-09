@@ -13,6 +13,7 @@
     {% resource css.admin %}
 
     {% resource js.jquery %}
+    {% resource js.jquery_tablesorter %}
     {% resource js.twitter_bootstrap %}
     {% resource js.admin %}
 </head>
@@ -23,6 +24,8 @@
             <a class="brand" href="#">Batman Admin</a>
             <div class="nav-collapse">
                 <ul class="nav">
+                    <li><a href="#" onclick="buildUserInterface()">Refresh menu</a></li>
+                    <li><a href="#" onclick="showSqlMaster()">SQL master</a></li>
                     {% block menu %}{% endblock %}
                 </ul>
                 {% if auth %}

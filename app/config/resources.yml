@@ -17,6 +17,7 @@ resources.js:
     jquery: //yandex.st/jquery/1.7.1/jquery.min.js
     jquery.dev: //yandex.st/jquery/1.7.1/jquery.js
     jquery_fancybox: //yandex.st/jquery/fancybox/2.0.3/jquery.fancybox.min.js
+    jquery_tablesorter: /javascripts/jquery/jquery.tablesorter.min.js
     highlight: //yandex.st/highlightjs/6.1/highlight.min.js
     jquery_swfobject: //yandex.st/jquery/swfobject/1.1.1/jquery.swfobject.min.js
     swfobject: //yandex.st/swfobject/2.2/swfobject.min.js

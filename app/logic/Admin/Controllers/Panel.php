@@ -5,6 +5,8 @@ use \Framework\Core\Config,
     \Framework\Common\WebRequest,
     \Framework\Common\WebResponse,
     \Exceptions\ForbiddenException,
+    \Framework\Common\Security,
+    \Framework\Common\Database,
     \Framework\Packages\UserAuth,
     \Framework\Packages\UserAuth\Exceptions\AuthException;
 
@@ -21,6 +23,7 @@ class Panel extends \Framework\Core\Controller
     public function __construct()
     {
         $this->session = new UserAuth();
+
         if (Config::get('framework', 'debug_toolbar'))
         {
             $frameworkCfg = Config::get('framework');
@@ -29,19 +32,17 @@ class Panel extends \Framework\Core\Controller
         }
     }
 
-    public function authManual(WebResponse $response)
+    public function authManual()
     {
-        $response->send('Not supported');
+        return 'Not supported';
     }
 
-    public function index(WebResponse $response)
+    public function index()
     {
-        $response->send(
-            $this->tpl
-                ->match('auth', $this->session->isAuth())
-                ->match('adminPath', Config::get('admin', 'path'))
-                ->render('panel', 'twig')
-        );
+        return $this->tpl
+            ->match('auth', $this->session->isAuth())
+            ->match('adminPath', Config::get('admin', 'path'))
+            ->render('panel', 'twig');
     }
 
     /**
@@ -59,7 +60,8 @@ class Panel extends \Framework\Core\Controller
 
                 foreach (glob("app/logic/$bundle/Solutions/*.php") as $solution)
                 {
-                    $solution = rtrim(basename($solution), '.php');
+                    $solution = preg_replace('/^(\S+)\.php$/', '$1', basename($solution));
+
                     $map[$bundle][$solution] = array();
                     $className = "\\$bundle\\Solutions\\$solution";
 
@@ -71,12 +73,23 @@ class Panel extends \Framework\Core\Controller
                         {
                             $reflectName = $reflect->getName();
                             if (strpos($reflectName, '_') !== false) continue;
-                            if (!$phpDoc = $reflect->getDocComment()) continue;
 
-                            if (Config::get('admin', 'administrative_only') and
-                                strpos($phpDoc, '@administrative') == false) continue;
+                            if ($phpDoc = $reflect->getDocComment())
+                            {
+                                if (Config::get('admin', 'admin_method_only') and
+                                    strpos($phpDoc, '@admin_method') == false) continue;
 
-                            $map[$bundle][$solution][$reflectName] = array();
+                                preg_match('/@admin_method ([^\n]+)\n/', $phpDoc, $matchData);
+
+                                $map[$bundle][$solution][$reflectName]['desc'] =
+                                    (isset($matchData[1])) ? trim($matchData[1]) : '';
+                            }
+                            else
+                            {
+                                if (Config::get('admin', 'admin_method_only')) continue;
+                            }
+
+                            $map[$bundle][$solution][$reflectName]['p'] = array();
 
                             foreach ($reflect->getParameters() as $param)
                             {
@@ -85,8 +98,9 @@ class Panel extends \Framework\Core\Controller
                                  */
                                 if (!$param->isArray())
                                 {
+                                    $opt = $param->isOptional() ? '_' : '';
                                     $map[$bundle][$solution]
-                                        [$reflectName][] = $param->getName();
+                                        [$reflectName]['p'][] = $opt . $param->getName();
                                 }
                                 else
                                 {
@@ -126,45 +140,76 @@ class Panel extends \Framework\Core\Controller
     {
         $request->ifNotAjaxRequestThrowForbidden();
         $this->session->ifNotAuthorizedThrowForbidden();
-        $map = $this->_getAdministrativeMap();
-        $methodParameters = array();
+
         if ($needle = $request->postStr('needle'))
         {
-            list($bundle, $solution, $method) = explode(':', $needle);
-
-            if (isset($map[$bundle][$solution][$method]))
+            if ($needle == 'SQL')
             {
-                foreach ($map[$bundle][$solution][$method] as $param)
+                if ($sql = $request->postStr('_sql'))
                 {
-                    if ($receivedParam = $request->postStr($param))
+                    try
                     {
-                        $lowerReceivedParam = strtolower($receivedParam);
-                        if ($lowerReceivedParam == 'false') $receivedParam = false;
-                        if ($lowerReceivedParam == 'true') $receivedParam = true;
-                        $methodParameters[] = $receivedParam;
+                        $db = Database::getInstance();
+                        $security = new Security();
+                        $query = $db->query($sql);
+
+                        try {
+                            $result = $query->fetchAll(\PDO::FETCH_ASSOC);
+                        } catch (\Exception $e) {
+                            $result =  null;
+                        }
+
+                        $response->send((is_null($result) ? 'ok' : $security->mixedClean($result, true)), true);
                     }
-                    else
+                    catch (\Exception $e)
                     {
-                        $response->sendForbidden('some parameters are not received');
+                        $response->sendForbidden($e->getMessage());
                     }
-                }
-
-                $classPath = "\\$bundle\\Solutions\\$solution";
-
-                try
-                {
-                    $object = new $classPath();
-                    call_user_func_array(array($object, $method), $methodParameters);
-                    $response->send('ok');
-                }
-                catch (\Exception $e)
-                {
-                    $response->sendForbidden($e->getMessage());
                 }
             }
             else
             {
-                $response->sendForbidden('wrong needle');
+                $map = $this->_getAdministrativeMap();
+                $methodParameters = array();
+
+                list($bundle, $solution, $method) = explode(':', $needle);
+
+                if (isset($map[$bundle][$solution][$method]))
+                {
+                    foreach ($map[$bundle][$solution][$method]['p'] as $param)
+                    {
+                        if ($receivedParam = $request->postStr($param))
+                        {
+                            $lowerReceivedParam = strtolower($receivedParam);
+                            if ($lowerReceivedParam == 'false') $receivedParam = false;
+                            if ($lowerReceivedParam == 'true') $receivedParam = true;
+                            $methodParameters[] = $receivedParam;
+                        }
+                        else
+                        {
+                            if (strpos($param, '_') !== 0)
+                                $response->sendForbidden('some parameters are not received');
+                        }
+                    }
+
+                    $classPath = "\\$bundle\\Solutions\\$solution";
+
+                    try
+                    {
+                        $security = new Security();
+                        $object = new $classPath();
+                        $result = call_user_func_array(array($object, $method), $methodParameters);
+                        $response->send((is_null($result) ? 'ok' : $security->mixedClean($result, true)), true);
+                    }
+                    catch (\Exception $e)
+                    {
+                        $response->sendForbidden($e->getMessage());
+                    }
+                }
+                else
+                {
+                    $response->sendForbidden('wrong needle');
+                }
             }
         }
         else
@@ -177,7 +222,7 @@ class Panel extends \Framework\Core\Controller
     {
         try {
             $this->session->out();
-            header('Location: /admin/');
+            header('Location: /' . Config::get('admin', 'path'));
         } catch (AuthException $e) {
             throw new ForbiddenException($e->getMessage());
         }

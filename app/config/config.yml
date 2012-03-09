@@ -2,7 +2,8 @@ framework:
     timezone: Europe/Moscow
 
 application:
-    default: Main
+    default_bundle: Main
+    default_controller: Main
     environment: dev
     forbidden_all: false
     autoload_solutions: [] # Main:Simple, Main:Users, Dummy:Other...
@@ -48,4 +49,4 @@ admin:
     login: Admin
     password: 12345
     bundles: [Main] # indexed bundles
-    administrative_only: true # (@administrative in methods)
+    admin_method_only: true # (@admin_method in methods)

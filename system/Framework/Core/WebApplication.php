@@ -66,12 +66,30 @@ class WebApplication
             $controller->$methodName($option, $response, $request) :
             $controller->$methodName($response, $request);
 
-        if ($result instanceof WebResponse) {
-            $result->send();
-        } elseif ($result === 403) {
-            throw new ForbiddenException();
-        } elseif ($result === 404) {
-            throw new NotFoundException();
+        if (!is_null($result))
+        {
+            if (is_string($result))
+            {
+                /*
+                * since 0.2.1-ALPHA-DEV
+                * return 'hello world';
+                */
+                $response->send($result);
+            }
+            elseif ($result === 403)
+            {
+                /*
+                * return 403;
+                */
+                throw new ForbiddenException();
+            }
+            elseif ($result === 404)
+            {
+                /*
+                * return 404;
+                */
+                throw new NotFoundException();
+            }
         }
     }
 }

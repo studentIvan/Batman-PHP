@@ -306,7 +306,7 @@ class QueryBuilder
      * Sets the position of the first result to retrieve (the "offset").
      *
      * @param integer $firstResult The first result to return.
-     * @return Doctrine\DBAL\Query\QueryBuilder This QueryBuilder instance.
+     * @return \Doctrine\DBAL\Query\QueryBuilder This QueryBuilder instance.
      */
     public function setFirstResult($firstResult)
     {

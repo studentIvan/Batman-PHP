@@ -9,7 +9,8 @@ class Users extends DBSolution
     /**
      * @param $username
      * @param $password
-     * @administrative
+     *
+     * @admin_method Add new user
      */
     public function add($username, $password)
     {
@@ -17,11 +18,19 @@ class Users extends DBSolution
     }
 
     /**
+     * @admin_method Display users
+     * @param int $offset
+     * @param int $limit
      * @return array
      */
-    public function listing()
+    public function listing($offset = 0, $limit = 30)
     {
-        $sql = $this->procedure()->select('*')->from($this, 'u');
+        $sql = $this->procedure()
+                ->select('*')
+                ->from($this, 'u')
+                ->setFirstResult($offset)
+                ->setMaxResults($limit);
+
         return $this->db->fetchAll($sql);
     }
 }

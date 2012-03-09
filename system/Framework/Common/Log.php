@@ -12,6 +12,7 @@ class Log
      */
     public static function write($message, $filename = false)
     {
+        if (is_array($message)) $message = serialize($message);
         $filename = 'app/logs/' . (($filename) ? $filename : date("m.d.y")) . '.log';
         $maxSize = Config::get('application', 'log_file_max_size_mb');
         if ($maxSize) {

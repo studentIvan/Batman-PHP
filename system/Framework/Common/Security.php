@@ -25,11 +25,31 @@ class Security
      * @param bool $antiSpy clean invisible?
      * @return string
      */
-    public function clean($string, $antiSpy = false)
+    public function clean($string, $antiSpy = true)
     {
-        $cleaned = htmlspecialchars($string, ENT_QUOTES, $this->charset);
-        if ($antiSpy) $cleaned = $this->cleanInvisible($cleaned);
-        return $cleaned;
+        $string = htmlspecialchars($string, ENT_QUOTES, $this->charset);
+        if ($antiSpy) $string = $this->cleanInvisible($string);
+        return $string;
+    }
+
+    /**
+     * @param $string
+     * @param bool $antiSpy
+     */
+    public function referenceClean(&$string, $antiSpy = true)
+    {
+        $string = htmlspecialchars($string, ENT_QUOTES, $this->charset);
+        if ($antiSpy) $string = $this->cleanInvisible($string);
+    }
+
+    /**
+     * @param $mixed
+     * @param bool $antiSpy
+     * @return array|string
+     */
+    public function mixedClean($mixed, $antiSpy = false)
+    {
+        return is_array($mixed) ? $this->needArray($mixed, $antiSpy) : $this->clean($mixed, $antiSpy);
     }
 
     /**
@@ -43,7 +63,7 @@ class Security
     public function needArray($var, $clean = false)
     {
         if (is_array($var)) {
-            if ($clean) array_walk_recursive($var, array($this, 'clean'));
+            if ($clean) array_walk_recursive($var, array($this, 'referenceClean'));
             return $var;
         } else {
             return (is_string($var) || is_numeric($var)) ?

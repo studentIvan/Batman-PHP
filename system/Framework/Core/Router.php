@@ -17,9 +17,11 @@ class Router
     {
         $option = null;
         $method = 'index';
-        $controller = 'Main';
 
-        if (!$bundle = Config::get('application', 'default'))
+        if (!$controller = Config::get('application', 'default_controller'))
+            $controller = 'Main';
+
+        if (!$bundle = Config::get('application', 'default_bundle'))
             $bundle = 'Main';
 
         if (isset($_SERVER['QUERY_STRING']))

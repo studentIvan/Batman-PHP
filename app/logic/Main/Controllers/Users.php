@@ -11,10 +11,10 @@ class Users extends \Framework\Core\Controller
         $this->users = new \Main\Solutions\Users();
     }
 
-    public function index(WebResponse $response, WebRequest $request)
+    public function index()
     {
         $this->tpl->match('users', $this->users->listing());
-        $response->send($this->tpl->render('users/list'));
+        return $this->tpl->render('users/list');
     }
 
     public function add(WebResponse $response, WebRequest $request)

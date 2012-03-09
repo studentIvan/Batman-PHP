@@ -1,18 +1,18 @@
 index:
     pattern: /
-    route: Main::Main
+    route: "{application:default_bundle}::{application:default_controller}"
 
 admin:
-    pattern: /admin/?<method>?
-    route: Admin::Panel::$1
+    pattern: /{admin:path}/?<method>?
+    route: "Admin::Panel::$method"
     backslash: true
 
 hello:
     pattern: /hello/<name>
-    route: Main::Hello::index::$1
+    route: "Main::Hello::index::$name"
     backslash: true
 
 users:
     pattern: /users/?<action>?/?<option>?
-    route: Main::Users::$1::$2
+    route: "Main::Users::$action::$option"
     backslash: true
