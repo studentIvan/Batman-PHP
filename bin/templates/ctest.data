@@ -11,7 +11,6 @@ require_once 'PHPUnit/Autoload.php';
 
 class {%=Controller=%}Test extends TestCase
 {
-
     public function __construct()
     {
         $this->component = new {%=Controller=%}();
@@ -20,15 +19,14 @@ class {%=Controller=%}Test extends TestCase
 
     public function test()
     {
-        $request = new WebRequest();
-        $response = new WebResponse();
+        //$request = new WebRequest();
+        //$response = new WebResponse();
 
-        ob_start();
-        $this->component->index($response, $request);
-        $content = ob_get_clean();
+        //ob_start();
+        //$this->component->index($response, $request);
+        //$content = ob_get_clean();
 
         //$this->assertEquals('', $content);
         //$this->assertRegExp('/foo/', $content);
     }
-
 }
