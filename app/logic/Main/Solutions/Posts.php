@@ -28,7 +28,8 @@ class Posts extends \Framework\Common\DBSolution
     {
         $sql = $this->procedure()
             ->select('*')
-            ->from($this, 'u')
+            ->from($this)
+            ->orderBy('created_at', 'desc')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
 

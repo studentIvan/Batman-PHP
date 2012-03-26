@@ -1,6 +1,8 @@
 <?php
 namespace Framework\Common;
-use \Doctrine\DBAL\Connection;
+
+use \Doctrine\DBAL\Connection,
+    \Framework\Common\SQLBuilder;
 
 abstract class DBSolution
 {
@@ -30,11 +32,11 @@ abstract class DBSolution
     }
 
     /**
-     * @return \Doctrine\DBAL\Query\QueryBuilder
+     * @return \Framework\Common\SQLBuilder
      */
     protected function procedure()
     {
-        return $this->db->createQueryBuilder();
+        return new SQLBuilder($this->db);
     }
 
     /**

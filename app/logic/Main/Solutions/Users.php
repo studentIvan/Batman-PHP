@@ -28,7 +28,7 @@ class Users extends DBSolution
     {
         $sql = $this->procedure()
                 ->select('*')
-                ->from($this, 'u')
+                ->from($this)
                 ->setFirstResult($offset)
                 ->setMaxResults($limit);
 
