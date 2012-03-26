@@ -83,6 +83,12 @@ class Panel extends \Framework\Core\Controller
 
                                 $map[$bundle][$solution][$reflectName]['desc'] =
                                     (isset($matchData[1])) ? trim($matchData[1]) : '';
+
+                                preg_match_all('/@admin_textarea ([^\n]+)\n/', $phpDoc, $matchData);
+
+                                $matchData = isset($matchData[1][0]) ? $matchData[1] : array();
+                                $matchData = array_map('trim', $matchData);
+                                $map[$bundle][$solution][$reflectName]['textareas'] = $matchData;
                             }
                             else
                             {
@@ -128,7 +134,7 @@ class Panel extends \Framework\Core\Controller
         return array();
     }
 
-    public function getMap(WebResponse $response, WebRequest $request)
+    public function getMap(WebRequest $request, WebResponse $response)
     {
         $request->ifNotAjaxRequestThrowForbidden();
         $this->session->ifNotAuthorizedThrowForbidden();
@@ -136,7 +142,7 @@ class Panel extends \Framework\Core\Controller
         $response->send(((count($map) > 0) ? $map : 0), true);
     }
 
-    public function execute(WebResponse $response, WebRequest $request)
+    public function execute(WebRequest $request, WebResponse $response)
     {
         $request->ifNotAjaxRequestThrowForbidden();
         $this->session->ifNotAuthorizedThrowForbidden();
@@ -189,9 +195,9 @@ class Panel extends \Framework\Core\Controller
                         {
                             if (strpos($param, '_') !== 0) {
                                 $response->sendForbidden('some parameters are not received');
-                            } else {
+                            } /*else {
                                 $methodParameters[] = false;
-                            }
+                            }*/
                         }
                     }
 
@@ -231,7 +237,7 @@ class Panel extends \Framework\Core\Controller
         }
     }
 
-    public function auth(WebResponse $response, WebRequest $request)
+    public function auth(WebRequest $request, WebResponse $response)
     {
         $request->ifNotAjaxRequestThrowForbidden();
         $login = $request->postStr('login');

@@ -102,7 +102,8 @@ function buildUserInterface()
                     $("#methods-listener ul").append(
                         '<li><a href="#" data-desc="' + displayName + '" data-link="' + bundle +
                             ':' + solution + ':' + methodName + '" data-parameters="' +
-                            rdoc['p'].join(':') + '" ' + 'onclick="setUpMethodInterface(this)">' + displayName + '</a></li>'
+                            rdoc['p'].join(':') + '" data-text="' + rdoc['textareas'].join(':') +
+                            '" ' + 'onclick="setUpMethodInterface(this)">' + displayName + '</a></li>'
                     );
                 })
             })
@@ -114,7 +115,8 @@ function buildUserInterface()
 
 function setUpMethodInterface(menuLink)
 {
-    var pprp = '', parameters = $(menuLink).data('parameters'), dName = $(menuLink).data('desc');
+    var pprp = '', parameters = $(menuLink).data('parameters'),
+        dName = $(menuLink).data('desc'), textareas = $(menuLink).data('text').split(':');
 
     if (parameters) $.each(parameters.split(':'), function(x, param)
     {
@@ -124,7 +126,9 @@ function setUpMethodInterface(menuLink)
             '<div class="control-group">' +
                 '<label class="control-label" for="p' + param + '">' + param.replace(/_(\S+)/, '$1') +
                 ((needed) ? '<sup>*</sup>' : '') + '</label><div class="controls">' +
-                '<input type="text" class="input-xlarge" id="p' + param + '" name="' + param + '">' +
+                (($.inArray(param, textareas) !== -1) ?
+                '<textarea class="input-xlarge" id="p' + param + '" name="' + param + '" cols="3" rows="3"></textarea>' :
+                '<input type="text" class="input-xlarge" id="p' + param + '" name="' + param + '">') +
                 '</div></div>'
     });
 

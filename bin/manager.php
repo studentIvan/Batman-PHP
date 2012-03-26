@@ -67,7 +67,8 @@ $console
 		new InputArgument('migration', InputArgument::REQUIRED, 'File name in app/migration'),
 		new InputArgument('database', InputArgument::OPTIONAL, 'Database configuration name', 'database'),
     ))
-    ->setDescription('Create tables in database (drop if exists).')
+    ->setDescription('Create tables in database (drop if exists).
+    You may put in migration many parameters, separated by commas (without spaces)')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         include __DIR__ . '/scripts/migrate.php';
         script($input, $output);

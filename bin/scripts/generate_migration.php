@@ -36,7 +36,7 @@ function script(InputInterface $input, OutputInterface $output)
 
     $data = array_replace_recursive($data, $oldData);
     if (!$datetimeExists) {
-        $data['created'] = array('type' => 'datetime');
+        $data['created_at'] = array('type' => 'datetime');
     }
 
     foreach ($data as $_column => $_params)

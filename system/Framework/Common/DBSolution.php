@@ -48,10 +48,11 @@ abstract class DBSolution
     /**
      * @param Model $mixed
      * @param null|string $table
+     * @return bool
      */
     protected function save(Model $mixed, $table = null)
     {
         if ($table == null) $table = $this->tableName;
-        $this->db->insert($table, $mixed->toArray());
+        return ($this->db->insert($table, $mixed->toArray()) > 0);
     }
 }

@@ -6,7 +6,7 @@ use \Framework\Common\WebRequest,
 
 class {%=Controller=%} extends \Framework\Core\Controller
 {
-    public function index(WebResponse $response, WebRequest $request)
+    public function index(WebRequest $request, WebResponse $response)
     {
         /* write some code here */
     }

@@ -63,8 +63,8 @@ class WebApplication
          * @var $result \Framework\Common\WebResponse
          */
         $result = ($option !== null) ?
-            $controller->$methodName($option, $response, $request) :
-            $controller->$methodName($response, $request);
+            $controller->$methodName($option, $request, $response) :
+            $controller->$methodName($request, $response);
 
         if (!is_null($result))
         {
@@ -89,6 +89,14 @@ class WebApplication
                 * return 404;
                 */
                 throw new NotFoundException();
+            }
+            elseif (is_numeric($result))
+            {
+                /*
+                * since 0.2.2-ALPHA-DEV
+                * return 'hello world';
+                */
+                $response->send($result);
             }
         }
     }

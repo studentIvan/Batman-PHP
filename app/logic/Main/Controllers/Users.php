@@ -17,13 +17,13 @@ class Users extends \Framework\Core\Controller
         return $this->tpl->render('users/list');
     }
 
-    public function add(WebResponse $response, WebRequest $request)
+    public function add(WebRequest $request)
     {
         if ($username = $request->postStr('username'))
         {
             $this->users->add($username, rand(100, 999));
             $this->tpl->match('username', $username);
-            $response->send($this->tpl->render('users/add'));
+            return $this->tpl->render('users/add');
         }
         else
         {

@@ -23,7 +23,7 @@ class {%=Controller=%}Test extends TestCase
         //$response = new WebResponse();
 
         //ob_start();
-        //$this->component->index($response, $request);
+        //$this->component->index($request, $response);
         //$content = ob_get_clean();
 
         //$this->assertEquals('', $content);
