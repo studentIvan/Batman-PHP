@@ -3,7 +3,7 @@ index:
     route: "{application:default_bundle}::{application:default_controller}"
 
 admin:
-    pattern: /{admin:path}/?<method>?
+    pattern: /{admin:path}/?<method>?/?<random>?
     route: "Admin::Panel::$method"
     backslash: true
 

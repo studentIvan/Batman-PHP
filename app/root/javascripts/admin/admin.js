@@ -13,7 +13,7 @@ function showSqlMaster()
         $("#submit-144").css('display', 'none');
         $("#submit-145").css('display', 'block');
 
-        $.post('/' + adminPath + '/execute?r=' + Math.random(), postObject)
+        $.post('/' + adminPath + '/execute/' + Math.floor(Math.random()*1000), postObject)
 
             .complete(function() {
                 $("#submit-144").css('display', 'block');
@@ -158,7 +158,7 @@ function setUpMethodInterface(menuLink)
         $("#submit-144").css('display', 'none');
         $("#submit-145").css('display', 'block');
 
-        $.post('/' + adminPath + '/execute?r=' + Math.random(), postObject)
+        $.post('/' + adminPath + '/execute/' + Math.floor(Math.random()*1000), postObject)
 
             .complete(function() {
                 $("#submit-144").css('display', 'block');
