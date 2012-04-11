@@ -90,4 +90,22 @@ abstract class AbstractUserAuthDriver implements Interfaces\UserAuthDriverInterf
             $this->setData('login', false);
         }
     }
+
+    /**
+     * @param $key
+     * @param $value
+     */
+    public function setSpecialData($key, $value)
+    {
+
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getSpecialData($key)
+    {
+
+    }
 }

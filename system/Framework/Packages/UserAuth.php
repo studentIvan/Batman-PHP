@@ -83,10 +83,44 @@ class UserAuth
     }
 
     /**
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->driver->getData('hash');
+    }
+
+    /**
      * @return int
      */
     public function getUserId()
     {
         return intval($this->driver->getData('uid'));
+    }
+
+    /**
+     * @param array $configuration
+     */
+    public function setConfiguration(array $configuration)
+    {
+        $this->driver->setData('config', $configuration);
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
+    public function setSpecialData($key, $value)
+    {
+        $this->driver->setSpecialData($key, $value);
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getSpecialData($key)
+    {
+        return $this->driver->getSpecialData($key);
     }
 }

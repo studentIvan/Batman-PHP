@@ -8,6 +8,7 @@ $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
 /** Application Architecture */
     'Main'                                  => APPLICATION_PATH . 'logic',
+    'Authmasha'                             => APPLICATION_PATH . 'logic',
     'Bootstrap'                             => APPLICATION_PATH . 'logic',
     'Admin'                                 => APPLICATION_PATH . 'logic',
     'AdminTests'                            => APPLICATION_PATH . 'tests',

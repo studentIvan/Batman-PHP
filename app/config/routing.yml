@@ -16,3 +16,8 @@ users:
     pattern: /users/?<action>?/?<option>?
     route: "Main::Users::$action::$option"
     backslash: true
+
+masha:
+    pattern: /masha/?<action>?/?<option>?
+    route: "Authmasha::Index::$action::$option"
+    backslash: true

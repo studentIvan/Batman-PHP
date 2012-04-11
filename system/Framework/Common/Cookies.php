@@ -11,22 +11,35 @@ namespace Framework\Common;
 class Cookies
 {
     /**
-     * @param string $key
-     * @return bool|string
+     * @static
+     * @param string|array $data
+     * @return bool|string|array
      */
-    public function get($key)
+    public static function get($data)
     {
-        return isset($_COOKIE[$key]) ? htmlspecialchars($_COOKIE[$key], ENT_QUOTES) : false;
+        if (!is_array($data))
+        {
+            return isset($_COOKIE[$data]) ?
+                htmlspecialchars($_COOKIE[$data], ENT_QUOTES) : false;
+        }
+        else
+        {
+            $return = array();
+            foreach ($data as $key)
+                $return[] = self::get($key);
+            return $return;
+        }
     }
 
     /**
+     * @static
      * @param string|array $key
      * @param string $value
      * @param bool|int $time
      * @param string $path
      * @param bool|string $host
      */
-    public function set($key, $value = '', $time = false, $path = '/', $host = false)
+    public static function set($key, $value = '', $time = false, $path = '/', $host = false)
     {
         if (is_array($key))
         {
@@ -43,8 +56,8 @@ class Cookies
         }
         else
         {
-            $time = $time || time()+28080000;
-            $host = $host || ".{$_SERVER['HTTP_HOST']}";
+            $time = ($time) ? $time : time() + 28080000;
+            $host = ($host) ? $host : ".{$_SERVER['HTTP_HOST']}";
             setcookie($key, $value, $time, $path, $host);
         }
     }

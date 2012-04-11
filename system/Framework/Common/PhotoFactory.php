@@ -9,6 +9,37 @@ class PhotoFactory
     protected $currentImage = array();
 
     /**
+     * @param string $file absolute file path
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    public function open($file)
+    {
+        if (!file_exists($file))
+            throw new \InvalidArgumentException();
+
+        $this->flushMemory();
+
+        list($w, $h) = getimagesize($file);
+
+        $filedata = pathinfo($file);
+
+        $ext = str_replace('jpg', 'jpeg', strtolower($filedata['extension']));
+        $create = 'imagecreatefrom' . $ext;
+        $source = $create($file);
+
+        $this->currentImage = array(
+            'resource' => $source,
+            'width' => $w,
+            'height' => $h,
+            'extension' => $ext,
+            'filedata' => $filedata,
+        );
+
+        return $this->currentImage;
+    }
+
+    /**
      * @param string $filename
      * @param int $maxFileSizeMb
      * @param int $uniqueId
@@ -157,7 +188,7 @@ class PhotoFactory
     }
 
     /**
-     * @param string $target file path
+     * @param string $target relative file path
      * @param null|resource $sourceImage
      * @param null|string $type jpeg, png, gif, wbmp [default by currentImage extension]
      * @param bool $flushMemory Will memory flush?
@@ -178,10 +209,10 @@ class PhotoFactory
 
         switch ($type)
         {
-            case 'jpg': case 'jpeg': $r = imagejpeg($sourceImage, $target, $quality); break;
-            case 'png': $r = imagepng($sourceImage, $target, $quality, $filter); break;
-            case 'gif': $r = imagegif($sourceImage, $target); break;
-            case 'wbmp': $r = imagewbmp($sourceImage, $target, $filter); break;
+            case 'jpg': case 'jpeg': $r = imagejpeg($sourceImage, APPLICATION_PATH . $target, $quality); break;
+            case 'png': $r = imagepng($sourceImage, APPLICATION_PATH . $target, $quality, $filter); break;
+            case 'gif': $r = imagegif($sourceImage, APPLICATION_PATH . $target); break;
+            case 'wbmp': $r = imagewbmp($sourceImage, APPLICATION_PATH . $target, $filter); break;
             default: return false;
         }
 

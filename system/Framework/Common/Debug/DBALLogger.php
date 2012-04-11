@@ -28,7 +28,7 @@ class DBALLogger implements SQLLogger
             $result['Database_Platform'] = $sql->getConnection()->getDatabasePlatform()->getName();
         }
 
-        $result['SQL'] = strval($sql);
+        $result['SQL'] = htmlspecialchars(strval($sql), ENT_QUOTES);
         $result['start'] = microtime(true);
 
         if (!isset($registry->sql_debug_data))

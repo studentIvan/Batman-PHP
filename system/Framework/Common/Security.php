@@ -12,10 +12,33 @@ class Security
         $this->charset = Config::get('application', 'charset');
     }
 
+    /**
+     * @static
+     * @param string $word
+     * @return string
+     */
     public static function getHash($word)
     {
         $secret = Config::get('application', 'secret');
         return md5($word . (($secret) ? $secret : 'batman'));
+    }
+
+    /**
+     * @static
+     * @param array $keys
+     * @return string
+     */
+    public static function getArrayHash(array $keys)
+    {
+        $sum = self::getHash('');
+
+        foreach ($keys as $key)
+        {
+            if ($key !== false)
+                $sum .= md5(str_replace('!#!', '', $key));
+        }
+
+        return self::getHash($sum);
     }
 
     /**

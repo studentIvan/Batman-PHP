@@ -10,6 +10,8 @@ interface UserAuthDriverInterface
     public function setResponse(WebResponse $response);
     public function setData($key, $value);
     public function getData($key);
+    public function getSpecialData($key);
+    public function setSpecialData($key, $value);
     public function auth($login, $password);
     public function out();
 }
