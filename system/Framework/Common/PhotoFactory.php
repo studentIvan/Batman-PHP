@@ -158,16 +158,16 @@ class PhotoFactory
 
     /**
      * @param string $target file path
+     * @param null|resource $sourceImage
      * @param null|string $type jpeg, png, gif, wbmp [default by currentImage extension]
      * @param bool $flushMemory Will memory flush?
      * @param null|int $quality image quality for jpeg and png (null recommended)
-     * @param null|resource $sourceImage
      * @param null|mixed $filter PNG filters or WBMP foreground
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function save($target, $type = null, $flushMemory = false,
-           $quality = null, $sourceImage = null, $filter = null)
+    public function save($target, $sourceImage = null, $type = null, $flushMemory = false,
+           $quality = null, $filter = null)
     {
         if (is_null($sourceImage))
         {
