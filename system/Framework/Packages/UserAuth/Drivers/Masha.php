@@ -11,19 +11,26 @@ use \Framework\Packages\UserAuth\AbstractUserAuthDriver,
 /**
  * Masha UserAuth Driver
  *
- * + store sessions in database
- * + lazy cookies auth
- * + prefect security
+ * + sessions storage in database
+ * + lazy cookies authentication
+ * + perfect security
  *
- * DB session data into SpecialData (setSpecialData, getSpecialData)
+ * DB session data saved into <SpecialData> (methods: setSpecialData, getSpecialData)
  * Masha need to be setConfigure(array(KEY => VALUE...)):
  *
  * CONFIGURATION_KEY    DESCRIPTION
  * usersTable           users table name
  * passwordColumn       password column name in users table
  * uidColumn            uid column name in users table
- * emailColumn          login (email as example) column name in users table
+ * emailColumn          login column name (email for example, recommended) in users table
  * sessionsTable        sessions table name (see sessions migration scheme)
+ *
+ * Cookies composition:
+ * i - unique user ID
+ * h - session hash (identify)
+ * p - password token for lazy authentication
+ * c - digital signature
+ *
  */
 class Masha extends AbstractUserAuthDriver
 {
