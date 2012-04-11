@@ -1,0 +1,12 @@
+framework:
+    phpdebug: true
+    debug_toolbar: true
+
+database:
+    dbname:   batman_blog
+    user:     root
+    password:
+
+twig:
+    auto_reload: true
+    cache: false

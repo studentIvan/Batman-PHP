@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 5px;
+        }
+
+        .post-title h2 {
+            display: inline;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>My blog posts</h1>
+<?php foreach($posts as $post): ?>
+    <hr>
+    <div>
+        <div class="post-title">
+            <a name="post_<?=$post['id']?>" id="post_<?=$post['id']?>"></a>
+            <h2><a href="#post_<?=$post['id']?>"><?=$post['title']?></a></h2>
+            <span>(<?=$post['created_at']?>)</span>
+        </div>
+        <div><?=$post['content']?></div>
+        <?php if (!empty($post['tags'])): ?>
+        <div><i><?=$post['tags']?></i></div>
+        <?php endif; ?>
+    </div>
+<?php endforeach; ?>
+</body>
+</html>

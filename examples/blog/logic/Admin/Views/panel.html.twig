@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% resource meta.charset_utf8 %}
+    <title>Batman Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    {% resource css.twitter_bootstrap %}
+    {% resource css.twitter_bootstrap_responsive %}
+    {% resource css.admin %}
+
+    {% resource js.jquery %}
+    {% resource js.jquery_tablesorter %}
+    {% resource js.twitter_bootstrap %}
+    {% resource js.admin %}
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">Batman Admin</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a href="#" onclick="buildUserInterface()">Refresh menu</a></li>
+                    <li><a href="#" onclick="showSqlMaster()">SQL master</a></li>
+                    {% block menu %}{% endblock %}
+                </ul>
+                {% if auth %}
+                <p class="navbar-text pull-right">You are logged in, click &quot;exit&quot; for destroy session: <a href="/{{ adminPath }}/out">exit</a></p>
+                {% else %}<form id="auth-form" action="/{{ adminPath }}/authManual" class="navbar-form pull-right">
+                    <input class="input-small" id="login" type="text" placeholder="Username">
+                    <input class="input-small" id="password" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>{% endif %}
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="methods-listener" style="display: none;">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list"></ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="hero-unit" id="method-interface">
+                <h1>Enjoy</h1>
+                <br>
+                <p>Manipulate your solutions</p>
+                <br>
+                <p><a class="btn btn-primary btn-large" href="/">Go back to the site &raquo;</a></p>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
+    <footer>
+        <p>Powered by Batman-PHP</p>
+    </footer>
+
+</div><!--/.fluid-container-->
+
+<div class="modal" id="myModal" style="display: none">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Alert</h3>
+    </div>
+    <div class="modal-body">
+        <p id="xmodal-body">One fine body…</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary" onclick="$('#myModal').modal('hide')">Close</a>
+    </div>
+</div>
+<script type="text/javascript">
+    authorized = {% if auth %}1{% else %}0{% endif %};
+    adminPath = '{{ adminPath }}';
+</script>
+</body>
+</html>

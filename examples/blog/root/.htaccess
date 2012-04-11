@@ -1,0 +1,9 @@
+DirectoryIndex index.php index.html
+ErrorDocument 404 /index.php?NotFoundException
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^$ /index.php?Main::Main [L]
+RewriteRule ^admin/?([^/]+)?/?([^/]+)?(?:/)?$ /index.php?Admin::Panel::$1 [L]
+RewriteRule ^hello/([^/]+)(?:/)?$ /index.php?Main::Hello::index::$1 [L]
+RewriteRule ^users/?([^/]+)?/?([^/]+)?(?:/)?$ /index.php?Main::Users::$1::$2 [L]

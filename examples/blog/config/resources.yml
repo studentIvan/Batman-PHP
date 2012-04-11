@@ -1,0 +1,35 @@
+resources.meta:
+    charset_utf8: <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    charset_cp1251: <meta http-equiv="Content-Type" content="text/html; charset=Windows-1251">
+
+resources.css:
+    qunit: /styles/qunit/qunit.css
+    twitter_bootstrap: /styles/twitter/bootstrap.min.css
+    twitter_bootstrap_responsive: /styles/twitter/bootstrap-responsive.min.css
+    admin: /styles/admin/admin.css
+
+resources.js:
+    qunit: /javascripts/qunit/qunit.js
+    admin: /javascripts/admin/admin.js
+    twitter_bootstrap: /javascripts/twitter/bootstrap.min.js
+    yandex_loader: //yandex.st/jslibs/loader.js
+    dojo: //yandex.st/dojo/1.7.1/dojo/dojo.js
+    jquery: //yandex.st/jquery/1.7.1/jquery.min.js
+    jquery.dev: //yandex.st/jquery/1.7.1/jquery.js
+    jquery_fancybox: //yandex.st/jquery/fancybox/2.0.3/jquery.fancybox.min.js
+    jquery_tablesorter: /javascripts/jquery/jquery.tablesorter.min.js
+    highlight: //yandex.st/highlightjs/6.1/highlight.min.js
+    jquery_swfobject: //yandex.st/jquery/swfobject/1.1.1/jquery.swfobject.min.js
+    swfobject: //yandex.st/swfobject/2.2/swfobject.min.js
+    jquery_flot: //yandex.st/jquery/flot/0.7/jquery.flot.min.js
+    jquery_templates: //yandex.st/jquery/tmpl/1.0.0pre/jquery.tmpl.min.js
+    jquer_ui: //yandex.st/jquery-ui/1.8.17/jquery-ui.min.js
+    jquery_ui_datepicker.ru: //yandex.st/jquery-ui/1.8.17/i18n/jquery.ui.datepicker-ru.min.js
+    mochikit: //yandex.st/mochikit/1.4.2/mochikit.min.js
+    modernizr: //yandex.st/modernizr/2.0.6/modernizr.min.js
+    mootools: //yandex.st/mootools/1.3.1/mootools.min.js
+    prototype: //yandex.st/prototype/1.7.0.0/prototype.min.js
+    pure: //yandex.st/pure/2.48/pure.min.js
+    raphael: //yandex.st/raphael/2.0.1/raphael.min.js
+    rightjs: //yandex.st/rightjs/2.1.1/right-min.js
+    yui: //yandex.st/yui/3.4.1/yui/yui-min.js

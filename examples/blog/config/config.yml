@@ -1,0 +1,52 @@
+framework:
+    timezone: Europe/Moscow
+
+application:
+    default_bundle: Main
+    default_controller: Main
+    environment: dev
+    forbidden_all: false
+    autoload_solutions: [] # Main:Simple, Main:Users, Dummy:Other...
+    template_engine: Native # Native, Twig
+    log_file_max_size_mb: 2
+    charset: UTF-8
+    secret: j9sge02edfl9cv49mvZDh90fsuFDSFJd9sfvvdsm90a4j2QJSANf12o01e24
+    admin_email: admin@localhost # Set ur real active email adress (for script only)
+
+recaptcha:
+    public_key: 6LeSIMgSAAAAAJTxRSy7xxnyHmjUWPODhTBFWepp
+    private_key: 6LeSIMgSAAAAADs7b2hVOeQPTceB5I1DaTuU1HaP
+
+swift.transport:
+    smtp: true # true => Swift_SmtpTransport or false => Swift_MailTransport
+    host: smtp.yandex.ru:25
+    username: php.batman@yandex.ru
+    password: batman.php
+    encryption: ssl
+
+swift.vcard:
+    email: php.batman@yandex.ru
+    first_name: Batman
+    last_name: Php
+    
+database:
+    host: localhost
+    driver: pdo_mysql
+    charset: UTF8
+
+manager.database:
+    charset: utf8
+    collate: utf8_general_ci
+
+twig:
+    strict_variables: false
+    autoescape: true
+    charset: UTF-8
+    extensions: [Resources]
+
+admin:
+    path: admin
+    login: Admin
+    password: 12345
+    bundles: [Main] # indexed bundles
+    admin_method_only: true # (@admin_method in methods)

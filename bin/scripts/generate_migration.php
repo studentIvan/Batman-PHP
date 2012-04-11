@@ -7,6 +7,7 @@ function script(InputInterface $input, OutputInterface $output)
     $schema = ucfirst($input->getArgument('schema'));
     $tableName = strtolower($schema);
     $map = strtolower($input->getArgument('map'));
+    if (!is_dir("app/migration/Schema")) mkdir("app/migration/Schema", 0777, true);
     $targetFile = "app/migration/Schema/{$schema}Migrate.php";
     $tpl = file_get_contents('bin/templates/migration_generator.data');
     $gMap = "\$table = \$this->schema->createTable('$tableName');";
@@ -82,6 +83,8 @@ function script(InputInterface $input, OutputInterface $output)
             case 'useragent':
             case 'session_data':
             case 'data':
+            case 'content':
+            case 'tags':
                 if ($_type == 'string') {
                     $data[$_column]['length'] = '150';
                 }

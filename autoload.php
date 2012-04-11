@@ -2,17 +2,17 @@
 /**
  * Batman PHP Autoloader
  */
-if (!defined('CONSOLE')) chdir('../..');
+if (!defined('CONSOLE')) chdir(FRAMEWORK_PATH);
 require_once 'vendors/symfony/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
 /** Application Architecture */
-    'Main'                                  => 'app/logic',
-    'Bootstrap'                             => 'app/logic',
-    'Admin'                                 => 'app/logic',
-    'AdminTests'                            => 'app/tests',
-    'MainTests'                             => 'app/tests',
-    'Schema'                                => 'app/migration',
+    'Main'                                  => APPLICATION_PATH . 'logic',
+    'Bootstrap'                             => APPLICATION_PATH . 'logic',
+    'Admin'                                 => APPLICATION_PATH . 'logic',
+    'AdminTests'                            => APPLICATION_PATH . 'tests',
+    'MainTests'                             => APPLICATION_PATH . 'tests',
+    'Schema'                                => APPLICATION_PATH . 'migration',
 
 /** Vendors */
     'Symfony'                               => 'vendors/symfony',

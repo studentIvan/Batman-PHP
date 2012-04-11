@@ -3,7 +3,9 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 define('CONSOLE', true);
 if (preg_match('/bin/', getcwd())) chdir('..');
-require_once __DIR__ . '/../autoload.php';
+define('FRAMEWORK_PATH', __DIR__ . '/../');
+define('APPLICATION_PATH', FRAMEWORK_PATH . 'app/');
+require_once FRAMEWORK_PATH . 'autoload.php';
 
 use \Symfony\Component\Console\Application,
     \Symfony\Component\Console\Input\InputInterface,

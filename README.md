@@ -1,7 +1,7 @@
 # Batman PHP
 
 ## Php applications framework
-## Version 0.2.3-ALPHA-DEV
+## Version 0.2.4-ALPHA-DEV
 
 ### Setup
 1. Compile <b>app/config/routing.yml</b><br>
@@ -55,6 +55,7 @@ server {
 ### Directories & files chmod
 * app/cache - <b>0777</b>
 * app/logs - <b>0777</b>
+* app/tmp - <b>0777</b>
 * bin/manager.php - <b>+x</b>
 
 ### Philosophy

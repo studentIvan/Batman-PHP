@@ -25,8 +25,11 @@ class Template
      */
     protected function _init_Twig($bundle = 'Main')
     {
-        $loader = new \Twig_Loader_Filesystem(realpath("app/logic/$bundle/Views"));
-        $object = new \Twig_Environment($loader, Config::get('twig'));
+        $loader = new \Twig_Loader_Filesystem(realpath(APPLICATION_PATH . "logic/$bundle/Views"));
+        $configuration = Config::get('twig');
+        if (isset($configuration['cache']) and is_string($configuration['cache']))
+            $configuration['cache'] = APPLICATION_PATH . $configuration['cache'];
+        $object = new \Twig_Environment($loader, $configuration);
         foreach (Config::get('twig', 'extensions') as $extName) {
             $loadStr = "\\Framework\\Common\\Twig\\{$extName}Extension";
             $object->addExtension(new $loadStr());

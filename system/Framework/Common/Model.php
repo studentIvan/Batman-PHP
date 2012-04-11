@@ -14,6 +14,16 @@ abstract class Model
     }
 
     /**
+     * Get datetime formated string
+     *
+     * @return string
+     */
+    protected function getDateTimeNow()
+    {
+        return date('Y-m-d H:i:sP');
+    }
+
+    /**
      * Object to Array
      *
      * @return array

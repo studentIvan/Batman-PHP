@@ -18,6 +18,7 @@ function script(InputInterface $input, OutputInterface $output)
          * @var \Framework\Common\Migrate $migrate
          */
         $migrate = new $callStr();
+        if (!is_dir("app/migration/SQL.cache")) mkdir("app/migration/SQL.cache", 0777, true);
         if (!file_exists("app/migration/SQL.cache/$schema.$pName.create.sql")) {
             $migrate->save($platform, "app/migration/SQL.cache/$schema");
             $output->writeln("<info>SQL cache app/migration/SQL.cache/$schema.$pName.create.sql created</info>");

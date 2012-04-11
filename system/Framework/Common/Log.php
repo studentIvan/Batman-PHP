@@ -13,15 +13,19 @@ class Log
     public static function write($message, $filename = false)
     {
         if (is_array($message)) $message = serialize($message);
-        $filename = 'app/logs/' . (($filename) ? $filename : date("m.d.y")) . '.log';
+        $filename = APPLICATION_PATH . 'logs/' . (($filename) ? $filename : date("m.d.y")) . '.log';
         $maxSize = Config::get('application', 'log_file_max_size_mb');
+
         if ($maxSize) {
             $maxSize *= (1024 * 1024);
             if (file_exists($filename) && filesize($filename) > $maxSize) {
                 return false;
             }
         }
-        $message = date("F j, Y, g:i a") . "::: " . str_replace(array("\r", "\n", "\t"), '', trim($message)) . ".\r\n";
+
+        $message = date("F j, Y, g:i a") . "::: " .
+            str_replace(array("\r", "\n", "\t"), '', trim($message)) . ".\r\n";
+
         $log = fopen($filename, "ab");
         fseek($log, 0);
         fwrite($log, $message);
